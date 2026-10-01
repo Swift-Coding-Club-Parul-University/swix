@@ -77,7 +77,7 @@ function FeatureCard({ f, i }: { f: Feature; i: number }) {
       <Tilt max={5} lift={12} scale={1.01} sheen={false} depth className="h-full">
         <div
           className="webcore-tile group relative flex h-full flex-col !border-white/90"
-          style={{ boxShadow: "inset 0 1px 0 #fff, 0 5px 0 -2px #ffffffcc, 0 9px 0 -4px #F0513820, 0 22px 40px -24px #6b4a3455" }}
+          style={{ background: `linear-gradient(145deg, rgba(255,255,255,0.88), rgba(255,248,242,0.66) 60%, ${tones[i]}66)`, WebkitBackdropFilter: "blur(20px) saturate(165%)", backdropFilter: "blur(20px) saturate(165%)", boxShadow: "inset 0 1px 0 #fff, 0 5px 0 -2px rgba(255,255,255,0.85), 0 9px 0 -4px rgba(240,81,56,0.13), 0 26px 48px -26px rgba(107,74,52,0.4)" }}
         >
           <ShaderBackground index={i} />
 

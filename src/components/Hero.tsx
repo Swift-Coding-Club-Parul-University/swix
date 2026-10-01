@@ -6,6 +6,8 @@ import { Magnetic } from "./ui/Magnetic";
 import { Sticker, Squiggle, Deco } from "./ui/Deco";
 import { Orb } from "./ui/Orb";
 import { GlassCube } from "./ui/GlassCube";
+import { PrismOrb } from "./ui/PrismOrb";
+import { GlassRing } from "./ui/GlassRing";
 import { Tilt } from "./ui/Tilt";
 import { useReducedMotion, useCanHover } from "@/hooks/useMedia";
 import { useParallax } from "@/hooks/useParallax";
@@ -170,6 +172,21 @@ function HeroScene() {
   return (
     <Tilt className="relative mx-auto w-full max-w-[520px]" max={9} lift={0} scale={1} sheen={false} depth>
       {/* depth layers */}
+      {/* big refractive glass orbit ring behind everything */}
+      <div
+        aria-hidden
+        className="absolute left-1/2 top-1/2 h-0 w-0"
+        style={{ transform: "translateZ(-150px)", perspective: "1400px" }}
+      >
+        <GlassRing
+          className="-left-[260px] -top-[260px]"
+          size={520}
+          thickness={18}
+          tilt={72}
+          spin={58}
+          tone="swift"
+        />
+      </div>
       <div
         aria-hidden
         className="absolute left-1/2 top-1/2 h-[118%] w-[118%]"
@@ -240,6 +257,11 @@ function HeroScene() {
       {/* floating glass 3D cube */}
       <GlassCube className="-right-2 -top-12 sm:right-12" size={96} depth={100} delay={-3} />
       <GlassCube className="-left-6 bottom-28" size={48} tone="ice" depth={45} delay={-8} />
+
+      {/* refractive prism orbs */}
+      <PrismOrb className="-left-4 top-16 sm:left-2" size={54} tone="rose" satellite />
+      <PrismOrb className="right-6 bottom-40 sm:-right-8" size={38} tone="ice" />
+      <PrismOrb className="left-10 -top-8 hidden sm:block" size={30} tone="lemon" />
 
       {/* swift orb coin */}
       <div className="right-4 top-40 sm:-right-6 sm:top-44" style={{ transform: "translateZ(95px)", position: "absolute" }}>
@@ -365,7 +387,7 @@ export function Hero() {
               <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">Free · 2 hrs / week</span>
             </Reveal>
 
-            <Reveal delay={480} className="mt-10 grid max-w-lg grid-cols-3 divide-x divide-line rounded-2xl border border-line bg-white/60 backdrop-blur">
+            <Reveal delay={480} className="glass-panel mt-10 grid max-w-lg grid-cols-3 divide-x divide-white/60 rounded-2xl">
               <Stat value={300} suffix="+" label="Students trained" accent="bg-swift" />
               <Stat value={38} label="Apps shipped" accent="bg-lavender" />
               <Stat value={12} label="App Store launches" accent="bg-mint" />

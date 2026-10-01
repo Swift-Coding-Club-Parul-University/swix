@@ -30,9 +30,11 @@ function Cell({ v, s, l, sub, star, i }: { v: number; s: string; l: string; sub:
       <div
         className="relative h-full overflow-hidden rounded-[24px] p-6 sm:p-8"
         style={{
-          background: `radial-gradient(ellipse at 100% 0%,${tone}99,transparent 65%), linear-gradient(160deg,#fff,#FFF8F2)`,
-          border: "1px solid rgba(11,11,12,0.1)",
-          boxShadow: `0 1px 0 #fff inset, 0 4px 0 ${tone}88, 0 22px 44px -28px #0B0B0C33`,
+          background: `radial-gradient(ellipse at 100% 0%,${tone}80,transparent 65%), linear-gradient(160deg, rgba(255,255,255,0.85), rgba(255,248,242,0.55))`,
+          WebkitBackdropFilter: "blur(18px) saturate(160%)",
+          backdropFilter: "blur(18px) saturate(160%)",
+          border: "1px solid rgba(255,255,255,0.75)",
+          boxShadow: `0 1px 0 #fff inset, 0 4px 0 ${tone}66, 0 26px 52px -30px rgba(11,11,12,0.28)`,
         }}
       >
         {/* tiny orbiting satellite */}

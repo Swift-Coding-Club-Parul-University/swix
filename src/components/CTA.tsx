@@ -3,6 +3,8 @@ import { Reveal } from "./ui/Reveal";
 import { Magnetic } from "./ui/Magnetic";
 import { Orb } from "./ui/Orb";
 import { GlassCube } from "./ui/GlassCube";
+import { PrismOrb } from "./ui/PrismOrb";
+import { GlassRing } from "./ui/GlassRing";
 import { cn } from "@/utils/cn";
 
 const milestones = [
@@ -53,6 +55,7 @@ export function CTA() {
               <span className="atomi-ring gpu animate-spin-slow right-[4%] top-[8%] h-48 w-48" style={{ animationDuration: "52s" }} />
               <span className="atomi-ring gpu animate-spin-slow bottom-[6%] left-[3%] h-64 w-64" style={{ animationDuration: "66s", animationDirection: "reverse" }} />
               {/* orbiting comet bead */}
+              <PrismOrb className="left-[6%] top-[10%] hidden sm:block" size={34} tone="rose" />
               <span className="absolute right-[10%] top-[16%] h-3 w-3" style={{ animation: "atomi-orbit 16s linear infinite", ["--orbit-r" as string]: "110px" }}>
                 <span
                   className="block h-3 w-3 rounded-full"
@@ -80,11 +83,9 @@ export function CTA() {
 
                 <form onSubmit={submit} className="mt-10 max-w-lg" aria-label="Apply to Swift Coding Club">
                   <div
-                    className="flex flex-col gap-2 rounded-[22px] p-2 sm:flex-row"
+                    className="glass-panel flex flex-col gap-2 rounded-[22px] p-2 sm:flex-row"
                     style={{
-                      background: "linear-gradient(160deg,#fffdf8,#fdeed8)",
-                      border: "1.5px solid rgba(180,85,45,0.4)",
-                      boxShadow: "0 1px 0 rgba(255,255,255,0.95) inset, 0 14px 34px -18px rgba(122,60,20,0.5)",
+                      borderColor: "rgba(180,85,45,0.35)",
                     }}
                   >
                     <label htmlFor="email" className="sr-only">University email</label>
@@ -112,6 +113,15 @@ export function CTA() {
               </div>
 
               <div className="lg:col-span-4 lg:pl-8">
+                <div className="glass-panel mb-8 hidden rounded-[26px] p-5 lg:block">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6b4a34]">What you get</p>
+                  <ul className="mt-3 space-y-2 text-[13.5px] font-medium text-[#2a1a10]">
+                    <li className="flex items-center gap-2"><span className="text-swift">✦</span> Weekly lab access + Macs</li>
+                    <li className="flex items-center gap-2"><span className="text-swift">✧</span> Senior mentor, 1:1</li>
+                    <li className="flex items-center gap-2"><span className="text-swift">✦</span> TestFlight & App Store pipeline</li>
+                    <li className="flex items-center gap-2"><span className="text-swift">✧</span> Swift starter kit, free</li>
+                  </ul>
+                </div>
                 <ul className="space-y-6 border-l border-dashed border-[#b4552d]/40 pl-6">
                   {milestones.map(({ w, t }, i) => (
                     <li key={w} className="relative">
@@ -138,6 +148,8 @@ export function CTA() {
                   />
                   <GlassCube className="left-5 top-10" size={88} tone="amber" depth={0} delay={-5} />
                   <GlassCube className="right-2 top-24" size={40} tone="ice" depth={0} delay={-11} />
+                  <GlassRing className="left-1/2 -top-14 -translate-x-1/2" size={210} thickness={10} tilt={70} spin={40} tone="amber" />
+                  <PrismOrb className="right-8 top-2" size={44} tone="swift" satellite />
                 </div>
               </div>
             </div>

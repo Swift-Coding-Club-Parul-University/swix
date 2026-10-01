@@ -39,17 +39,17 @@ export function Footer() {
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
               {["SwiftUI", "UIKit", "Swift Data", "CloudKit", "Vision Pro", "Server-side Swift"].map((t) => (
-                <span key={t} className="webcore-tile rounded-none px-3 py-1 font-mono text-[11px] text-muted">
+                <span key={t} className="glass-chip rounded-full px-3 py-1 font-mono text-[11px] text-muted">
                   {t}
                 </span>
               ))}
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <span className="webcore-tile inline-flex items-center gap-2.5 rounded-none py-1.5 pl-1.5 pr-4">
+              <span className="glass-chip inline-flex items-center gap-2.5 py-1.5 pl-1.5 pr-4">
                 <Orb variant="swift" box={26} size="small" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/60">Built with Swift</span>
               </span>
-              <span className="webcore-tile inline-flex items-center gap-2.5 rounded-none py-1.5 pl-1.5 pr-4">
+              <span className="glass-chip inline-flex items-center gap-2.5 py-1.5 pl-1.5 pr-4">
                 <Orb variant="ios" box={26} size="small" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/60">Designed for iOS</span>
               </span>

@@ -83,7 +83,7 @@ export function Navbar() {
             className={cn(
               "flex w-full items-center justify-between gap-6 rounded-full px-4 py-2 transition-all duration-500 sm:px-5",
               scrolled
-                ? "border-[2px] border-ink bg-white/75 shadow-[0_4px_0_rgba(11,11,12,0.9),inset_0_1px_0_rgba(255,255,255,0.95),inset_0_-10px_20px_-14px_rgba(240,81,56,0.4)] backdrop-blur-2xl backdrop-saturate-150"
+                ? "liquid border-[2px]! border-ink/85! shadow-[0_4px_0_rgba(11,11,12,0.9),0_24px_48px_-24px_rgba(240,81,56,0.45)]!"
                 : "bg-transparent"
             )}
           >
@@ -140,7 +140,7 @@ export function Navbar() {
       <div
         id="mobile-menu"
         className={cn(
-          "lg:hidden fixed inset-x-0 top-0 z-40 h-dvh bg-paper/95 backdrop-blur-xl transition-[opacity,visibility] duration-400",
+          "lg:hidden fixed inset-x-0 top-0 z-40 h-dvh bg-paper/70 backdrop-blur-2xl backdrop-saturate-150 transition-[opacity,visibility] duration-400",
           open ? "visible opacity-100" : "invisible opacity-0"
         )}
         aria-hidden={!open}
@@ -161,7 +161,7 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-          <div className="mt-auto grid gap-3">
+          <div className="liquid grain mt-auto grid gap-3 rounded-[28px] p-4">
             <a href="#join" onClick={() => setOpen(false)} className="btn btn-accent w-full">
               Join the club
             </a>

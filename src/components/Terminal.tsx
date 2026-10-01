@@ -110,7 +110,7 @@ export function Terminal() {
           <div className="grid content-start gap-4 lg:col-span-5">
             {chips.map((c, i) => (
               <Reveal key={c.k} variant={i % 2 ? "right" : "left"} delay={i * 110}>
-                <div className="webcore-tile flex items-center justify-between gap-6 px-5 py-3.5 transition-transform duration-300 motion-safe:hover:-translate-y-0.5" style={{ background: `linear-gradient(120deg,#FFF8F2,${["#B9ECCD", "#D9CFFF", "#BDE4FF", "#FFEDA3"][i]}66)`, borderColor: "#ffffffcc" }}>
+                <div className="webcore-tile flex items-center justify-between gap-6 px-5 py-3.5 transition-transform duration-300 motion-safe:hover:-translate-y-0.5" style={{ background: `linear-gradient(120deg, rgba(255,248,242,0.82), ${["#B9ECCD", "#D9CFFF", "#BDE4FF", "#FFEDA3"][i]}52)`, WebkitBackdropFilter: "blur(16px) saturate(160%)", backdropFilter: "blur(16px) saturate(160%)", borderColor: "#ffffffcc", boxShadow: "inset 0 1px 0 #fff, 0 18px 36px -22px rgba(11,11,12,0.3)" }}>
                   <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/50">{c.k}</span>
                   <span className="font-mono text-lg font-bold text-[#F05138]">
                     {c.v}
@@ -120,7 +120,7 @@ export function Terminal() {
             ))}
 
             <Reveal variant="right" delay={480}>
-              <div className="webcore-tile relative overflow-hidden  p-6">
+              <div className="webcore-tile relative overflow-hidden p-6" style={{ WebkitBackdropFilter: "blur(20px) saturate(160%)", backdropFilter: "blur(20px) saturate(160%)", boxShadow: "inset 0 1px 0 #fff, 0 24px 48px -26px rgba(11,11,12,0.35)" }}>
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#F05138]/70">lab rule nº 404</p>
                 <p className="mt-2 text-lg font-bold tracking-tight text-ink">
                   "If it compiles on the first try, you didn&apos;t dream big enough."

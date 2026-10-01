@@ -2,6 +2,7 @@ import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 import { Tilt } from "./ui/Tilt";
 import { GlassCube } from "./ui/GlassCube";
+import { PrismOrb } from "./ui/PrismOrb";
 import { useScrollScrub } from "@/hooks/useScrollScrub";
 import { cn } from "@/utils/cn";
 
@@ -168,6 +169,7 @@ export function GlassHighlights() {
             <span className="atomi-chip">Audited every sem</span>
           </Reveal>
           <GlassCube className="-left-2 top-28 !hidden opacity-75 lg:!block" size={68} tone="ice" depth={20} delay={-3} />
+          <PrismOrb className="-right-2 top-40 hidden lg:block" size={46} tone="mint" satellite />
         </div>
 
         <Reveal variant="scale" delay={120} className="mt-12">
@@ -231,7 +233,7 @@ export function GlassHighlights() {
                         data-cursor="hot"
                         aria-label={`${it.label} — ${it.link}`}
                         className="atomi-card group relative flex h-full flex-col justify-between gap-5 overflow-hidden !rounded-[24px] !border-white/90 p-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F05138] sm:p-6"
-                        style={{ background: `linear-gradient(145deg, #ffffffed, #FFF8F2e8 55%, ${tones[i]}aa)`, boxShadow: "inset 0 2px 0 #fff, inset 0 -4px 0 #ffffff80, 0 8px 0 -4px #ffffff70, 0 18px 32px -20px #6b4a3466" }}
+                        style={{ background: `linear-gradient(145deg, rgba(255,255,255,0.86), rgba(255,248,242,0.62) 55%, ${tones[i]}73)`, WebkitBackdropFilter: "blur(18px) saturate(160%)", backdropFilter: "blur(18px) saturate(160%)", boxShadow: "inset 0 2px 0 #fff, inset 0 -4px 0 rgba(255,255,255,0.55), 0 8px 0 -4px rgba(255,255,255,0.5), 0 24px 44px -22px rgba(107,74,52,0.45)" }}
                       >
                         <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full border-[16px] border-white/50 opacity-60 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-110" />
                         {it.corner}
