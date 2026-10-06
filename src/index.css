@@ -1043,159 +1043,16 @@ body {
 } /* @layer components */
 
 /* ============================================================
-   SOFT BRUTALISM — a raw print/ink pass over the warm paper base.
-   Sharp corners, thick ink borders, hard offset shadows, mono
-   labels. Swift orange stays the single loud accent; the paper
-   warmth stays. Unlayered on purpose: outranks the Tailwind
-   utility + component layers, but inline styles still win.
+   STORY REEL CHROME — scoped kit used only by ScrollStory.
+   Kept unlayered so it outranks utilities; everything else on
+   the site keeps the warm-glass system from 7c13928.
    ============================================================ */
-
-/* 1. Kill the softness globally. */
-*,
-*::before,
-*::after {
-  border-radius: 0;
-}
-
-/* Spheres and masked rings stay circles — they read as objects, not chrome. */
-.prism-ball,
-.glass-ring,
-.aero-bubble {
-  border-radius: 9999px;
-}
-
-/* 2. Glass panels become printed stock: flat, bordered, hard-shadowed. */
-.liquid {
-  background: #fffdf8;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  border: 2px solid var(--color-ink);
-  box-shadow: 4px 4px 0 var(--color-ink);
-}
-.liquid::after { content: none; }
-
-.liquid-dark {
-  background: var(--color-ink);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  border: 2px solid var(--color-ink);
-  box-shadow: 4px 4px 0 rgba(240, 81, 56, 0.85);
-}
-.liquid-dark::after { content: none; }
-
-.glass-chip,
-.glass-panel,
-.glass,
-.frost,
-.webcore-tile {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  background: #fffdf8;
-  border: 2px solid var(--color-ink);
-  box-shadow: 4px 4px 0 var(--color-ink);
-}
-.glass-panel::after { content: none; }
-.sheen::before { content: none; }
-
-.glass-chip-dark,
-.glass-dark {
-  background: var(--color-ink-2);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  border: 2px solid #fff;
-  box-shadow: 4px 4px 0 rgba(240, 81, 56, 0.85);
-}
-
-/* 3. Buttons: flat blocks with hard offset shadows that grow on hover. */
-.btn {
-  border-radius: 0;
-  border: 2px solid var(--color-ink);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.btn-primary {
-  background: var(--color-ink);
-  box-shadow: 4px 4px 0 var(--color-swift);
-}
-.btn-primary:hover {
-  background: var(--color-swift);
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--color-ink);
-}
-.btn-accent {
-  background: var(--color-swift);
-  box-shadow: 4px 4px 0 var(--color-ink);
-}
-.btn-accent:hover {
-  background: var(--color-swift-deep);
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--color-ink);
-}
-.btn-ghost {
-  background: var(--color-paper);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-.btn-ghost:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0 var(--color-ink);
-}
-.btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: none;
-}
-
-.sticker,
-.win98-btn {
-  border-radius: 0;
-  border: 2px solid var(--color-ink);
-  box-shadow: 4px 4px 0 var(--color-ink);
-}
-
-/* 4. Card + chip kits. */
-.atomi-card {
-  border: 2px solid var(--color-ink);
-  background: #fffdf8;
-  box-shadow: 6px 6px 0 var(--color-ink);
-}
-.atomi-chip {
-  border: 1.5px solid var(--color-ink);
-  background: #fffdf8;
-  color: var(--color-ink);
-  box-shadow: 2px 2px 0 var(--color-ink);
-}
-.atomi-btn {
-  border: 2px solid var(--color-ink);
-  box-shadow: 4px 4px 0 var(--color-swift);
-}
-.atomi-btn:hover { box-shadow: 6px 6px 0 var(--color-swift); }
-.atomi-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--color-swift); }
-
-/* 5. Type: uppercase display heads, flat solid accents (no chrome/gradient mush). */
-.display {
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-}
-.text-gradient {
-  background: none;
-  color: var(--color-swift);
-}
-.atomi-chrome-text {
-  background: none;
-  color: var(--color-ink);
-}
-
-/* 6. Scrollbar + focus. */
-::-webkit-scrollbar { width: 12px; height: 12px; }
-::-webkit-scrollbar-track { background: var(--color-paper-2); border-left: 2px solid var(--color-ink); }
-::-webkit-scrollbar-thumb { background: var(--color-ink); border: 2px solid var(--color-paper-2); }
-::-webkit-scrollbar-thumb:hover { background: var(--color-swift); }
-:focus-visible { border-radius: 0; }
-
-/* 7. Chrome kit used by the story reel. */
 .brutal-box {
   border: 2px solid var(--color-ink);
   background: var(--color-paper);
   box-shadow: 4px 4px 0 var(--color-ink);
 }
-.hard-shadow { text-shadow: 3px 3px 0 var(--color-swift); }
+
+.hard-shadow {
+  text-shadow: 3px 3px 0 var(--color-swift);
+}
