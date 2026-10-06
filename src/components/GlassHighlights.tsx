@@ -175,14 +175,14 @@ export function GlassHighlights() {
         <Reveal variant="scale" delay={120} className="mt-12">
           <div
             ref={scrub}
-            className="atomi-section scrub relative overflow-hidden rounded-[36px]"
-            style={{ boxShadow: "0 1px 0 #fff inset, 0 30px 70px -40px #6b4a3466" }}
+            className="atomi-section scrub relative overflow-hidden border-2 border-ink"
+            style={{ boxShadow: "6px 6px 0 #0b0b0c" }}
           >
             {/* scroll progress bar with traveling shine */}
-            <div aria-hidden className="absolute inset-x-0 top-0 z-20 h-1.5 bg-[#b4552d]/15">
+            <div aria-hidden className="absolute inset-x-0 top-0 z-20 h-2 bg-ink/10">
               <div
-                className="gpu relative h-full w-full origin-left"
-                style={{ transform: "scaleX(var(--scrub, 0))", background: "linear-gradient(90deg,#b4552d,#d97a4a)" }}
+                className="gpu relative h-full w-full origin-left bg-swift"
+                style={{ transform: "scaleX(var(--scrub, 0))" }}
               >
                 <span className="sweep absolute inset-0" />
               </div>
@@ -232,15 +232,15 @@ export function GlassHighlights() {
                         href={it.href}
                         data-cursor="hot"
                         aria-label={`${it.label} — ${it.link}`}
-                        className="atomi-card group relative flex h-full flex-col justify-between gap-5 overflow-hidden !rounded-[24px] !border-white/90 p-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F05138] sm:p-6"
-                        style={{ background: `linear-gradient(145deg, rgba(255,255,255,0.86), rgba(255,248,242,0.62) 55%, ${tones[i]}73)`, WebkitBackdropFilter: "blur(18px) saturate(160%)", backdropFilter: "blur(18px) saturate(160%)", boxShadow: "inset 0 2px 0 #fff, inset 0 -4px 0 rgba(255,255,255,0.55), 0 8px 0 -4px rgba(255,255,255,0.5), 0 24px 44px -22px rgba(107,74,52,0.45)" }}
+                        className="atomi-card group relative flex h-full flex-col justify-between gap-5 overflow-hidden border-2 border-ink p-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F05138] sm:p-6"
+                        style={{ background: "#fffdf8", boxShadow: "6px 6px 0 #0b0b0c", borderBottom: `6px solid ${tones[i]}` }}
                       >
-                        <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full border-[16px] border-white/50 opacity-60 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-110" />
+                        <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 border-[16px] border-ink/10 opacity-60 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-110" />
                         {it.corner}
                         <span className="relative flex items-start justify-between">
                           <span
                             className="grid h-12 w-12 place-items-center rounded-2xl border border-white text-lg text-swift motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:-rotate-12"
-                            style={{ background: `linear-gradient(135deg, #fff, ${tones[i]})`, boxShadow: "0 4px 0 -1px #F0513814, 0 10px 20px -12px #6b4a3466" }}
+                            style={{ background: `linear-gradient(135deg, #fff, ${tones[i]})`, boxShadow: "3px 3px 0 #0b0b0c" }}
                             aria-hidden
                           >
                             {it.star}
@@ -266,7 +266,7 @@ export function GlassHighlights() {
             </div>
 
             {/* ticker */}
-            <div className="marquee-mask group/ticker relative border-t border-white bg-white/60 py-3">
+            <div className="marquee-mask group/ticker relative border-t-2 border-ink bg-[#fff3e6] py-3">
               <div className="marquee-track gpu motion-safe:animate-marquee flex w-max items-center gap-10 pr-10 group-hover/ticker:[animation-play-state:paused]">
                 {[...ticker, ...ticker].map((t, i) => (
                   <span key={i} className="flex items-center gap-10 whitespace-nowrap">
