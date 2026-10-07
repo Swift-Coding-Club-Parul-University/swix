@@ -371,73 +371,143 @@ export function ScrollStory() {
         ctx.restore();
       }
 
-      // brand mark — app-icon plate with a misregistration flash on impact
+      // brand mark — a stamped print plate: hard ink block, misregistered
+      // light pass that snaps into register, halftone screen, registration
+      // brackets. Same language as the tiles, the stamp and the HUD chrome.
       if (markT > 0 && birdPath2D) {
         const e = markT < 1 ? easeInOutCubic(markT) : 1;
         const pop = easeOutBack(clamp01(markT / 0.55));
         const breathe = 1 + Math.sin(p * 30) * 0.012;
         const plate = 208 * pop;
+        const hx = -plate / 2;
+        const hy = -plate / 2;
 
         const platePath = () => {
-          const r = plate * 0.225;
           ctx.beginPath();
-          ctx.moveTo(plate - r, 0);
-          ctx.arcTo(plate, 0, plate, plate, r);
-          ctx.arcTo(plate, plate, 0, plate, r);
-          ctx.arcTo(0, plate, 0, 0, r);
-          ctx.arcTo(0, 0, plate, 0, r);
-          ctx.closePath();
+          ctx.rect(hx, hy, plate, plate);
         };
 
-        const flashT = markT < 0.4 ? 1 - markT / 0.4 : 0;
-        if (flashT > 0) {
+        // misregistration amount — 1 while landing, resolves to 0 in register
+        const reg = 1 - easeOutCubic(clamp01(markT / 0.62));
+
+        // 1 · hard ink offset block (echoes the tile grid + SHIPPED stamp)
+        ctx.save();
+        ctx.globalAlpha = e;
+        ctx.translate(9, 9);
+        ctx.fillStyle = INK;
+        platePath();
+        ctx.fill();
+        ctx.restore();
+
+        // 2 · misregistered light pass — slides into place as it lands
+        if (reg > 0.002) {
           ctx.save();
-          ctx.globalAlpha = flashT * 0.45;
-          ctx.translate(-7 * flashT, 5 * flashT);
-          ctx.fillStyle = INK;
+          ctx.globalAlpha = e * (0.3 + 0.4 * reg);
+          ctx.translate(-16 * reg, 12 * reg);
+          ctx.fillStyle = "#FFD3BC";
           platePath();
           ctx.fill();
           ctx.restore();
         }
 
+        // 3 · main plate — flat swift, no gradient, no glow
         ctx.save();
         ctx.globalAlpha = e;
-        ctx.translate(-plate / 2, -plate / 2);
-        const pg = ctx.createLinearGradient(0, 0, plate, plate);
-        pg.addColorStop(0, "#FF7A5C");
-        pg.addColorStop(0.5, "#F05138");
-        pg.addColorStop(1, "#D63F27");
-        ctx.fillStyle = pg;
-        ctx.shadowColor = "rgba(240,81,56,0.45)";
-        ctx.shadowBlur = 36;
+        ctx.fillStyle = SWIFT;
         platePath();
         ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.strokeStyle = "rgba(255,255,255,0.55)";
-        ctx.lineWidth = 2.5;
+
+        // halftone screen clipped to the plate — print texture, denser at the base
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(hx, hy, plate, plate);
+        ctx.clip();
+        const step = 13;
+        ctx.fillStyle = "rgba(11,11,12,0.14)";
+        for (let gy = hy + step / 2, row = 0; gy < hy + plate; gy += step, row++) {
+          for (let gx = hx + step / 2 + (row % 2 ? step / 2 : 0); gx < hx + plate; gx += step) {
+            const k = (gy - hy) / plate;
+            const dr = 1.2 + k * 4.4;
+            ctx.fillRect(gx - dr / 2, gy - dr / 2, dr, dr);
+          }
+        }
+        ctx.restore();
+
+        // ink keyline
+        ctx.strokeStyle = INK;
+        ctx.lineWidth = 4;
+        platePath();
         ctx.stroke();
-        ctx.translate(plate / 2, plate / 2);
+        ctx.restore();
+
+        // 4 · registration brackets snap in around the plate
+        const brT = clamp01((markT - 0.3) / 0.35);
+        if (brT > 0) {
+          const be = easeOutCubic(brT);
+          const gap = 16 + (1 - be) * 30;
+          const len = 30 * be;
+          ctx.save();
+          ctx.globalAlpha = e * be;
+          ctx.strokeStyle = SWIFT;
+          ctx.lineWidth = 3;
+          for (const [bx, by, sx, sy] of [
+            [hx - gap, hy - gap, 1, 1],
+            [hx + plate + gap, hy - gap, -1, 1],
+            [hx - gap, hy + plate + gap, 1, -1],
+            [hx + plate + gap, hy + plate + gap, -1, -1],
+          ] as const) {
+            ctx.beginPath();
+            ctx.moveTo(bx + sx * len, by);
+            ctx.lineTo(bx, by);
+            ctx.lineTo(bx, by + sy * len);
+            ctx.stroke();
+          }
+          ctx.restore();
+        }
+
+        // 5 · press-lock flash — a cream band scans down the plate once
+        const scan = clamp01((markT - 0.45) / 0.4);
+        if (scan > 0 && scan < 1) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(hx, hy, plate, plate);
+          ctx.clip();
+          ctx.globalAlpha = (1 - Math.abs(scan * 2 - 1)) * 0.55;
+          ctx.fillStyle = "#FFF3E6";
+          ctx.fillRect(hx, hy + scan * plate - 11, plate, 22);
+          ctx.restore();
+        }
+
+        // 6 · dashed ink orbit ring + swift square nodes
+        ctx.save();
         ctx.globalAlpha = e * 0.5;
-        ctx.strokeStyle = "#F05138";
+        ctx.strokeStyle = INK;
         ctx.lineWidth = 1.5;
         ctx.setLineDash([5, 13]);
         ctx.lineDashOffset = -p * 220;
         ctx.beginPath();
-        ctx.arc(0, 0, plate * 0.72, 0, Math.PI * 2);
+        ctx.arc(0, 0, plate * 0.74, 0, Math.PI * 2);
         ctx.stroke();
         ctx.setLineDash([]);
+        ctx.fillStyle = SWIFT;
+        for (let k = 0; k < 4; k++) {
+          const a = (k / 4) * Math.PI * 2 + p * 1.6;
+          ctx.fillRect(Math.cos(a) * plate * 0.74 - 4, Math.sin(a) * plate * 0.74 - 4, 8, 8);
+        }
         ctx.restore();
 
+        // 7 · stamped bird — ink offset behind a cream silhouette, no glow
         ctx.save();
         ctx.globalAlpha = e;
         const s = (plate / 56) * 0.62 * breathe;
         ctx.scale(s, s);
         ctx.translate(-32, -32);
-        ctx.fillStyle = "#ffffff";
-        ctx.shadowColor = "rgba(214,63,39,0.55)";
-        ctx.shadowBlur = 18;
+        ctx.fillStyle = INK;
+        ctx.save();
+        ctx.translate(3.5, 3.5);
         ctx.fill(birdPath2D);
-        ctx.shadowBlur = 0;
+        ctx.restore();
+        ctx.fillStyle = "#FFF8F2";
         ctx.fill(birdPath2D);
         ctx.restore();
       }
