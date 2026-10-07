@@ -45,13 +45,15 @@ export function Footer() {
               ))}
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-3">
+              {/* "We …", not "Built with Swift": without the subject these read
+                  as claims about this website, which is React, not Swift. */}
               <span className="glass-chip inline-flex items-center gap-2.5 py-1.5 pl-1.5 pr-4">
                 <Orb variant="swift" box={26} size="small" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/60">Built with Swift</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/60">We teach Swift</span>
               </span>
               <span className="glass-chip inline-flex items-center gap-2.5 py-1.5 pl-1.5 pr-4">
                 <Orb variant="ios" box={26} size="small" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/60">Designed for iOS</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/60">We build iOS apps</span>
               </span>
             </div>
           </Reveal>

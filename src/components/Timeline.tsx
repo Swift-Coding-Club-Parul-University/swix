@@ -2,6 +2,7 @@ import { useScrollScrub } from "@/hooks/useScrollScrub";
 import { useReducedMotion } from "@/hooks/useMedia";
 import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
+import { LabWin } from "./ui/LabChrome";
 import { cn } from "@/utils/cn";
 
 const steps = [
@@ -67,14 +68,14 @@ export function Timeline() {
             />
           </div>
 
-          <ol className="space-y-10 sm:space-y-12">
+          <ol className="space-y-8 sm:space-y-10">
             {steps.map((s, i) => (
               <Reveal as="li" key={s.w} delay={i * 70} className="group relative pl-10 sm:pl-14">
                 {/* orbiting satellite node */}
                 <span className="absolute left-0 top-1.5 flex h-4 w-4 items-center justify-center sm:h-6 sm:w-6">
                   <span
-                    className="absolute h-full w-full rounded-full border border-dashed border-[#b4552d]/50"
-                    style={{ background: tones[i % tones.length], borderColor: "#F0513855", animation: reduce ? "none" : `orbit-spin ${9 + i}s linear infinite` }}
+                    className="absolute h-full w-full rounded-full border border-dashed border-ink/50"
+                    style={{ background: tones[i % tones.length], animation: reduce ? "none" : `orbit-spin ${9 + i}s linear infinite` }}
                   />
                   <span
                     className="relative h-2 w-2 rounded-full bg-[#F05138] transition-transform duration-500 motion-safe:group-hover:scale-125 sm:h-2.5 sm:w-2.5"
@@ -82,14 +83,29 @@ export function Timeline() {
                   />
                 </span>
 
-                <div className="grid gap-3 sm:grid-cols-[120px_1fr_160px] sm:items-baseline sm:gap-8">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#c2521f]">{s.w}</span>
-                  <div>
-                    <h3 className="text-balance text-xl font-bold tracking-tight text-[#2a1a10] sm:text-[1.6rem]">{s.t}</h3>
-                    <p className="mt-2 max-w-xl text-pretty text-[15px] leading-relaxed text-[#6b4a34]">{s.d}</p>
+                <article
+                  className="lab-panel relative overflow-hidden"
+                  style={
+                    {
+                      "--tone": tones[i % tones.length],
+                      "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg",
+                    } as React.CSSProperties
+                  }
+                >
+                  <LabWin file={`week_${s.w.slice(-2)}.swift`} />
+
+                  <div className="lab-body relative z-10 grid gap-3 p-5 sm:grid-cols-[110px_1fr_auto] sm:items-baseline sm:gap-8 sm:p-6">
+                    <span aria-hidden className="lab-halftone absolute -top-5 -right-3 h-[180px] w-[32%] -z-10" />
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#c2521f]">{s.w}</span>
+                    <div>
+                      <h3 className="text-balance text-xl font-bold tracking-tight text-ink sm:text-[1.6rem]">{s.t}</h3>
+                      <p className="mt-2 max-w-xl text-pretty text-[15px] leading-relaxed text-muted">{s.d}</p>
+                    </div>
+                    <div className="lab-copy">
+                      <span className="lab-tag">{s.tag}</span>
+                    </div>
                   </div>
-                  <span className="atomi-chip w-fit" style={{ background: `linear-gradient(135deg,#ffffffcc,${tones[i % tones.length]})`, borderColor: "#0B0B0C18", color: "#0B0B0C", boxShadow: "inset 0 1px 0 #fff, 0 3px 0 #0B0B0C08" }}>{s.tag}</span>
-                </div>
+                </article>
               </Reveal>
             ))}
           </ol>
@@ -99,8 +115,8 @@ export function Timeline() {
           <a href="#join" className="atomi-btn inline-flex items-center px-6 py-3.5 text-sm">
             Start Week 01
           </a>
-          <span className="atomi-chip">No experience needed</span>
-          <span className="atomi-chip">14 weeks · one app</span>
+          <span className="lab-tag" style={{ "--tone": "#B9ECCD" } as React.CSSProperties}>No experience needed</span>
+          <span className="lab-tag" style={{ "--tone": "#D9CFFF" } as React.CSSProperties}>14 weeks · one app</span>
         </Reveal>
       </div>
     </section>

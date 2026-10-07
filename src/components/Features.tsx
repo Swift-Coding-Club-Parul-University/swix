@@ -3,6 +3,7 @@ import { SectionHeader } from "./ui/SectionHeader";
 import { Tilt } from "./ui/Tilt";
 import { GlassCube } from "./ui/GlassCube";
 import { ShaderBackground } from "./ui/feature-shader-cards";
+import { PrismOrb } from "./ui/PrismOrb";
 import { cn } from "@/utils/cn";
 
 type Feature = {
@@ -70,49 +71,73 @@ const features: Feature[] = [
 ];
 
 const tones = ["#D9CFFF", "#B9ECCD", "#BDE4FF", "#FFEDA3"];
+const orbTones = ["rose", "mint", "ice", "lemon"] as const;
+
+/** Print-proof registration target — the mark you align colour passes with. */
+function RegMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={className}>
+      <circle cx="12" cy="12" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M12 1.5v21M1.5 12h21" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="1.7" fill="currentColor" />
+    </svg>
+  );
+}
 
 function FeatureCard({ f, i }: { f: Feature; i: number }) {
   return (
     <Reveal delay={80 + i * 100} className={cn("h-full", f.span)}>
-      <Tilt max={5} lift={12} scale={1.01} sheen={false} depth className="h-full">
-        <div
-          className="webcore-tile group relative flex h-full flex-col !border-white/90"
-          style={{ background: `linear-gradient(145deg, rgba(255,255,255,0.88), rgba(255,248,242,0.66) 60%, ${tones[i]}66)`, WebkitBackdropFilter: "blur(20px) saturate(165%)", backdropFilter: "blur(20px) saturate(165%)", boxShadow: "inset 0 1px 0 #fff, 0 5px 0 -2px rgba(255,255,255,0.85), 0 9px 0 -4px rgba(240,81,56,0.13), 0 26px 48px -26px rgba(107,74,52,0.4)" }}
+      <Tilt max={6} lift={10} scale={1.015} sheen={false} depth className="h-full">
+        <article
+          className="lab-panel relative flex h-full flex-col"
+          style={
+            {
+              "--tone": tones[i],
+              "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg",
+            } as React.CSSProperties
+          }
         >
-          <ShaderBackground index={i} />
+          <ShaderBackground index={i} className="rounded-[18px] opacity-[0.55]" />
 
-          <div className="win98-title relative flex items-center justify-between gap-3 px-3 py-2 z-10" style={{ background: `linear-gradient(120deg, rgba(255,248,242,0.88), rgba(${i === 0 ? "217,207,255" : i === 1 ? "185,236,205" : i === 2 ? "189,228,255" : "255,237,163"},0.88))`, color: "#0B0B0C", boxShadow: "inset 0 1px 0 #fff, 0 1px 0 #F051381a" }}>
-            <span className="truncate font-mono">lab_module_{f.n}.swift</span>
-            <span className="flex gap-1" aria-hidden>
-              <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">_</span>
-              <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">×</span>
+          <header className="lab-bar">
+            <span className="lab-dots" aria-hidden>
+              <span className="lab-dot" />
+              <span className="lab-dot" />
+              <span className="lab-dot" />
             </span>
-          </div>
+            <span className="lab-file">lab_module_{f.n}.swift</span>
+            <span className="lab-badge">{f.n}</span>
+          </header>
 
-          <div className="relative z-10 flex flex-1 flex-col justify-between p-7 preserve-3d sm:p-9">
-            <div className="relative flex items-start justify-between preserve-3d">
-              <div
-                className="flex h-14 w-14 items-center justify-center rounded-xl border border-white text-[#9c321f] motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:-rotate-6 motion-safe:group-hover:[transform:translateZ(24px)]"
-                style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", boxShadow: "inset 0 2px 0 rgba(255,255,255,0.9), 0 4px 0 -1px rgba(255,255,255,0.5), 0 12px 22px -14px rgba(107,74,52,0.15)" }}
-              >
+          <div className="lab-body relative z-10 flex flex-1 flex-col justify-between gap-8 p-7 sm:p-9">
+            <div className="lab-band flex items-start justify-between gap-4">
+              <span aria-hidden className="lab-halftone absolute -top-5 -right-3 h-[210%] w-[52%]" />
+              <div className="lab-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px]">
                 {f.icon}
               </div>
-              <span className="relative rounded-full border border-white/60 bg-white/50 backdrop-blur-sm px-3 py-1 font-mono text-[11px] tracking-[0.2em] text-[#2a1a10]">{f.n}</span>
+              <PrismOrb className="absolute -top-3 right-0" size={60} tone={orbTones[i]} satellite />
             </div>
-            <div className="relative mt-14 preserve-3d">
-              <span className="inline-flex max-w-full items-center rounded-sm border border-white/60 bg-white/50 backdrop-blur-sm px-2.5 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#2a1a10] shadow-sm motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:-translate-y-1">
-                {f.tag}
-              </span>
-              <h3 className="mt-4 text-2xl font-bold tracking-tight text-[#2a1a10] sm:text-[1.7rem]">{f.title}</h3>
-              <p className="mt-3 max-w-md text-pretty font-mono text-[13.5px] leading-relaxed text-[#4a3628]">{f.body}</p>
+
+            <div className="lab-copy mt-6">
+              <span className="lab-tag">{f.tag}</span>
+              <h3 className="mt-4 text-2xl font-bold tracking-[-0.03em] text-ink sm:text-[1.7rem]">
+                {f.title}
+              </h3>
+              <p className="mt-3 max-w-[46ch] text-pretty text-[15px] leading-[1.62] text-muted">
+                {f.body}
+              </p>
             </div>
           </div>
 
-          <div className="win98-out relative z-10 flex items-center justify-between px-3 py-1 font-mono text-[9px] text-[#6b4a34]">
-            <span>module {f.n} loaded</span>
-            <span className="flex items-center gap-2"><span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[#1d7a4c]" />ready</span>
-          </div>
-        </div>
+          <footer className="lab-status">
+            <span>module {f.n} · loaded</span>
+            <RegMark className="lab-status__reg" />
+            <span className="flex items-center gap-2">
+              <span className="lab-live" aria-hidden />
+              ready
+            </span>
+          </footer>
+        </article>
       </Tilt>
     </Reveal>
   );

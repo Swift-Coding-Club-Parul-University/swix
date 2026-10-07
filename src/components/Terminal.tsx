@@ -11,6 +11,8 @@ const chips = [
   { k: "fear remaining", v: "null" },
 ];
 
+const tones = ["#B9ECCD", "#D9CFFF", "#BDE4FF", "#FFEDA3"];
+
 export function Terminal() {
   const progress = useScrollScrub<HTMLDivElement>();
   const reduce = useReducedMotion();
@@ -46,20 +48,24 @@ export function Terminal() {
 
         <div className="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-12">
           <Reveal variant="flip3d" className="lg:col-span-7">
-            <div className="webcore-tile overflow-hidden ">
-              <div className="win98-title flex items-center justify-between px-2 py-1">
-                <span className="font-mono">SWIFT_STUDENT.exe — Learning Curve Error</span>
-                <span className="flex gap-1" aria-hidden>
-                  <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">_</span>
-                  <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">□</span>
-                  <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">×</span>
+            <div
+              className="lab-panel lab-panel--xl overflow-hidden"
+              style={{ "--tone": "#FFEDA3", "--tilt-r": "-0.4deg" } as React.CSSProperties}
+            >
+              <header className="lab-bar">
+                <span className="lab-dots" aria-hidden>
+                  <span className="lab-dot" />
+                  <span className="lab-dot" />
+                  <span className="lab-dot" />
                 </span>
-              </div>
+                <span className="lab-file">SWIFT_STUDENT.dmg</span>
+                <span className="lab-badge">13</span>
+              </header>
 
-              <div className="p-7 backdrop-blur-md sm:p-10" style={{ background: "repeating-linear-gradient(180deg,#0B0B0C02 0 1px,transparent 1px 4px), linear-gradient(135deg,#FFF8F2,#FFEDA333)" }}>
+              <div className="p-7 sm:p-10" style={{ background: "repeating-linear-gradient(180deg,#0B0B0C02 0 1px,transparent 1px 4px), linear-gradient(135deg,#FFF8F2,#FFEDA333)" }}>
                 <p className="text-6xl font-bold leading-none text-[#F05138] sm:text-7xl">:(</p>
                 <p className="mt-5 text-xl font-bold tracking-tight text-ink sm:text-2xl">
-                  SWIFT_STUDENT.exe ran into a learning curve
+                  SWIFT_STUDENT.dmg ran into a learning curve
                 </p>
                 <p className="mt-1.5 font-mono text-[14px] text-muted">This is not a crash. It&apos;s Tuesday.</p>
 
@@ -94,23 +100,26 @@ export function Terminal() {
                   </Reveal>
                 </dl>
 
-                <p className="mt-7 font-mono text-[12px] text-ink/50">
-                  press <span className="win98-btn mx-1 inline-block">Join the club</span> to continue _
+                <p className="lab-copy mt-7 font-mono text-[12px] text-ink/50">
+                  press <span className="lab-tag mx-1">Join the club</span> to continue _
                   <span className="ml-1 inline-block h-3.5 w-[7px] translate-y-0.5 animate-blink bg-[#F05138]" />
                 </p>
               </div>
 
-              <div className="win98-out flex items-center justify-between bg-paper-2 px-3 py-1 font-mono text-[9.5px] text-ink">
+              <footer className="lab-status">
                 <span>1 error found — it&apos;s a friend now</span>
                 <span>NUM</span>
-              </div>
+              </footer>
             </div>
           </Reveal>
 
           <div className="grid content-start gap-4 lg:col-span-5">
             {chips.map((c, i) => (
               <Reveal key={c.k} variant={i % 2 ? "right" : "left"} delay={i * 110}>
-                <div className="webcore-tile flex items-center justify-between gap-6 px-5 py-3.5 transition-transform duration-300 motion-safe:hover:-translate-y-0.5" style={{ background: `linear-gradient(120deg, rgba(255,248,242,0.82), ${["#B9ECCD", "#D9CFFF", "#BDE4FF", "#FFEDA3"][i]}52)`, WebkitBackdropFilter: "blur(16px) saturate(160%)", backdropFilter: "blur(16px) saturate(160%)", borderColor: "#ffffffcc", boxShadow: "inset 0 1px 0 #fff, 0 18px 36px -22px rgba(11,11,12,0.3)" }}>
+                <div
+                  className="lab-panel flex items-center justify-between gap-6 px-5 py-3.5"
+                  style={{ "--tone": tones[i], "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg" } as React.CSSProperties}
+                >
                   <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/50">{c.k}</span>
                   <span className="font-mono text-lg font-bold text-[#F05138]">
                     {c.v}
@@ -120,7 +129,11 @@ export function Terminal() {
             ))}
 
             <Reveal variant="right" delay={480}>
-              <div className="webcore-tile relative overflow-hidden p-6" style={{ WebkitBackdropFilter: "blur(20px) saturate(160%)", backdropFilter: "blur(20px) saturate(160%)", boxShadow: "inset 0 1px 0 #fff, 0 24px 48px -26px rgba(11,11,12,0.35)" }}>
+              <div
+                className="lab-panel overflow-hidden p-6"
+                style={{ "--tone": "#FFD3BC", "--tilt-r": "0.4deg" } as React.CSSProperties}
+              >
+                <span aria-hidden className="lab-halftone absolute -top-3 -right-3 h-[55%] w-[45%] -z-10" />
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#F05138]/70">lab rule nº 404</p>
                 <p className="mt-2 text-lg font-bold tracking-tight text-ink">
                   "If it compiles on the first try, you didn&apos;t dream big enough."

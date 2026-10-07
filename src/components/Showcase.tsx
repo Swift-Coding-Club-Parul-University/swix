@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import showcase from "@/assets/showcase-app.jpg";
 import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
-import { Orb } from "./ui/Orb";
+import { LabFoot, LabWin } from "./ui/LabChrome";
 import { useCanHover, useReducedMotion } from "@/hooks/useMedia";
 import { cn } from "@/utils/cn";
 
@@ -79,17 +79,10 @@ function TiltPhone() {
       onPointerMove={onMove}
       onPointerLeave={onLeave}
       onPointerCancel={onLeave}
-      className="webcore-tile gpu relative mx-auto w-full max-w-[420px] overflow-hidden transition-transform duration-300"
-      style={{ borderColor: "#ffffffcc", boxShadow: "inset 0 1px 0 #fff, 0 4px 0 #D9CFFF, 0 30px 65px -28px #0B0B0C44" }}
+      className="lab-panel gpu relative mx-auto w-full max-w-[420px] overflow-hidden"
+      style={{ "--tone": "#D9CFFF" } as React.CSSProperties}
     >
-      <div className="win98-title flex items-center justify-between px-2 py-1">
-        <span className="font-mono">campus_v2.3.app — preview</span>
-        <span className="flex gap-1" aria-hidden>
-          <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">_</span>
-          <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">□</span>
-          <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">×</span>
-        </span>
-      </div>
+      <LabWin file="campus_v2.3.app — preview" n="2.3" />
       <img
         src={showcase}
         alt="Campus app by Swift Coding Club running on iPhone"
@@ -110,7 +103,7 @@ function TiltPhone() {
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F05138]">Featured build</p>
           <p className="mt-1 text-xl font-bold tracking-tight text-ink">Campus · v2.3</p>
         </div>
-        <span className="win98-btn">On App Store</span>
+        <span className="lab-tag">On App Store</span>
       </div>
     </div>
   );
@@ -151,81 +144,108 @@ export function Showcase() {
               <div aria-hidden className="pointer-events-none absolute inset-5 -z-10 rounded-[28px] border border-white/80" style={{ background: "linear-gradient(145deg,#FFEDA3,#FFC6DD88)", transform: "rotate(5deg) translate(12px,8px)" }} />
               <TiltPhone />
               <Reveal delay={180} className="absolute right-0 top-6 z-10 sm:-right-2">
-                <div className="webcore-tile gpu motion-safe:animate-float flex items-center gap-2.5 py-1.5 pl-1.5 pr-4" style={{ background: "linear-gradient(135deg,#fff,#B9ECCDcc)", animationDelay: "-6s" }}>
-                  <Orb variant="ios" box={32} size="small" />
-                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/60">iOS 19 ready</span>
-                </div>
+                {/* riso sticker instead of the dark coin — keeps the iOS casing intact */}
+                <span
+                  className="inline-flex items-center gap-2 rounded-[10px] border-[1.5px] border-ink bg-white/93 px-3.5 py-2 font-mono text-[10.5px] font-semibold tracking-[0.14em] text-ink shadow-[2.5px_2.5px_0_var(--color-ink)] motion-safe:animate-float"
+                  style={{ animationDelay: "-6s" }}
+                >
+                  <span aria-hidden className="h-2 w-2 rotate-45 border border-ink bg-[#B9ECCD]" />
+                  iOS 19 ready
+                </span>
               </Reveal>
             </div>
           </Reveal>
 
           <div className="lg:col-span-7 lg:pl-8">
-            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-[#F05138]/70">
-              C:\club\showcase&gt; dir *.app /b
-            </p>
-            <ul className="divide-y divide-line border-y border-line" role="list">
-              {apps.map((a, i) => {
-                const isActive = active === i;
-                return (
-                  <Reveal as="li" key={a.name} delay={i * 80}>
-                    <button
-                      type="button"
-                      onMouseEnter={() => setActive(i)}
-                      onFocus={() => setActive(i)}
-                      onClick={() => setActive(i)}
-                      aria-expanded={isActive}
-                      className="group grid w-full grid-cols-[auto_1fr_auto] items-start gap-5 py-6 text-left sm:gap-8"
-                    >
-                      <span className={cn("pt-2 font-mono text-[11px] tracking-[0.2em]", isActive ? "text-[#F05138]" : "text-ink/30")}>
-                        0{i + 1}
-                      </span>
-                      <span>
-                        <span className="flex items-center gap-3">
-                          <span
-                            className={cn(
-                              "text-2xl font-bold tracking-tight sm:text-3xl",
-                              isActive ? "text-[#F05138]" : "text-ink/80 group-hover:text-ink"
-                            )}
+            <Reveal delay={80}>
+              <div
+                className="lab-panel relative overflow-hidden"
+                style={
+                  {
+                    "--tone": "#BDE4FF",
+                    "--panel-r": "26px",
+                    "--tilt-r": "0.4deg",
+                  } as React.CSSProperties
+                }
+              >
+                <LabWin file="showcase.dir" n="04" />
+
+                <div className="lab-body relative z-10 p-5 sm:p-7">
+                  <span aria-hidden className="lab-halftone absolute -top-4 -right-3 h-[190px] w-[38%] -z-10" />
+                  <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-[#F05138]">
+                    C:\club\showcase&gt; dir *.app /b
+                  </p>
+                  <ul className="divide-y divide-line" role="list">
+                    {apps.map((a, i) => {
+                      const isActive = active === i;
+                      return (
+                        <Reveal as="li" key={a.name} delay={i * 80}>
+                          <button
+                            type="button"
+                            onMouseEnter={() => setActive(i)}
+                            onFocus={() => setActive(i)}
+                            onClick={() => setActive(i)}
+                            aria-expanded={isActive}
+                            className="group grid w-full grid-cols-[auto_1fr_auto] items-start gap-5 py-6 text-left sm:gap-8"
                           >
-                            {a.name}
-                          </span>
-                          <span className="win98-btn hidden !text-[9px] !font-normal sm:inline-block">{a.by}</span>
-                        </span>
-                        <span className={cn("mt-1 block text-[15px] text-muted", isActive && "text-ink/70")}>{a.tagline}</span>
-                        <span
-                          className={cn(
-                            "grid transition-opacity duration-500 ease-[var(--ease-out-expo)]",
-                            isActive ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                          )}
-                        >
-                          <span className="overflow-hidden">
-                            <span className="mt-4 flex flex-wrap items-center gap-2">
-                              {a.stack.map((s) => (
-                                <span key={s} className="rounded-none border border-line bg-paper-3 px-2 py-1 font-mono text-[10.5px] text-[#F05138]/90">
-                                  {s}
-                                </span>
-                              ))}
-                              <span className="ml-1 font-mono text-[11px] font-semibold text-[#F05138]">{a.stat}</span>
+                            <span className={cn("pt-2 font-mono text-[11px] tracking-[0.2em]", isActive ? "text-[#F05138]" : "text-ink/30")}>
+                              0{i + 1}
                             </span>
-                          </span>
-                        </span>
-                      </span>
-                      <span
-                        className={cn(
-                          "mt-1 flex h-9 w-9 items-center justify-center rounded-sm border transition-transform duration-300 motion-safe:group-hover:translate-x-1",
-                          isActive ? "border-[#F05138] bg-[#F05138]/15 text-[#F05138]" : "border-line text-ink/40"
-                        )}
-                        aria-hidden
-                      >
-                        <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none">
-                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </span>
-                    </button>
-                  </Reveal>
-                );
-              })}
-            </ul>
+                            <span>
+                              <span className="flex flex-wrap items-center gap-3">
+                                <span
+                                  className={cn(
+                                    "text-2xl font-bold tracking-tight sm:text-3xl",
+                                    isActive ? "text-[#F05138]" : "text-ink/80 group-hover:text-ink"
+                                  )}
+                                >
+                                  {a.name}
+                                </span>
+                                <span className="lab-tag hidden sm:inline-flex">{a.by}</span>
+                              </span>
+                              <span className={cn("mt-1 block text-[15px] text-muted", isActive && "text-ink/70")}>{a.tagline}</span>
+                              <span
+                                className={cn(
+                                  "grid transition-opacity duration-500 ease-[var(--ease-out-expo)]",
+                                  isActive ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                                )}
+                              >
+                                <span className="overflow-hidden">
+                                  <span className="mt-4 flex flex-wrap items-center gap-2">
+                                    {a.stack.map((s) => (
+                                      <span key={s} className="lab-badge font-mono">
+                                        {s}
+                                      </span>
+                                    ))}
+                                    <span className="ml-1 font-mono text-[11px] font-semibold text-[#F05138]">{a.stat}</span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span
+                              className={cn(
+                                "mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border-[1.5px] transition-all duration-300 motion-safe:group-hover:translate-x-1",
+                                isActive
+                                  ? "border-ink bg-[#F05138] text-white shadow-[2.5px_2.5px_0_var(--color-ink)]"
+                                  : "border-ink/70 bg-white/85 text-ink/50 shadow-[2px_2px_0_rgba(11,11,12,0.35)] group-hover:shadow-[2.5px_2.5px_0_var(--color-ink)]"
+                              )}
+                              aria-hidden
+                            >
+                              <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none">
+                                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            </span>
+                          </button>
+                        </Reveal>
+                      );
+                    })}
+                  </ul>
+                </div>
+
+                <LabFoot left="4 apps · one semester" right="all shipped" />
+              </div>
+            </Reveal>
+
             <Reveal delay={320} className="mt-8 flex flex-wrap items-center gap-4">
               <a
                 href="#stories"

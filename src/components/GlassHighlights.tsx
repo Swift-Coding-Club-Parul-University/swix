@@ -14,12 +14,7 @@ const items = [
     star: "✦",
     label: "Apple Certified",
     sub: "Training Center on campus",
-    detail: (
-      <span className="atomi-chip">
-        <span className="h-1.5 w-1.5 rounded-full bg-[#b4552d]" />
-        ACT · Umang Panchal
-      </span>
-    ),
+    detail: <span className="lab-tag">ACT · Umang Panchal</span>,
     corner: (
       <span aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-12">
         <svg viewBox="0 0 128 128" className="h-full w-full opacity-50">
@@ -109,7 +104,7 @@ const items = [
     sub: "Free for every student, forever",
     detail: (
       <span className="inline-flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-[0.16em] text-muted">
-        <span className="atomi-chip !py-1">No fee</span>
+        <span className="lab-tag">No fee</span>
         No Mac needed
       </span>
     ),
@@ -175,8 +170,13 @@ export function GlassHighlights() {
         <Reveal variant="scale" delay={120} className="mt-12">
           <div
             ref={scrub}
-            className="atomi-section scrub relative overflow-hidden rounded-[36px]"
-            style={{ boxShadow: "0 1px 0 #fff inset, 0 30px 70px -40px #6b4a3466" }}
+            className="lab-panel lab-panel--xl relative overflow-hidden"
+            style={
+              {
+                "--tone": "#FFD3BC",
+                "--panel-r": "36px",
+              } as React.CSSProperties
+            }
           >
             {/* scroll progress bar with traveling shine */}
             <div aria-hidden className="absolute inset-x-0 top-0 z-20 h-1.5 bg-[#b4552d]/15">
@@ -223,34 +223,58 @@ export function GlassHighlights() {
               </div>
             </div>
 
+            <header className="lab-bar">
+              <span className="lab-dots" aria-hidden>
+                <span className="lab-dot" />
+                <span className="lab-dot" />
+                <span className="lab-dot" />
+              </span>
+              <span className="lab-file">club_highlights.swift</span>
+              <span className="lab-badge">02</span>
+            </header>
+
             <div className="relative grid grid-cols-1 gap-3 p-4 sm:grid-cols-2 sm:gap-4 sm:p-6 lg:grid-cols-4">
               {items.map((it, i) => (
                 <Reveal key={it.n} delay={80 + i * 110} className="h-full">
-                  <div className="h-full motion-reduce:!animate-none" style={{ animation: `float ${8 + i * 1.3}s ease-in-out ${-i * 1.7}s infinite` }}>
+                  {/* Name in the class, timing in the style: the phone budget
+                      in index.css can only switch off an animation by its
+                      class token or by text it can find in the style
+                      attribute — and Chrome serializes an inline `animation`
+                      shorthand with the name *last* ("8s … none running
+                      float"), so a `float` written inline is unreachable. */}
+                  <div
+                    className="h-full animate-float motion-reduce:!animate-none"
+                    style={{ animationDuration: `${8 + i * 1.3}s`, animationDelay: `${-i * 1.7}s` }}
+                  >
                     <Tilt max={4} lift={8} scale={1.01} sheen={false} className="h-full">
                       <a
                         href={it.href}
                         data-cursor="hot"
                         aria-label={`${it.label} — ${it.link}`}
-                        className="atomi-card group relative flex h-full flex-col justify-between gap-5 overflow-hidden !rounded-[24px] !border-white/90 p-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F05138] sm:p-6"
-                        style={{ background: `linear-gradient(145deg, rgba(255,255,255,0.86), rgba(255,248,242,0.62) 55%, ${tones[i]}73)`, WebkitBackdropFilter: "blur(18px) saturate(160%)", backdropFilter: "blur(18px) saturate(160%)", boxShadow: "inset 0 2px 0 #fff, inset 0 -4px 0 rgba(255,255,255,0.55), 0 8px 0 -4px rgba(255,255,255,0.5), 0 24px 44px -22px rgba(107,74,52,0.45)" }}
+                        className="lab-panel group relative flex h-full flex-col justify-between gap-5 overflow-hidden p-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F05138] sm:p-6"
+                        style={
+                          {
+                            "--tone": tones[i],
+                            "--panel-r": "24px",
+                            "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg",
+                          } as React.CSSProperties
+                        }
                       >
                         <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full border-[16px] border-white/50 opacity-60 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-110" />
                         {it.corner}
-                        <span className="relative flex items-start justify-between">
+                        <span className="lab-band relative flex items-start justify-between">
                           <span
-                            className="grid h-12 w-12 place-items-center rounded-2xl border border-white text-lg text-swift motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:-rotate-12"
-                            style={{ background: `linear-gradient(135deg, #fff, ${tones[i]})`, boxShadow: "0 4px 0 -1px #F0513814, 0 10px 20px -12px #6b4a3466" }}
+                            className="lab-icon grid h-12 w-12 place-items-center rounded-2xl text-lg"
                             aria-hidden
                           >
                             {it.star}
                           </span>
-                          <span className="rounded-full border border-white bg-white/60 px-2 py-1 font-mono text-[11px] tracking-[0.2em] text-muted">/{it.n}</span>
+                          <span className="lab-badge">/{it.n}</span>
                         </span>
                         <span className="relative">
                           <span className={cn("display block text-4xl tracking-tight sm:text-[2.6rem]", i === 0 ? "text-ink" : "bg-gradient-to-br from-[#9c321f] to-swift bg-clip-text text-transparent")}>{it.label}</span>
                           <span className="mt-1 block text-[12.5px] font-medium text-muted">{it.sub}</span>
-                          <span className="mt-4 block">{it.detail}</span>
+                          <span className={cn("mt-4 block", (i === 0 || i === 3) && "lab-copy")}>{it.detail}</span>
                           <span className="mt-4 flex items-center gap-1.5 border-t border-swift/15 pt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-swift opacity-80 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                             {it.link}
                             <svg className="ml-auto h-3 w-3 shrink-0 motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:translate-x-1" viewBox="0 0 12 12" fill="none" aria-hidden>

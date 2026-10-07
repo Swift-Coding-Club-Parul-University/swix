@@ -120,11 +120,32 @@ export function FAQ() {
             </div>
           </div>
 
-          <ul className="atomi-card self-start !rounded-[26px] p-2 sm:p-3 lg:col-span-8 w-full" style={{ background: "linear-gradient(145deg,#ffffffdd,#FFF8F2)", borderColor: "#0B0B0C18", boxShadow: "inset 0 1px 0 #fff, 0 4px 0 #D9CFFF55, 0 24px 50px -32px #0B0B0C33" }}>
-            {faqs.map((f, i) => (
-              <Item key={f.q} i={i} q={f.q} a={f.a} open={open === i} onToggle={() => setOpen(open === i ? null : i)} />
-            ))}
-          </ul>
+          <div
+            className="lab-panel lab-panel--xl self-start w-full lg:col-span-8"
+            style={{ "--tone": "#D9CFFF", "--panel-r": "26px", "--tilt-r": "-0.4deg" } as React.CSSProperties}
+          >
+            <header className="lab-bar">
+              <span className="lab-dots" aria-hidden>
+                <span className="lab-dot" />
+                <span className="lab-dot" />
+                <span className="lab-dot" />
+              </span>
+              <span className="lab-file">faq_answers.md</span>
+              <span className="lab-badge">12</span>
+            </header>
+            <ul className="p-2 sm:p-3">
+              {faqs.map((f, i) => (
+                <Item key={f.q} i={i} q={f.q} a={f.a} open={open === i} onToggle={() => setOpen(open === i ? null : i)} />
+              ))}
+            </ul>
+            <footer className="lab-status">
+              <span>6 questions · loaded</span>
+              <span className="flex items-center gap-2">
+                <span className="lab-live" aria-hidden />
+                always open
+              </span>
+            </footer>
+          </div>
         </div>
       </div>
     </section>

@@ -28,15 +28,17 @@ function Cell({ v, s, l, sub, star, i }: { v: number; s: string; l: string; sub:
   return (
     <Reveal delay={i * 90} className="h-full">
       <div
-        className="relative h-full overflow-hidden rounded-[24px] p-6 sm:p-8"
-        style={{
-          background: `radial-gradient(ellipse at 100% 0%,${tone}80,transparent 65%), linear-gradient(160deg, rgba(255,255,255,0.85), rgba(255,248,242,0.55))`,
-          WebkitBackdropFilter: "blur(18px) saturate(160%)",
-          backdropFilter: "blur(18px) saturate(160%)",
-          border: "1px solid rgba(255,255,255,0.75)",
-          boxShadow: `0 1px 0 #fff inset, 0 4px 0 ${tone}66, 0 26px 52px -30px rgba(11,11,12,0.28)`,
-        }}
+        className="lab-panel relative h-full overflow-hidden p-6 sm:p-8"
+        style={
+          {
+            "--tone": tone,
+            "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg",
+            "--panel-r": "24px",
+          } as React.CSSProperties
+        }
       >
+        {/* riso colour pass — sits behind every text layer */}
+        <span aria-hidden className="lab-halftone absolute -top-5 -right-4 -z-10 h-[170%] w-[50%]" />
         {/* tiny orbiting satellite */}
         <span aria-hidden className="pointer-events-none absolute right-4 top-4 h-9 w-9">
           <span className="absolute inset-0 rounded-full border border-dashed border-[#b4552d]/40" style={{ borderColor: `${tone}`, animation: reduce ? "none" : `orbit-spin ${18 + i * 4}s linear infinite` }} />

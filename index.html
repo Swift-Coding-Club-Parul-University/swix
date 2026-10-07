@@ -5,16 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#FFF8F2" />
     <meta name="color-scheme" content="light" />
-    <meta name="description" content="Swift Coding Club at Parul University — the student-run iOS studio inside the Apple Innovation Lab. Learn Swift, ship real apps, join free weekly sessions." />
-    <meta property="og:title" content="Swift Coding Club · Parul University" />
-    <meta property="og:description" content="Learn Swift. Ship real apps. From Parul to the App Store." />
+    <!-- ================= SEO · core ================= -->
+    <meta name="description" content="Free student-run Swift coding club at Parul University, Vadodara. Learn Swift, SwiftUI & iOS app development in weekly labs and ship real apps to the App Store." />
+    <meta name="keywords" content="Swift Coding Club, Parul University, learn Swift, Swift club Vadodara, iOS development club, SwiftUI workshop, Apple Innovation Lab Parul, learn iOS development, Swift course for students, free coding club India, Xcode training, Swift Student Challenge, app development club, college coding club, ship app to App Store" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="author" content="Swift Coding Club · Parul University" />
+    <link rel="canonical" href="https://swix-rho.vercel.app/" />
+
+    <!-- ================= SEO · social sharing (Open Graph / X) ================= -->
+    <meta property="og:site_name" content="Swift Coding Club · Parul University" />
+    <meta property="og:locale" content="en_IN" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://swix-rho.vercel.app/" />
+    <meta property="og:title" content="Swift Coding Club · Parul University | Learn Swift & iOS" />
+    <meta property="og:description" content="Free student-run Swift club at Parul University. Weekly SwiftUI & iOS labs, senior mentorship and real apps shipped to the App Store." />
+    <!-- 1200×630 share card. Swap this for your own public/og-image.png when you have one. -->
+    <meta property="og:image" content="https://images.weserv.nl/?url=raw.githubusercontent.com/subhansh-dev/swix/main/src/assets/hero-visual.webp&w=1200&h=630&fit=cover&position=center&output=jpg&q=85" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A translucent Swift-orange glass bird — the Swift Coding Club at Parul University." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Swift Coding Club · Parul University | Learn Swift & iOS" />
+    <meta name="twitter:description" content="Free student-run Swift club at Parul University. Weekly SwiftUI & iOS labs, mentorship and real apps on the App Store." />
+    <meta name="twitter:image" content="https://images.weserv.nl/?url=raw.githubusercontent.com/subhansh-dev/swix/main/src/assets/hero-visual.webp&w=1200&h=630&fit=cover&position=center&output=jpg&q=85" />
+    <meta name="twitter:image:alt" content="A translucent Swift-orange glass bird — the Swift Coding Club at Parul University." />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F05138'/%3E%3Cpath d='M46 44c-2.5 3-8 4-14 2-8-3-15-10-19-18 5 5 11 9 16 11-6-6-11-13-13-19 6 7 13 13 20 17 1-6-1-12-4-17 7 5 12 12 13 20 0 2 0 4-1 6 3 2 5 6 2 10z' fill='%23fff'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" /></noscript>
-    <title>Swift Coding Club · Parul University</title>
+    <title>Swift Coding Club · Parul University | Learn Swift & iOS</title>
     <style>
       html, body { margin: 0; padding: 0; }
       body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #fff8f2; color: #0b0b0c; overflow-x: clip; }
@@ -23,13 +43,132 @@
       #splash-static p { font-size: 20px; letter-spacing: -0.04em; }
       #splash-static small { color: #6b5f5a; font: 10px monospace; letter-spacing: 0.16em; }
     </style>
+
+    <!-- ================= SEO · structured data (JSON-LD) =================
+         Feeds Google rich results: knowledge panel, sitelinks, FAQ rich
+         snippets. Keep the FAQ copy in sync with src/components/FAQ.tsx. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "EducationalOrganization"],
+          "@id": "https://swix-rho.vercel.app/#organization",
+          "name": "Swift Coding Club · Parul University",
+          "alternateName": ["Swift Coding Club Parul University", "SCC at Parul", "Swift @ Parul"],
+          "url": "https://swix-rho.vercel.app/",
+          "description": "The student-run iOS studio at Parul University, Vadodara. Free weekly hands-on labs in Swift, SwiftUI and iOS app development inside the Apple Innovation Lab — 300+ students trained, 38 apps shipped, 12 App Store launches.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://images.weserv.nl/?url=raw.githubusercontent.com/subhansh-dev/swix/main/src/assets/hero-visual.webp&w=512&h=512&fit=cover&output=png",
+            "width": 512,
+            "height": 512
+          },
+          "image": "https://images.weserv.nl/?url=raw.githubusercontent.com/subhansh-dev/swix/main/src/assets/hero-visual.webp&w=1200&h=630&fit=cover&position=center&output=jpg&q=85",
+          "email": "swift@paruluniversity.ac.in",
+          "foundingDate": "2020",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Vadodara",
+            "addressRegion": "Gujarat",
+            "addressCountry": "IN"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "Membership enquiries",
+            "email": "swift@paruluniversity.ac.in",
+            "availableLanguage": ["English", "Hindi", "Gujarati"]
+          },
+          "parentOrganization": {
+            "@type": "CollegeOrUniversity",
+            "name": "Parul University",
+            "url": "https://www.paruluniversity.ac.in/"
+          },
+          "sameAs": [
+            "https://www.linkedin.com/company/scc-pu",
+            "https://github.com/Swift-Coding-Club-Parul-University"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://swix-rho.vercel.app/#website",
+          "url": "https://swix-rho.vercel.app/",
+          "name": "Swift Coding Club · Parul University",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://swix-rho.vercel.app/#organization" }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://swix-rho.vercel.app/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Do I need a Mac to join?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Builder and Core members get scheduled access to the PIT Mac Lab (Block B, 3rd floor) with Xcode pre-installed. Many members start on the lab machines and buy a used Mac later — we keep a list of trusted sellers too."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "I've never coded before. Is this for me?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. We start from Swift fundamentals — variables, optionals, functions — before touching SwiftUI. We pace the first four weeks for absolute beginners, and mentors run extra 'zero-to-Xcode' sessions on Saturdays."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which branches or years can join?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Every student of Parul University, from any faculty and any year. Our current members include CSE, IT, BCA, Design, Pharmacy and MBA students."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much time does it take each week?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "About 4–5 hours: one 2-hour Thursday lab, a 1-hour mentor check-in, and self-paced build time. Capstone weeks (weeks 10–14) can run heavier, and we plan around exams."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Will my app actually be on the App Store?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "If it passes our internal review and Apple's guidelines, yes. Members publish under the club's Apple Developer team at no extra cost. 12 student apps have launched so far; you retain full ownership of your code and IP."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What about Android or cross-platform?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We're a Swift-first club by design — depth over breadth. That said, we run occasional sessions on Swift on the server and shared-logic patterns, and collaborate with GDG Vadodara for Android events."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="splash-static" role="status">
       <div class="static-mark" aria-hidden="true">{ }</div>
       <p>Swift Coding Club</p>
       <small id="boot-fallback-message">PREPARING YOUR WORKSPACE</small>
-      <noscript><p>Enable JavaScript to explore the club website.</p></noscript>
+      <noscript>
+        <p>Enable JavaScript to explore the club website.</p>
+        <p style="max-width: 52ch; margin: 0.75rem auto 0; font-size: 13px; line-height: 1.6; color: #6b5f5a;">
+          Swift Coding Club · Parul University — a free, student-run Swift and iOS development club in
+          Vadodara, Gujarat. Weekly hands-on labs in Swift, SwiftUI and Xcode, mentorship from senior
+          developers, and real student apps shipped to the App Store. Questions? Email
+          <a href="mailto:swift@paruluniversity.ac.in">swift@paruluniversity.ac.in</a>.
+        </p>
+      </noscript>
     </div>
     <div id="root"></div>
     <script>

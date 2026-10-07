@@ -224,8 +224,13 @@ export function Coverflow() {
               aria-label={`Show ${a.name}`}
               aria-current={i === active}
               onClick={() => setActive(i)}
+              /* The dot itself stays 6px — but a 6x6 tap target is not a tap
+                 target. ::before grows the hit box to 14x46 without changing
+                 a single pixel of the layout: horizontally it stops at exactly
+                 the gap midpoint, so neighbouring dots can never overlap. */
               className={cn(
-                "h-1.5 rounded-full transition-transform duration-300 motion-safe:hover:scale-110",
+                "relative h-1.5 rounded-full transition-transform duration-300 motion-safe:hover:scale-110",
+                "before:absolute before:-inset-x-1 before:-inset-y-5 before:content-['']",
                 i === active ? "w-8 bg-[#b4552d]" : "w-1.5 bg-[#b4552d]/25 hover:bg-[#b4552d]/45"
               )}
               style={i === active ? { boxShadow: "0 0 10px rgba(180,85,45,0.6)" } : undefined}

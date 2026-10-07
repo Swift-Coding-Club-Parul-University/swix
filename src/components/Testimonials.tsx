@@ -67,16 +67,27 @@ export function Testimonials() {
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:mt-20 lg:grid-cols-4">
           {stories.map((s, i) => (
             <Reveal key={s.name} delay={i * 80} className={cn(s.featured && "md:col-span-2 lg:row-span-2")}>
-              <figure className="webcore-tile group flex h-full flex-col overflow-hidden transition-transform duration-500 motion-safe:hover:-translate-y-1" style={{ borderColor: "#ffffffcc", boxShadow: `inset 0 1px 0 #fff, 0 4px 0 ${tones[i]}99, 0 24px 48px -32px #0B0B0C44` }}>
-                <div className="win98-title flex items-center justify-between px-2 py-1">
-                  <span className="truncate font-mono">{s.win}</span>
-                  <span className="flex gap-1" aria-hidden>
-                    <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">_</span>
-                    <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">×</span>
+              <figure
+                className="lab-panel group flex h-full flex-col overflow-hidden"
+                style={
+                  {
+                    "--tone": tones[i],
+                    "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg",
+                  } as React.CSSProperties
+                }
+              >
+                <header className="lab-bar">
+                  <span className="lab-dots" aria-hidden>
+                    <span className="lab-dot" />
+                    <span className="lab-dot" />
+                    <span className="lab-dot" />
                   </span>
-                </div>
+                  <span className="min-w-0 flex-1 truncate text-[11px] font-semibold tracking-[0.01em] text-ink/70">
+                    {s.win}
+                  </span>
+                </header>
 
-                <div className={cn("relative isolate flex flex-1 flex-col justify-between p-6", s.featured && "sm:p-8")} style={{ background: `linear-gradient(150deg,#FFF8F2 15%,${tones[i]}66)` }}>
+                <div className={cn("relative isolate flex flex-1 flex-col justify-between p-6", s.featured && "sm:p-8")}>
                   <span aria-hidden className="pointer-events-none absolute right-4 top-0 -z-10 select-none font-serif text-[100px] leading-none" style={{ color: tones[i] }}>“</span>
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F05138]/70" aria-hidden>
@@ -103,10 +114,13 @@ export function Testimonials() {
                   </figcaption>
                 </div>
 
-                <div className="win98-out flex items-center justify-between bg-paper-2 px-3 py-1 font-mono text-[9px] text-ink">
+                <footer className="lab-status">
                   <span>100%</span>
-                  <span>ASCII</span>
-                </div>
+                  <span className="flex items-center gap-2">
+                    <span className="lab-live" aria-hidden />
+                    ASCII
+                  </span>
+                </footer>
               </figure>
             </Reveal>
           ))}

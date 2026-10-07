@@ -18,35 +18,54 @@ const shots = [
 
 const tones = ["#D9CFFF", "#B9ECCD", "#BDE4FF", "#FFC6DD", "#FFEDA3"];
 
-const faces = [
-  { t: "Pair Programming", d: "Two keyboards, one cursor. Seniors and juniors ship side by side.", win: true },
-  { t: "Code Review", d: "Every pull request gets honest, specific, kind feedback.", win: false },
-  { t: "Demo Friday", d: "Ship or show. No hiding behind slides.", win: true },
-  { t: "Campus Events", d: "Hack nights, Apple WWDC watch parties, and guest talks.", win: false },
-];
+const faces = ["Pair Programming", "Code Review", "Demo Friday", "Campus Events"];
 
 function Cube() {
-  const half = 44;
+  const half = 80;
   return (
-    <div className="mx-auto mt-8 grid h-24 w-24 place-items-center" style={{ perspective: "400px" }}>
-      <div className="gpu relative h-full w-full motion-reduce:!animate-none" style={{ transformStyle: "preserve-3d", transform: "rotateX(-12deg) rotateY(-24deg)", animation: "cube-spin 12s linear infinite" }}>
-        {faces.map((f, i) => (
+    <div className="lab-cube-stage relative mx-auto mt-8 grid h-40 w-40 place-items-center">
+      {/* breathing ground shadow — pauses with the cube on hover */}
+      <span aria-hidden className="absolute -bottom-5 left-1/2 -translate-x-1/2">
+        <span className="lab-cube-shadow motion-reduce:!animate-none block h-4 w-36" />
+      </span>
+      <div className="lab-cube gpu relative h-full w-full motion-reduce:!animate-none">
+        {faces.map((t, i) => (
           <div
-            key={i}
-            className="absolute inset-0 rounded-sm p-3"
-            style={{
-              transform: `rotateY(${i * 90}deg) translateZ(${half}px)`,
-              background: `linear-gradient(140deg,#ffffffee,${tones[i]}dd)`,
-              boxShadow: "0 0 0 1px rgba(42,26,16,0.1), 0 0 26px -12px rgba(240,81,56,0.15)",
-            }}
+            key={t}
+            className="backface-hidden absolute inset-0 flex flex-col overflow-hidden rounded-[8px] border-[1.5px] border-ink"
+            style={
+              {
+                "--tone": tones[i],
+                transform: `rotateY(${i * 90}deg) translateZ(${half}px)`,
+                background: `linear-gradient(155deg, #ffffffee, ${tones[i]}dd)`,
+                boxShadow: "0 16px 28px -20px rgba(42,26,16,0.55)",
+              } as React.CSSProperties
+            }
           >
-            <p className={cn("font-mono text-[10px] uppercase tracking-[0.24em]", f.win ? "text-blue-500" : "text-[#F05138]/70")}>0{i + 1}.exe</p>
-            <p className="mt-auto text-2xl font-bold tracking-tight text-ink">{f.t}</p>
-            <p className="mt-1 text-[11.5px] leading-snug text-muted">{f.d}</p>
+            {/* mini window bar: traffic lights + dmg filename */}
+            <span className="relative z-10 flex items-center justify-between border-b border-ink/60 bg-white/92 px-2 py-1">
+              <span className="lab-dots" aria-hidden>
+                <span className="lab-dot !h-[7px] !w-[7px]" />
+                <span className="lab-dot !h-[7px] !w-[7px]" />
+                <span className="lab-dot !h-[7px] !w-[7px]" />
+              </span>
+              <span className="font-mono text-[8.5px] font-semibold tracking-[0.06em] text-ink/55">{`0${i + 1}.dmg`}</span>
+            </span>
+            <span aria-hidden className="lab-halftone absolute -top-2 right-0 -z-10 h-16 w-16" />
+            <span className="relative mt-auto flex flex-col gap-1 p-2.5">
+              <span className="font-mono text-[8px] font-semibold uppercase tracking-[0.2em] text-[#F05138]">{`step 0${i + 1}`}</span>
+              <span className="text-[12.5px] font-bold leading-[1.15] tracking-tight text-ink">{t}</span>
+            </span>
           </div>
         ))}
-        <div className="absolute inset-0 rounded-sm bg-[#F05138]" style={{ transform: `rotateX(90deg) translateZ(${half}px)` }} />
-        <div className="absolute inset-0 rounded-sm bg-paper-2" style={{ transform: `rotateX(-90deg) translateZ(${half}px)` }} />
+        <div
+          className="backface-hidden absolute inset-0 rounded-[8px] border-[1.5px] border-ink bg-[#F05138]"
+          style={{ transform: `rotateX(90deg) translateZ(${half}px)` }}
+        />
+        <div
+          className="backface-hidden absolute inset-0 rounded-[8px] border-[1.5px] border-ink bg-paper-2"
+          style={{ transform: `rotateX(-90deg) translateZ(${half}px)` }}
+        />
       </div>
     </div>
   );
@@ -85,24 +104,25 @@ export function Gallery() {
               {shots.map((s, i) => (
                 <Reveal key={s.cap} delay={i * 90} className={cn("min-h-0", s.cls)}>
                   <figure
-                    className="webcore-tile group overflow-hidden transition-transform duration-500 motion-safe:hover:-translate-y-1"
-                    style={{ background: `linear-gradient(145deg,#FFF8F2,${tones[i]}55)`, borderColor: "#ffffffcc", boxShadow: `inset 0 1px 0 #fff, 0 4px 0 ${tones[i]}99, 0 22px 40px -28px #0B0B0C55` }}
+                    className="lab-panel group overflow-hidden"
+                    style={{ "--tone": tones[i], "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg" } as React.CSSProperties}
                   >
-                    <div className="win98-title flex items-center justify-between gap-2 px-3 py-2" style={{ background: `linear-gradient(120deg,#FFF8F2,${tones[i]})`, color: "#0B0B0C", boxShadow: "inset 0 1px 0 #fff, 0 1px 0 #0B0B0C12" }}>
-                      <span className="truncate font-mono">{s.cap}</span>
-                      <span className="flex gap-1" aria-hidden>
-                        <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">_</span>
-                        <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">□</span>
-                        <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">×</span>
+                    <header className="lab-bar">
+                      <span className="lab-dots" aria-hidden>
+                        <span className="lab-dot" />
+                        <span className="lab-dot" />
+                        <span className="lab-dot" />
                       </span>
-                    </div>
+                      <span className="lab-file">{s.cap}</span>
+                      <span className="lab-badge">{`0${i + 1}`}</span>
+                    </header>
                     <div className="flex items-center gap-1.5 border-b border-line bg-paper-3 px-2 py-1.5">
                       <span className="h-2 w-2 rounded-full bg-green-500/70" />
                       <span className="flex-1 truncate rounded-none border border-line bg-paper px-2 py-0.5 font-mono text-[9px] text-ink/60">
                         swiftclub://gallery/{s.cap}
                       </span>
                     </div>
-                    <div className="overflow-hidden">
+                    <div className="lab-media m-3">
                       <img
                         src={s.src}
                         alt={s.alt}
@@ -112,7 +132,7 @@ export function Gallery() {
                       />
                     </div>
                     <p className="px-3 py-1.5 text-center font-mono text-[8.5px] uppercase tracking-[0.16em] text-ink/35">[ replace with your own image ]</p>
-                    <figcaption className="flex items-center justify-between border-t border-line bg-paper-2 px-3 py-2">
+                    <figcaption className="lab-status">
                       <span className="font-mono text-[10.5px] text-muted">{s.meta}</span>
                       <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#F05138]">view ▸</span>
                     </figcaption>
@@ -124,12 +144,16 @@ export function Gallery() {
 
           <div className="lg:col-span-5">
             <Reveal delay={120}>
-              <div className="webcore-tile relative overflow-hidden  p-8 sm:p-10">
+              <div
+                className="lab-panel overflow-hidden p-8 sm:p-10"
+                style={{ "--tone": "#BDE4FF", "--tilt-r": "-0.4deg" } as React.CSSProperties}
+              >
+                <span aria-hidden className="lab-halftone absolute -top-4 -right-3 h-[190px] w-[38%] -z-10" />
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#F05138]/70">
-                  C:\club\weekly_loop.exe — running
+                  C:\club\weekly_loop.dmg — running
                 </p>
                 <Cube />
-                <h3 className="relative mt-4 text-balance text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+                <h3 className="relative mt-8 text-balance text-2xl font-bold tracking-tight text-ink sm:text-3xl">
                   The loop we run every single week.
                 </h3>
                 <p className="relative mt-3 text-pretty text-[15px] leading-relaxed text-muted">
@@ -163,15 +187,21 @@ export function Gallery() {
       <div className="container-x mt-16 sm:mt-24">
         <Reveal variant="scale">
           <div ref={parallax} style={{ transform: "translate3d(0, var(--py, 0px), 0)" }}>
-            <div className="webcore-tile overflow-hidden ">
-              <div className="win98-title flex items-center justify-between px-2 py-1">
-                <span className="font-mono">campus_aerial.jpg — 300 acres, one lab</span>
-                <span className="flex gap-1" aria-hidden>
-                  <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">_</span>
-                  <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">□</span>
-                  <span className="win98-btn !px-1.5 !py-0 !text-[9px] leading-none">×</span>
+            <div
+              className="lab-panel lab-panel--xl overflow-hidden"
+              style={{ "--tone": "#FFEDA3", "--tilt-r": "0.4deg" } as React.CSSProperties}
+            >
+              <header className="lab-bar">
+                <span className="lab-dots" aria-hidden>
+                  <span className="lab-dot" />
+                  <span className="lab-dot" />
+                  <span className="lab-dot" />
                 </span>
-              </div>
+                <span className="min-w-0 truncate font-mono text-[11px] font-semibold text-ink/75">
+                  campus_aerial.jpg — 300 acres, one lab
+                </span>
+                <span className="lab-badge">06</span>
+              </header>
               <div className="relative">
                 <img src={campus} alt="Parul University campus at golden hour" loading="lazy" decoding="async" className="h-[46vh] min-h-[280px] w-full object-cover sm:h-[56vh]" />
                 <p className="absolute bottom-2 left-0 right-0 text-center font-mono text-[8.5px] uppercase tracking-[0.16em] text-ink/30">[ replace with your own image ]</p>
@@ -183,10 +213,10 @@ export function Gallery() {
                   </p>
                 </div>
               </div>
-              <div className="win98-out flex items-center justify-between bg-paper-2 px-3 py-1 font-mono text-[9.5px] text-ink">
+              <footer className="lab-status">
                 <span>Done</span>
                 <span>.Local intranet</span>
-              </div>
+              </footer>
             </div>
           </div>
         </Reveal>

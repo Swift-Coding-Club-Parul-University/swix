@@ -1,4 +1,6 @@
 import { BrandOrbs } from "@/components/threeui/brand-orbs/BrandOrbs";
+import { SwiftMark } from "@/components/ui/Logo";
+import { useIsMobile } from "@/hooks/useMedia";
 import { cn } from "@/utils/cn";
 
 type OrbProps = {
@@ -14,11 +16,37 @@ type OrbProps = {
 };
 
 /**
+ * Static stand-in for the animated orb: the same coin, no engine behind it.
+ *
+ * Each BrandOrbs instance is a whole sandboxed document that parses a 3,000
+ * line canvas script and starts its own rAF loop — and this page ships six of
+ * them for coins 26–56px across. On a phone that is six extra documents and
+ * six animation loops to keep alive while the user scrolls past, in exchange
+ * for a rotation nobody watches. They get the printed plate instead.
+ */
+function StaticOrb({ variant }: { variant: "swift" | "ios" }) {
+  if (variant === "swift") {
+    return <SwiftMark className="absolute inset-0 h-full w-full" />;
+  }
+  return (
+    <span
+      aria-hidden
+      className="absolute inset-0 grid place-items-center bg-[linear-gradient(140deg,#31313a,#0b0b0c_62%)] font-mono font-bold tracking-tight text-white"
+      style={{ fontSize: 11 }}
+    >
+      iOS
+    </span>
+  );
+}
+
+/**
  * Animated brand orb (canvas engine in a sandboxed iframe) mounted inside the
  * site's neo-brutalist dark coin: hard border, hard offset shadow. Offscreen
  * orbs pause themselves via IntersectionObserver, so they're cheap to scatter.
+ * On the phone budget the engine is never mounted at all — see StaticOrb.
  */
 export function Orb({ variant = "swift", size = "medium", box = 64, speed = 1, label, className }: OrbProps) {
+  const mobile = useIsMobile();
   return (
     <span
       role="img"
@@ -30,14 +58,18 @@ export function Orb({ variant = "swift", size = "medium", box = 64, speed = 1, l
       )}
       style={{ width: box, height: box }}
     >
-      <BrandOrbs
-        variant={variant}
-        size={size}
-        mode="dark"
-        speed={speed}
-        className="absolute inset-0"
-        style={{ width: "100%", height: "100%" }}
-      />
+      {mobile ? (
+        <StaticOrb variant={variant} />
+      ) : (
+        <BrandOrbs
+          variant={variant}
+          size={size}
+          mode="dark"
+          speed={speed}
+          className="absolute inset-0"
+          style={{ width: "100%", height: "100%" }}
+        />
+      )}
       {/* inner bevel highlight so the coin reads on dark panels too */}
       <span aria-hidden className="pointer-events-none absolute inset-0 rounded-full border border-white/15" />
     </span>

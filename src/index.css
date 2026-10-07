@@ -237,8 +237,15 @@ body {
   @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
 }
 
-/* Below-the-fold sections skip rendering work until near viewport (layer-by-layer paint) */
+/* Below-the-fold sections skip rendering work until near viewport (layer-by-layer paint).
+   content-visibility: auto is the half that does the skipping — without it
+   contain-intrinsic-size is just a placeholder height for a section that is
+   still being fully laid out and painted, which is what every below-the-fold
+   section used to do. `auto 800px` remembers the real height the first time a
+   section renders, and only falls back to 800px before that, so scroll height
+   settles instead of jumping. */
 .cv-auto {
+  content-visibility: auto;
   contain-intrinsic-size: auto 800px;
 }
 
@@ -378,14 +385,23 @@ body {
   pointer-events: none;
 }
 }
+/* Dark frosted glass. The code tokens (#ff7ab2 / #a5d6ff / #ffb86c) are a
+   dark-theme palette, so this tint has to actually be dark or the type
+   disappears against the paper — but it stays translucent (82–88%) with a
+   live backdrop-blur, so it still reads as glass over the image behind it. */
 .liquid-dark {
   position: relative;
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(240, 81, 56, 0.16));
+  background: linear-gradient(
+    140deg,
+    rgba(34, 30, 40, 0.88),
+    rgba(11, 11, 12, 0.84) 45%,
+    rgba(62, 26, 18, 0.88)
+  );
   -webkit-backdrop-filter: blur(26px) saturate(160%);
   backdrop-filter: blur(26px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow:
-    0 1px 1px rgba(255, 255, 255, 0.25) inset,
+    0 1px 1px rgba(255, 255, 255, 0.22) inset,
     0 30px 70px -30px rgba(0, 0, 0, 0.8);
 }
 @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
@@ -615,7 +631,7 @@ body {
   backface-visibility: hidden;
 }
 .tilt {
-  transition: transform 0.7s var(--ease-out-expo), box-shadow 0.7s var(--ease-out-expo);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
 }
 /* Specular sheen that follows the pointer (vars set from rAF) */
 .sheen::before {
@@ -1056,3 +1072,601 @@ body {
 .hard-shadow {
   text-shadow: 3px 3px 0 var(--color-swift);
 }
+
+/* Spinning feature cube in the Gallery "weekly loop" panel — the turntable
+   pose lives on .lab-cube so reduced-motion users (animation: none) still see
+   the tilted cube, and hovering the stage pauses it for inspection. The
+   shadow breathes with the spin: narrow when a face is square to you,
+   wide when the cube turns corner-on. */
+.lab-cube-stage { perspective: 700px; }
+.lab-cube {
+  transform-style: preserve-3d;
+  transform: rotateX(-16deg) rotateY(-24deg);
+  animation: lab-cube-spin 14s linear infinite;
+}
+.lab-cube-shadow {
+  border-radius: 999px;
+  background: rgba(11, 11, 12, 0.42);
+  filter: blur(7px);
+  opacity: 0.65;
+  animation: lab-cube-shadow 3.5s ease-in-out infinite;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lab-cube-stage:hover .lab-cube,
+  .lab-cube-stage:hover .lab-cube-shadow { animation-play-state: paused; }
+}
+@keyframes lab-cube-spin {
+  0%   { transform: rotateX(-16deg) rotateY(-24deg); }
+  25%  { transform: rotateX(-6deg) rotateY(66deg); }
+  50%  { transform: rotateX(-16deg) rotateY(156deg); }
+  75%  { transform: rotateX(-6deg) rotateY(246deg); }
+  100% { transform: rotateX(-16deg) rotateY(336deg); }
+}
+@keyframes lab-cube-shadow {
+  0%, 100% { transform: scaleX(0.85); opacity: 0.5; }
+  50%      { transform: scaleX(1.12); opacity: 0.9; }
+}
+
+/* ============================================================
+   LAB PANEL KIT — scoped to Features (the four program pillars).
+   Subtle brutalism × Apple glass: hairline ink frame, hard offset
+   shadow, riso halftone colour pass and a print registration mark
+   floated over frosted paper — with real Z-lift on hover.
+   Perspective is declared on each transformed element's *direct
+   parent* so the pop survives backdrop-filter flattening.
+   Unlayered so it outranks utilities; `--tone` / `--tilt-r` are
+   set per panel inline.
+   ============================================================ */
+.lab-panel {
+  --tone: #ffd3bc;
+  --tilt-r: 0deg;
+  --panel-r: 20px;
+  position: relative;
+  border: 1.5px solid var(--color-ink);
+  border-radius: var(--panel-r);
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.93),
+    rgba(255, 250, 245, 0.62) 52%,
+    color-mix(in srgb, var(--tone) 44%, transparent)
+  );
+  -webkit-backdrop-filter: blur(22px) saturate(175%);
+  backdrop-filter: blur(22px) saturate(175%);
+  box-shadow:
+    5px 5px 0 var(--color-ink),
+    0 34px 60px -34px rgba(42, 26, 16, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  will-change: transform;
+  transform: rotate(var(--tilt-r));
+  transition:
+    transform 0.55s var(--ease-out-expo),
+    box-shadow 0.55s var(--ease-out-expo);
+}
+/* Hover/active motion must never translate the panel *out from under* the
+   pointer: an up-left slide drags the box away from a cursor parked near the
+   right/bottom edge — hover flips off, the panel slides back, hover flips on:
+   an infinite jiggle loop with the cursor perfectly still. Scaling outward
+   keeps every interior point inside the box, so the hover state can always
+   sustain itself (geometry flap-proof). */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lab-panel:hover {
+    transform: scale(1.015) rotate(var(--tilt-r));
+    box-shadow:
+      9px 9px 0 var(--color-ink),
+      0 46px 72px -38px rgba(42, 26, 16, 0.55),
+      inset 0 1px 0 #fff;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lab-panel:active {
+    transform: scale(0.985) rotate(var(--tilt-r));
+    box-shadow:
+      2px 2px 0 var(--color-ink),
+      0 22px 40px -30px rgba(42, 26, 16, 0.45),
+      inset 0 1px 0 #fff;
+    transition-duration: 0.12s;
+  }
+}
+
+/* Big container panels (whole-section cards) need a heavier edge */
+.lab-panel--xl {
+  box-shadow:
+    7px 7px 0 var(--color-ink),
+    0 50px 90px -52px rgba(42, 26, 16, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lab-panel--xl:hover {
+    transform: scale(1.015) rotate(var(--tilt-r));
+    box-shadow:
+      12px 12px 0 var(--color-ink),
+      0 60px 100px -55px rgba(42, 26, 16, 0.6),
+      inset 0 1px 0 #fff;
+  }
+}
+
+/* Image frame inside a panel — ink edge + print-proof offset */
+.lab-media {
+  position: relative;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 4px 4px 0 var(--color-ink);
+}
+
+/* macOS-style window chrome, inked */
+.lab-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 13px;
+  border-bottom: 1.5px solid var(--color-ink);
+  border-radius: calc(var(--panel-r) - 1.5px) calc(var(--panel-r) - 1.5px) 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95),
+    color-mix(in srgb, var(--tone) 30%, rgba(255, 255, 255, 0.7))
+  );
+  font-family: var(--font-mono);
+  transition: background 0.5s var(--ease-out-expo);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lab-panel:hover .lab-bar {
+    background: linear-gradient(
+      180deg,
+      #fff,
+      color-mix(in srgb, var(--tone) 44%, rgba(255, 255, 255, 0.8))
+    );
+  }
+}
+.lab-file {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - 150px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(11, 11, 12, 0.74);
+  white-space: nowrap;
+}
+.lab-dots {
+  display: flex;
+  gap: 6px;
+}
+.lab-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(11, 11, 12, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: transform 0.45s var(--ease-out-expo);
+}
+.lab-dot:nth-child(1) { background: #ff5f57; }
+.lab-dot:nth-child(2) { background: #febc2e; }
+.lab-dot:nth-child(3) { background: #28c840; }
+.lab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  padding: 3px 7px;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 2px 2px 0 var(--color-ink);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-ink);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lab-panel:hover .lab-dot { transform: scale(1.15); }
+}
+
+/* riso halftone colour pass — position/size it with utilities on the element */
+.lab-halftone {
+  display: block;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--tone) 76%, var(--color-ink)) 1.7px,
+    transparent 2px
+  );
+  background-size: 8px 8px;
+  opacity: 0.85;
+  -webkit-mask-image: radial-gradient(115% 105% at 102% 6%, #000 20%, transparent 74%);
+  mask-image: radial-gradient(115% 105% at 102% 6%, #000 20%, transparent 74%);
+  pointer-events: none;
+}
+
+/* icon keycap — lifts in Z on hover */
+.lab-band {
+  position: relative;
+  perspective: 900px;
+}
+.lab-icon {
+  position: relative;
+  border: 1.5px solid var(--color-ink);
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.96),
+    color-mix(in srgb, var(--tone) 62%, rgba(255, 255, 255, 0.55))
+  );
+  box-shadow:
+    3px 3px 0 var(--color-ink),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  color: var(--color-swift-deep);
+  transition:
+    transform 0.55s var(--ease-out-expo),
+    box-shadow 0.55s var(--ease-out-expo);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lab-panel:hover .lab-icon {
+    transform: translateZ(36px) rotate(-7deg);
+    box-shadow:
+      6px 6px 0 var(--color-ink),
+      inset 0 1px 0 #fff;
+  }
+}
+
+/* riso sticker tag — ink frame, hard shadow, tone swatch */
+.lab-copy {
+  position: relative;
+  perspective: 900px;
+}
+.lab-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 11px;
+  border: 1.5px solid var(--color-ink);
+  background: rgba(255, 255, 255, 0.93);
+  box-shadow: 2.5px 2.5px 0 var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  transition:
+    transform 0.5s var(--ease-out-expo),
+    box-shadow 0.5s var(--ease-out-expo);
+}
+.lab-tag::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: none;
+  background: var(--tone);
+  border: 1px solid var(--color-ink);
+  transform: rotate(45deg);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lab-panel:hover .lab-tag {
+    transform: translate3d(-2px, -3px, 14px);
+    box-shadow: 4.5px 4.5px 0 var(--color-ink);
+  }
+}
+
+/* print-proof status bar with registration target */
+.lab-status {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 13px;
+  border-top: 1.5px solid var(--color-ink);
+  border-radius: 0 0 calc(var(--panel-r) - 1.5px) calc(var(--panel-r) - 1.5px);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.66),
+    color-mix(in srgb, var(--tone) 24%, rgba(255, 246, 238, 0.92))
+  );
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(11, 11, 12, 0.6);
+}
+.lab-status__reg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 15px;
+  height: 15px;
+  transform: translate(-50%, -50%);
+  color: rgba(11, 11, 12, 0.42);
+}
+.lab-live {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #1fae5a;
+  border: 1px solid rgba(11, 11, 12, 0.45);
+  box-shadow: 0 0 0 3px rgba(31, 174, 90, 0.16);
+}
+
+/* ============================================================
+   HERO BACKDROP — a layered print sheet behind the hero.
+   Static gradients + one static perspective floor: painted once,
+   no animation, no layout. The colour pools matter because frosted
+   glass over a flat colour reads as nothing — backdrop-filter needs
+   something with contrast to blur.
+   ============================================================ */
+.hero-field {
+  position: absolute;
+  inset: 0;
+  background:
+    /* the pool that sits directly behind the glass plate — frosted glass over
+       a flat wash reads as grey, so it needs real colour to blur */
+    radial-gradient(760px 620px at 74% 34%, rgba(240, 81, 56, 0.34), transparent 66%),
+    radial-gradient(520px 460px at 88% 16%, rgba(255, 237, 163, 0.7), transparent 70%),
+    radial-gradient(760px 600px at 4% 3%, rgba(255, 214, 188, 0.95), transparent 66%),
+    radial-gradient(840px 680px at 102% 62%, rgba(217, 207, 255, 0.6), transparent 68%),
+    radial-gradient(700px 540px at 26% 92%, rgba(185, 236, 205, 0.4), transparent 70%),
+    linear-gradient(180deg, #fffaf5 0%, #fff7f0 52%, #fffaf5 100%);
+}
+
+/* Riso halftone pass. Two plates of the same dots at different tones and
+   a few px of offset = real print misregistration, not a texture decal. */
+.hero-halftone {
+  --tone: #f05138;
+  position: absolute;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--tone) 70%, var(--color-ink)) 2.1px,
+    transparent 2.8px
+  );
+  background-size: 15px 15px;
+  opacity: 0.5;
+  pointer-events: none;
+  /* centre the dense end of the ramp inside the viewport, not off its corner */
+  -webkit-mask-image: radial-gradient(120% 108% at 88% 8%, #000 6%, transparent 66%);
+  mask-image: radial-gradient(120% 108% at 88% 8%, #000 6%, transparent 66%);
+}
+.hero-halftone--b {
+  --tone: #d9cfff;
+  background-position: 7px 5px;
+  opacity: 0.42;
+}
+/* third plate, bottom-left corner, masked the other way round */
+.hero-halftone--c {
+  --tone: #f05138;
+  opacity: 0.38;
+  -webkit-mask-image: radial-gradient(120% 110% at 14% 88%, #000 5%, transparent 64%);
+  mask-image: radial-gradient(120% 110% at 14% 88%, #000 5%, transparent 64%);
+}
+
+/* Perspective floor — a static grid tipped into Z so the hero has a ground
+   plane instead of floating on flat paper. Weak perspective + a shallow tilt
+   keeps it inside the section; a strong tilt collapses it to a sliver. */
+.hero-floor {
+  position: absolute;
+  left: -40%;
+  right: -40%;
+  /* Sit the plane's near edge exactly on the section's bottom border. The
+     origin of the rotation is that edge, so it does not move under the
+     transform — and the mask starts transparent there, so the grid dies out
+     instead of being guillotined by the section's overflow-hidden. */
+  bottom: 0;
+  height: 60%;
+  background-image:
+    linear-gradient(to right, rgba(11, 11, 12, 0.13) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 11, 12, 0.13) 1px, transparent 1px);
+  background-size: 58px 58px;
+  transform: perspective(1100px) rotateX(58deg);
+  transform-origin: 50% 100%;
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    rgba(0, 0, 0, 0.85) 16%,
+    #000 32%,
+    rgba(0, 0, 0, 0.5) 68%,
+    transparent 97%
+  );
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    rgba(0, 0, 0, 0.85) 16%,
+    #000 32%,
+    rgba(0, 0, 0, 0.5) 68%,
+    transparent 97%
+  );
+  pointer-events: none;
+}
+
+/* Swift-plate ghost for the giant watermark: same word, offset a few px,
+   stroked in swift — the misregistered second colour pass. */
+.text-stroke-swift {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(240, 81, 56, 0.55);
+  paint-order: stroke fill;
+}
+
+/* ============================================================
+   PHONE BUDGET
+   One media query, three savings, applied to the same design.
+
+   The condition is `(max-width: 767px)` OR a coarse pointer on a device
+   with no hover — i.e. a phone, or a small tablet — and it is deliberately
+   identical to `useIsMobile()` in hooks/useMedia.ts so the JS decisions
+   (don't mount the orb engine, don't oversample the story canvas) and the
+   CSS decisions below can never disagree.
+
+   Everything here is decoration. Content, copy, colour, hierarchy and the
+   print-proof art direction are untouched: a phone sees the same page, it
+   just doesn't pay for the parts nobody looks at.
+   ============================================================ */
+@media (max-width: 767px), (hover: none) and (pointer: coarse) {
+
+  /* ------------------------------------------------------------
+     1 · Frosted glass, without the frost.
+
+     backdrop-filter is the most expensive property on this page for a
+     phone GPU: every instance is a live read-back and blur of everything
+     painted behind it, and at last count there were 104 of them across
+     the sections. They are also the reason a scroll stutters — the blur
+     has to be re-run whenever anything behind the panel moves.
+
+     So the blur goes, and each panel's fill opacity goes up to the value
+     the blur was standing in for. Same hue, same hairline rim, same
+     shadow, same tint bleed from `--tone` — just painted from real
+     pixels instead of a sampled buffer.
+     ------------------------------------------------------------ */
+  .liquid {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.9) 45%, rgba(255, 214, 200, 0.95));
+  }
+  .liquid-dark {
+    /* already 84–88% opaque — the blur was doing almost nothing here */
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.93);
+  }
+  .glass-dark {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(28, 28, 31, 0.92);
+  }
+  .glass-chip {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.92);
+  }
+  .glass-chip-dark {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(20, 24, 56, 0.88);
+  }
+  .glass-panel {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: linear-gradient(155deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.88) 48%, rgba(255, 236, 222, 0.93));
+  }
+  .frost {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+  }
+  .webcore-tile {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.93);
+  }
+  .btn-ghost {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  /* the refractive pieces are pure CSS gradients anyway — only the blur
+     behind them ever cost anything */
+  .prism-ball,
+  .glass-ring {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .lab-panel {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(255, 250, 245, 0.96) 52%,
+      color-mix(in srgb, var(--tone) 72%, #fffaf5)
+    );
+    /* Hover is the only thing this transform ever changes, and hover does
+       not exist on a touchscreen — so the permanent composited layer it
+       buys is pure overhead across ~36 panels. */
+    will-change: auto;
+  }
+  /* the two blur utilities that survive elsewhere in the app */
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  /* the open mobile menu blurs the whole page behind it, which on a phone
+     means re-blurring a full-height layer every frame of the scroll under it */
+  #mobile-menu {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: rgba(255, 250, 245, 0.97);
+  }
+
+  /* ------------------------------------------------------------
+     2 · Stop the loops that never stop.
+
+     ~150 elements on this page animate forever — floating chips, spinning
+     rings, morphing blobs, scrolling marquees, pulsing stars — including
+     inside sections the user has not reached yet. Each one is a
+     continuously-updated composited layer, and together they keep the
+     compositor busy for the whole session whether or not anything is on
+     screen. These are all background texture; at rest they land on a
+     designed pose.
+
+     Substring attribute selectors rather than class selectors because
+     several of these are written with Tailwind's `motion-safe:` prefix,
+     which changes the class token itself.
+     ------------------------------------------------------------ */
+  :is(
+    [class*="animate-float"],
+    [class*="animate-morph"],
+    [class*="animate-drift"],
+    [class*="animate-spin-slow"],
+    [class*="animate-spin-3d"],
+    [class*="animate-wobble"],
+    [class*="animate-scribble"],
+    [class*="animate-atomi-orbit"],
+    [class*="animate-pulse-soft"],
+    [class*="animate-marquee"],
+    [class*="animate-shimmer"],
+    [class*="animate-orbit"]
+  ) {
+    animation: none !important;
+  }
+  /* …and the ones injected straight into a style attribute, which no class
+     selector can reach. All decoration. (Chrome serializes an inline
+     `animation` shorthand with the name last, so these match on the keyframe
+     name itself rather than on any assumed word position.) */
+  [style*="orbit-spin"],
+  [style*="atomi-orbit"],
+  [style*="pulse-soft"] {
+    animation: none !important;
+  }
+  /* the moving sheen on the accent buttons: hiding it rather than stopping
+     it, because a static `sweep::after` is a white band parked on the left
+     third of the button */
+  .sweep::after {
+    display: none;
+  }
+  /* stopping a morph reverts border-radius to the element's own, which for
+     the section blobs is none — freeze it at a blob shape instead so the
+     backdrop stays organic */
+  :is([class*="animate-morph"]) {
+    border-radius: 46% 54% 50% 50% / 52% 48% 52% 48%;
+  }
+
+  /* ------------------------------------------------------------
+     3 · A boot sequence you can wait out on a phone.
+
+     2.6s of 3D intro plus a 0.7s exit is over three seconds of scroll
+     lock before the site responds to a tap. Same intro, half the exit,
+     and roughly a third of the hold.
+     ------------------------------------------------------------ */
+  .boot-screen,
+  .boot-content {
+    transition-duration: 0.35s;
+  }
+}
+

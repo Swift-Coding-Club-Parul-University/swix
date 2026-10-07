@@ -27,7 +27,11 @@ export function Splash({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     if (phase !== "boot") return;
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const duration = media.matches ? 120 : 2600;
+    const narrow = window.matchMedia("(max-width: 767px), (hover: none) and (pointer: coarse)").matches;
+    // A phone waits through the same intro, held for a third of the time —
+    // it is scroll-locked for the whole of it, on the connection where the
+    // user is least patient. Matches the PHONE BUDGET block in index.css.
+    const duration = media.matches ? 120 : narrow ? 900 : 2600;
     const start = performance.now();
     const interval = window.setInterval(() => {
       setProgress(Math.min(99, Math.floor(((performance.now() - start) / duration) * 100)));
@@ -55,7 +59,11 @@ export function Splash({ onComplete }: { onComplete: () => void }) {
       setPhase("out");
       onComplete();
       if (restoreFocus) window.requestAnimationFrame(() => document.getElementById("main")?.focus({ preventScroll: true }));
-    }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 700);
+      // Exit length tracks the (halved on phones) .boot-screen transition in
+      // index.css — if these drift apart the splash unmounts mid-fade.
+    }, window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? 0
+      : window.matchMedia("(max-width: 767px), (hover: none) and (pointer: coarse)").matches ? 380 : 700);
     return () => clearTimeout(timer);
   }, [onComplete, phase]);
 

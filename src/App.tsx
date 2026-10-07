@@ -22,7 +22,6 @@ const Coverflow = lazy(() => import("./components/Coverflow").then((m) => ({ def
 const Timeline = lazy(() => import("./components/Timeline").then((m) => ({ default: m.Timeline })));
 const Gallery = lazy(() => import("./components/Gallery").then((m) => ({ default: m.Gallery })));
 const Stats = lazy(() => import("./components/Stats").then((m) => ({ default: m.Stats })));
-const GalleryWall = lazy(() => import("./components/GalleryWall").then((m) => ({ default: m.GalleryWall })));
 const Team = lazy(() => import("./components/Team").then((m) => ({ default: m.Team })));
 const Testimonials = lazy(() => import("./components/Testimonials").then((m) => ({ default: m.Testimonials })));
 const Tracks = lazy(() => import("./components/Tracks").then((m) => ({ default: m.Tracks })));
@@ -59,7 +58,6 @@ export default function App() {
           <Timeline />
           <Gallery />
           <Stats />
-          <GalleryWall />
           <Team />
           <Testimonials />
           <Tracks />

@@ -159,7 +159,16 @@ export function ScrollStory() {
 
     let width = 0;
     let height = 0;
-    let dpr = Math.min(2, window.devicePixelRatio || 1);
+    /**
+     * Backing-store scale for the story canvas. The whole scene is drawn
+     * procedurally on scroll, so this multiplies the cost of every one of
+     * those frames — and a phone has a third of the fill rate of the laptop
+     * this was tuned on. 1.5x on a narrow screen still oversamples a 390pt
+     * display; above that the extra pixels buy sharpness nobody can see on
+     * a screen that size.
+     */
+    const dprCap = () => (window.innerWidth < 768 ? 1.5 : 2);
+    let dpr = Math.min(dprCap(), window.devicePixelRatio || 1);
     let raf = 0;
     let dirty = true;
     let visible = false;
@@ -168,7 +177,7 @@ export function ScrollStory() {
       const rect = canvas.getBoundingClientRect();
       width = rect.width;
       height = rect.height;
-      dpr = Math.min(2, window.devicePixelRatio || 1);
+      dpr = Math.min(dprCap(), window.devicePixelRatio || 1);
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       dirty = true;

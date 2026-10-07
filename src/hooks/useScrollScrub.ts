@@ -30,10 +30,20 @@ export function useScrollScrub<T extends HTMLElement = HTMLDivElement>() {
       requestAnimationFrame(update);
     };
 
+    // Sections below the fold carry `content-visibility: auto`, so until they
+    // render they measure as their contain-intrinsic-size placeholder (800px)
+    // rather than their real height — and this progress is a function of that
+    // height. Watching the element itself means the value is corrected the
+    // moment the browser swaps the placeholder for the real box, which is
+    // otherwise only caught by the next scroll event.
+    const ro = new ResizeObserver(onScroll);
+    ro.observe(el);
+
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
+      ro.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };

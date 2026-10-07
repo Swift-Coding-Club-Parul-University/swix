@@ -39,11 +39,14 @@ export function CTA() {
       <div className="container-x">
         <Reveal variant="scale">
           <div
-            className="atomi-section relative overflow-hidden rounded-[36px] px-6 py-16 sm:px-12 sm:py-24 lg:px-20"
-            style={{
-              border: "2px solid rgba(180,85,45,0.4)",
-              boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 34px 80px -34px rgba(122,60,20,0.5)",
-            }}
+            className="lab-panel lab-panel--xl relative overflow-hidden px-6 py-16 sm:px-12 sm:py-24 lg:px-20"
+            style={
+              {
+                "--tone": "#FFD3BC",
+                "--panel-r": "36px",
+                "--tilt-r": "0.4deg",
+              } as React.CSSProperties
+            }
           >
             {/* starfield + orbits inside the panel */}
             <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -67,10 +70,8 @@ export function CTA() {
             <div className="relative grid gap-10 lg:grid-cols-12">
               <div className="lg:col-span-8">
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className="atomi-btn rounded-full px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em]">Spring '26</span>
-                  <span className="rounded-full border border-[#b4552d]/40 bg-white/70 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#6b4a34]">
-                    Applications close 28 Feb
-                  </span>
+                  <span className="lab-tag">Spring '26</span>
+                  <span className="lab-tag">Applications close 28 Feb</span>
                   <Orb variant="swift" box={48} className="ml-1" />
                 </div>
                 <h2 className="display mt-6 text-balance text-4xl text-[#2a1a10] sm:text-6xl lg:text-[4.6rem]">
@@ -113,7 +114,16 @@ export function CTA() {
               </div>
 
               <div className="lg:col-span-4 lg:pl-8">
-                <div className="glass-panel mb-8 hidden rounded-[26px] p-5 lg:block">
+                <div
+                  className="lab-panel mb-8 hidden p-5 lg:block"
+                  style={
+                    {
+                      "--tone": "#FFEDA3",
+                      "--panel-r": "26px",
+                      "--tilt-r": "-0.4deg",
+                    } as React.CSSProperties
+                  }
+                >
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6b4a34]">What you get</p>
                   <ul className="mt-3 space-y-2 text-[13.5px] font-medium text-[#2a1a10]">
                     <li className="flex items-center gap-2"><span className="text-swift">✦</span> Weekly lab access + Macs</li>

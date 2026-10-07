@@ -18,6 +18,7 @@ export function Magnetic({
   const ref = useRef<HTMLDivElement>(null);
   const frame = useRef<number | null>(null);
   const pos = useRef({ x: 0, y: 0 });
+  const base = useRef<DOMRect | null>(null);
 
   const paint = useCallback(() => {
     frame.current = null;
@@ -26,10 +27,21 @@ export function Magnetic({
     el.style.transform = `translate3d(${pos.current.x * strength}px, ${pos.current.y * strength}px, 0)`;
   }, [strength]);
 
+  // Measure from the resting rect captured on enter, never the live one:
+  // re-reading the element's own (mid-spring) box on every move feeds its
+  // overshoot back into the next target and the element visibly wobbles.
+  const onEnter = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      if (!active || e.pointerType !== "mouse") return;
+      base.current = e.currentTarget.getBoundingClientRect();
+    },
+    [active]
+  );
+
   const onMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
       if (!active || e.pointerType !== "mouse") return;
-      const r = e.currentTarget.getBoundingClientRect();
+      const r = base.current ?? e.currentTarget.getBoundingClientRect();
       pos.current = { x: e.clientX - (r.left + r.width / 2), y: e.clientY - (r.top + r.height / 2) };
       if (frame.current === null) frame.current = requestAnimationFrame(paint);
     },
@@ -38,6 +50,7 @@ export function Magnetic({
 
   const onLeave = useCallback(() => {
     if (!active) return;
+    base.current = null;
     pos.current = { x: 0, y: 0 };
     if (frame.current === null) frame.current = requestAnimationFrame(paint);
   }, [active, paint]);
@@ -45,6 +58,7 @@ export function Magnetic({
   return (
     <div
       ref={ref}
+      onPointerEnter={onEnter}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
       className={cn("gpu inline-flex will-change-transform", className)}

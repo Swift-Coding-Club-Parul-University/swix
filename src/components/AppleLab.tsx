@@ -1,8 +1,9 @@
 import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 import { Tilt } from "./ui/Tilt";
-import { Orb } from "./ui/Orb";
 import { GlassCube } from "./ui/GlassCube";
+import { LabFoot, LabWin } from "./ui/LabChrome";
+import { PrismOrb } from "./ui/PrismOrb";
 import { ShaderBackground } from "./ui/feature-shader-cards";
 import { cn } from "@/utils/cn";
 
@@ -13,6 +14,8 @@ const curriculum = [
   { n: "04", t: "App Design", d: "Apply Apple's design principles to turn ideas into intuitive, user-centred apps." },
   { n: "05", t: "Project-Based", d: "Guided labs, collaborative projects, prototyping — the work that becomes your portfolio." },
 ];
+
+const stageTones = ["#FFD3BC", "#B9ECCD", "#BDE4FF", "#FFEDA3", "#FFC6DD"];
 
 const devices = [
   { n: 22, l: "iMacs" },
@@ -86,27 +89,36 @@ export function AppleLab() {
           {/* Praneel spotlight */}
           <Reveal variant="scale" className="lg:col-span-7">
             <Tilt max={5} lift={18} className="h-full">
-              <div
-                className="relative h-full overflow-hidden rounded-[32px] p-7 sm:p-10"
-                style={{
-                  border: "1.5px solid rgba(180,85,45,0.35)",
-                  boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 24px 50px -24px rgba(122,60,20,0.35)",
-                }}
+              <article
+                className="lab-panel relative flex h-full flex-col overflow-hidden"
+                style={
+                  {
+                    "--tone": "#FFD3BC",
+                    "--panel-r": "32px",
+                    "--tilt-r": "-0.4deg",
+                  } as React.CSSProperties
+                }
               >
-                <ShaderBackground index={8} speed={0} className="!rounded-[32px]" />
-                <div className="absolute inset-0 z-[1] rounded-[32px] bg-gradient-to-br from-white/60 via-white/40 to-white/20" />
-                <div className="relative z-[2]">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="atomi-btn rounded-full px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em]">Student Success · 2026</span>
-                    <span className="rounded-full border border-[#b4552d]/40 bg-white/70 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#6b4a34]">First-year</span>
-                    <Orb variant="ios" box={40} size="small" className="ml-1" />
+                <ShaderBackground index={8} speed={0} className="!rounded-[30px] opacity-[0.55]" />
+
+                <LabWin file="student_success.swift" n="04" />
+
+                <div className="lab-body relative z-10 flex flex-1 flex-col p-7 sm:p-10">
+                  <div className="lab-band">
+                    <span aria-hidden className="lab-halftone absolute -top-6 -right-4 h-[230px] w-[46%] -z-10" />
+                    <div className="lab-copy flex flex-wrap items-center gap-3 pr-16 sm:pr-24">
+                      <span className="lab-tag">Student Success · 2026</span>
+                      <span className="lab-tag">First-year</span>
+                    </div>
+                    <PrismOrb className="absolute -top-4 right-0" size={58} tone="rose" satellite />
                   </div>
-                  <h3 className="display mt-6 text-balance text-3xl text-[#2a1a10] sm:text-5xl">
+
+                  <h3 className="display mt-6 text-balance text-3xl text-ink sm:text-5xl">
                     From no Mac to Apple's <span className="text-[#c2521f]">global Top 350</span>.
                   </h3>
-                  <p className="mt-5 max-w-xl text-pretty text-[16px] leading-relaxed text-[#4a3628]">
+                  <p className="mt-5 max-w-xl text-pretty text-[16px] leading-relaxed text-muted">
                     Praneel Pandey, first-year B.Tech CSE, didn't own a Mac. He learned Swift on the Apple
-                    Lab's curriculum through this club, built <strong className="text-[#2a1a10]">Blink Break</strong> — an
+                    Lab's curriculum through this club, built <strong className="text-ink">Blink Break</strong> — an
                     eye-movement-controlled game in SwiftUI — and Apple put him in the top 350
                     of 37 countries in the Swift Student Challenge 2026. Five months, start to finish.
                   </p>
@@ -117,78 +129,111 @@ export function AppleLab() {
                       ["10–12h", "daily in the final month"],
                       ["0 Macs", "owned by Praneel — used the lab"],
                     ].map(([n, l]) => (
-                      <div key={n} className="rounded-2xl border border-[#b4552d]/30 bg-white/70 p-4 shadow-[0_10px_26px_-18px_rgba(122,60,20,0.5)]">
-                        <p className="display text-2xl text-[#b4552d]">{n}</p>
-                        <p className="mt-1 text-[11.5px] leading-snug text-[#6b4a34]">{l}</p>
+                      <div
+                        key={n}
+                        className="rounded-[14px] border-[1.5px] border-ink bg-white/85 p-4 shadow-[3px_3px_0_var(--color-ink)] motion-safe:transition-transform motion-safe:hover:-translate-y-0.5"
+                      >
+                        <p className="display text-2xl text-[#c2521f]">{n}</p>
+                        <p className="mt-1 text-[11.5px] leading-snug text-muted">{l}</p>
                       </div>
                     ))}
                   </div>
 
-                  <a href="#join" className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[#c2521f] hover:text-[#2a1a10]">
-                    Read the full story →
+                  <div className="flex-1" />
+                  <a href="#join" className="group mt-8 inline-flex items-center gap-2 text-sm font-bold text-[#c2521f] hover:text-ink">
+                    Read the full story
+                    <span aria-hidden className="motion-safe:transition-transform motion-safe:group-hover:translate-x-1">→</span>
                   </a>
                 </div>
-              </div>
+
+                <LabFoot left="story · 2026" right="top 350" />
+              </article>
             </Tilt>
           </Reveal>
 
           {/* Lab specs */}
           <div className="grid gap-4 lg:col-span-5">
             <Reveal delay={120}>
-              <div
-                className="relative overflow-hidden rounded-[28px] p-6 sm:p-8"
-                style={{
-                  border: "1.5px solid rgba(180,85,45,0.35)",
-                  boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 20px 44px -20px rgba(122,60,20,0.4)",
-                }}
+              <article
+                className="lab-panel relative flex flex-col overflow-hidden"
+                style={
+                  {
+                    "--tone": "#B9ECCD",
+                    "--panel-r": "28px",
+                    "--tilt-r": "0.4deg",
+                  } as React.CSSProperties
+                }
               >
-                <ShaderBackground index={9} speed={0} className="!rounded-[28px]" />
-                <div className="absolute inset-0 z-[1] rounded-[28px] bg-gradient-to-br from-white/60 via-white/40 to-white/20" />
-                <div className="relative z-[2]">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#8a6a50]">The Apple Lab · Block B</p>
-                  <p className="display mt-3 text-4xl text-[#2a1a10] sm:text-5xl">29 devices</p>
-                  <p className="mt-1 text-[13.5px] text-[#4a3628]">So you don't need to own a Mac.</p>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {devices.map((d) => (
-                      <span key={d.l} className="rounded-full border border-[#b4552d]/35 bg-white/75 px-3 py-1.5 text-[12px] font-bold text-[#4a2e18]">
-                        {d.n}× {d.l}
+                <ShaderBackground index={9} speed={0} className="!rounded-[26px] opacity-[0.55]" />
+
+                <LabWin file="apple_lab.specs" n="29" />
+
+                <div className="lab-body relative z-10 flex-1 p-6 sm:p-8">
+                  <div className="lab-band">
+                    <span aria-hidden className="lab-halftone absolute -top-5 -right-3 h-[210px] w-[45%] -z-10" />
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">The Apple Lab · Block B</p>
+                    <p className="display mt-3 text-4xl text-ink sm:text-5xl">29 devices</p>
+                    <p className="mt-1 text-[13.5px] text-muted">So you don't need to own a Mac.</p>
+                    <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                      {devices.map((d) => (
+                        <div
+                          key={d.l}
+                          className="flex items-baseline gap-1.5 rounded-[12px] border-[1.5px] border-ink bg-white/85 px-3 py-2 shadow-[2.5px_2.5px_0_var(--color-ink)] motion-safe:transition-transform motion-safe:hover:-translate-y-0.5"
+                        >
+                          <span className="display text-lg leading-none text-[#c2521f]">{d.n}×</span>
+                          <span className="font-mono text-[11px] font-semibold text-muted">{d.l}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <LabFoot left="block b · floor 3" right="open weekdays" />
+              </article>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <article
+                className="lab-panel relative flex flex-col overflow-hidden"
+                style={
+                  {
+                    "--tone": "#BDE4FF",
+                    "--panel-r": "28px",
+                    "--tilt-r": "-0.4deg",
+                  } as React.CSSProperties
+                }
+              >
+                <ShaderBackground index={10} speed={0} className="!rounded-[26px] opacity-[0.55]" />
+
+                <LabWin file="trainer_profile.swift" n="ACT" />
+
+                <div className="lab-body relative z-10 flex-1 p-6 sm:p-8">
+                  <div className="lab-band flex items-start justify-between gap-4">
+                    <span aria-hidden className="lab-halftone absolute -top-5 -right-3 h-[200px] w-[46%] -z-10" />
+                    <div className="min-w-0">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">Your trainer</p>
+                      <p className="mt-2 text-[17px] font-bold tracking-tight text-ink">Umang Panchal</p>
+                      <p className="text-[13px] text-muted">Apple Certified Trainer</p>
+                    </div>
+                    <span className="lab-icon grid h-12 w-12 shrink-0 place-items-center rounded-[13px] font-mono text-[10px] font-bold tracking-[0.08em]">
+                      ACT
+                    </span>
+                  </div>
+                  <p className="mt-5 text-[13.5px] leading-relaxed text-muted">
+                    Leads the Develop in Swift curriculum on campus. Mentored the team behind Parul's
+                    Swift Student Challenge entries — including Praneel's Top-350 project.
+                  </p>
+                  <div className="lab-copy mt-5 flex flex-wrap gap-2.5">
+                    {["Swift", "SwiftUI", "App dev"].map((s) => (
+                      <span key={s} className="lab-tag">
+                        {s}
                       </span>
                     ))}
                   </div>
                 </div>
-              </div>
-            </Reveal>
 
-            <Reveal delay={200}>
-              <div
-                className="relative overflow-hidden rounded-[28px] p-6 sm:p-8"
-                style={{
-                  border: "1.5px solid rgba(180,85,45,0.3)",
-                  boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 20px 44px -20px rgba(122,60,20,0.35)",
-                }}
-              >
-                <ShaderBackground index={10} speed={0} className="!rounded-[28px]" />
-                <div className="absolute inset-0 z-[1] rounded-[28px] bg-gradient-to-br from-white/60 via-white/40 to-white/20" />
-                <div className="relative z-[2]">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#8a6a50]">Your trainer</p>
-                      <p className="mt-2 text-[17px] font-bold tracking-tight text-[#2a1a10]">Umang Panchal</p>
-                      <p className="text-[13px] text-[#4a3628]">Apple Certified Trainer</p>
-                    </div>
-                    <span className="atomi-btn grid h-11 w-11 place-items-center rounded-full font-mono text-[10px] tracking-[0.1em]">ACT</span>
-                  </div>
-                  <p className="mt-5 text-[13.5px] leading-relaxed text-[#4a3628]">
-                    Leads the Develop in Swift curriculum on campus. Mentored the team behind Parul's
-                    Swift Student Challenge entries — including Praneel's Top-350 project.
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {["Swift", "SwiftUI", "App dev"].map((s) => (
-                      <span key={s} className="rounded-md border border-[#b4552d]/25 bg-white/70 px-2 py-0.5 font-mono text-[10.5px] text-[#4a3628]">{s}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                <LabFoot left="mentor · 1:1 slots" right="accepting mentees" />
+              </article>
             </Reveal>
           </div>
         </div>
@@ -210,28 +255,43 @@ export function AppleLab() {
               </div>
             </Reveal>
 
-            <ol className="lg:col-span-8">
-              {curriculum.map((c, i) => (
-                <Reveal as="li" key={c.n} delay={i * 80}>
-                  <div className="group flex items-start gap-5 border-t border-[#b4552d]/25 py-6 first:border-t-0 sm:py-8">
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[#b4552d]/40 bg-white/70 font-mono text-[11px] font-bold text-[#b4552d] shadow-[0_6px_16px_-10px_rgba(122,60,20,0.6)]">
-                      {c.n}
-                    </span>
-                    <div>
-                      <h3 className="text-xl font-bold tracking-tight text-[#2a1a10] sm:text-[1.6rem]">{c.t}</h3>
-                      <p className="mt-2 max-w-xl text-pretty text-[15px] leading-relaxed text-[#6b4a34]">{c.d}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-              <li className="border-t border-[#b4552d]/25 py-6">
-                <div className="flex flex-wrap items-center gap-4">
-                  <a href="#join" className="atomi-btn inline-flex items-center px-6 py-3 text-sm">Start Explorations</a>
-                  <span className="rounded-full border border-[#b4552d]/35 bg-white/70 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#6b4a34]">New batch every week</span>
-                  <span className="rounded-full border border-[#b4552d]/35 bg-white/70 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#6b4a34]">One-week intensive</span>
-                </div>
-              </li>
-            </ol>
+            <div className="lg:col-span-8">
+              <ol className="space-y-5">
+                {curriculum.map((c, i) => (
+                  <Reveal as="li" key={c.n} delay={i * 80}>
+                    <article
+                      className="lab-panel relative overflow-hidden"
+                      style={
+                        {
+                          "--tone": stageTones[i % stageTones.length],
+                          "--panel-r": "22px",
+                          "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg",
+                        } as React.CSSProperties
+                      }
+                    >
+                      <LabWin file={`stage_${c.n}.swift`} n={c.n} />
+
+                      <div className="lab-body relative z-10 flex items-start gap-5 p-6 sm:gap-6 sm:p-7">
+                        <span aria-hidden className="lab-halftone absolute -top-5 -right-3 h-[180px] w-[34%] -z-10" />
+                        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] border-[1.5px] border-ink bg-white/85 font-mono text-[12px] font-bold text-[#c2521f] shadow-[3px_3px_0_var(--color-ink)]">
+                          {c.n}
+                        </span>
+                        <div>
+                          <h3 className="text-xl font-bold tracking-tight text-ink sm:text-[1.6rem]">{c.t}</h3>
+                          <p className="mt-2 max-w-xl text-pretty text-[15px] leading-relaxed text-muted">{c.d}</p>
+                        </div>
+                      </div>
+                    </article>
+                  </Reveal>
+                ))}
+              </ol>
+
+              <Reveal delay={400} className="mt-7 flex flex-wrap items-center gap-4">
+                <a href="#join" className="atomi-btn inline-flex items-center px-6 py-3 text-sm">Start Explorations</a>
+                <span className="lab-tag" style={{ "--tone": "#FFD3BC" } as React.CSSProperties}>New batch every week</span>
+                <span className="lab-tag" style={{ "--tone": "#B9ECCD" } as React.CSSProperties}>One-week intensive</span>
+              </Reveal>
+            </div>
           </div>
         </div>
 
@@ -247,34 +307,44 @@ export function AppleLab() {
             {certs.map((c, i) => (
               <Reveal key={c.t} delay={i * 100}>
                 <Tilt max={5} lift={14} className="h-full">
-                  <div
-                    className="relative overflow-hidden rounded-[28px] p-7"
-                    style={{
-                      border: "1.5px solid rgba(180,85,45,0.32)",
-                      boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 20px 44px -20px rgba(122,60,20,0.35)",
-                    }}
+                  <article
+                    className="lab-panel relative flex h-full flex-col overflow-hidden"
+                    style={
+                      {
+                        "--tone": i % 2 ? "#FFC6DD" : "#D9CFFF",
+                        "--panel-r": "28px",
+                        "--tilt-r": i % 2 ? "-0.4deg" : "0.4deg",
+                      } as React.CSSProperties
+                    }
                   >
-                    <ShaderBackground index={11} speed={0} className="!rounded-[28px]" />
-                    <div className="absolute inset-0 z-[1] rounded-[28px] bg-gradient-to-br from-white/60 via-white/40 to-white/20" />
-                    <div className="relative z-[2]">
-                      <div className="flex items-start justify-between">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#8a6a50]">Level 0{i + 1}</span>
-                        <div className="relative grid h-14 w-14 place-items-center">
+                    <ShaderBackground index={11} speed={0} className="!rounded-[26px] opacity-[0.55]" />
+
+                    <LabWin file={`credential_0${i + 1}.swift`} n={`0${i + 1}`} />
+
+                    <div className="lab-body relative z-10 flex flex-1 flex-col p-7">
+                      <div className="lab-band flex items-start justify-between gap-4">
+                        <span aria-hidden className="lab-halftone absolute -top-5 -right-3 h-[190px] w-[44%] -z-10" />
+                        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">Apple credential</span>
+                        <div className="relative grid h-14 w-14 shrink-0 place-items-center">
                           <span className="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-[#b4552d]/50" style={{ animationDuration: "30s" }} />
                           <span className="grid h-9 w-9 place-items-center rounded-full bg-[#b4552d] text-lg text-[#ffe8d2] shadow-[0_10px_22px_-10px_rgba(180,85,45,0.8)]">
                             {c.star}
                           </span>
                         </div>
                       </div>
-                      <h3 className="mt-5 text-balance text-xl font-bold tracking-tight text-[#2a1a10] sm:text-2xl">{c.t}</h3>
-                      <p className="mt-3 text-[14px] leading-relaxed text-[#4a3628]">{c.d}</p>
-                      <div className="mt-6 flex flex-wrap gap-2">
+                      <h3 className="mt-5 text-balance text-xl font-bold tracking-tight text-ink sm:text-2xl">{c.t}</h3>
+                      <p className="mt-3 text-[14px] leading-relaxed text-muted">{c.d}</p>
+                      <div className="lab-copy mt-6 flex flex-wrap gap-2.5">
                         {["Globally recognised", "Digital badge", "CV-ready"].map((p) => (
-                          <span key={p} className="rounded-full border border-[#b4552d]/25 bg-white/70 px-2.5 py-1 text-[11px] font-medium text-[#4a3628]">{p}</span>
+                          <span key={p} className="lab-tag">
+                            {p}
+                          </span>
                         ))}
                       </div>
                     </div>
-                  </div>
+
+                    <LabFoot left={`level 0${i + 1}`} right="verifiable badge" />
+                  </article>
                 </Tilt>
               </Reveal>
             ))}

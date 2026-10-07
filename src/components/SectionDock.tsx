@@ -10,7 +10,6 @@ const dots = [
   { id: "apps", label: "Apps" },
   { id: "journey", label: "Journey" },
   { id: "life", label: "Life" },
-  { id: "wall", label: "The Wall" },
   { id: "team", label: "Mentors" },
   { id: "stories", label: "Stories" },
   { id: "join", label: "Join" },

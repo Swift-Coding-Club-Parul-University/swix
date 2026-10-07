@@ -5,17 +5,15 @@ import { Tilt } from "./ui/Tilt";
 import { cn } from "@/utils/cn";
 
 const core = [
-  { n: "Aryan Mehta", r: "Club Lead", s: "3 apps · SSC '24", i: "AM", c: "#b4552d" },
+  { n: "Manav Sinh", r: "Club Lead", s: "3 apps · SSC '24", i: "MS", c: "#b4552d" },
   { n: "Krishna Vaghela", r: "Swift Track Head", s: "Mentored 40+", i: "KV", c: "#2a1a10" },
-  { n: "Tanvi Shah", r: "Design & SwiftUI", s: "Figma → code", i: "TS", c: "#c2521f" },
+  { n: "Hemanto", r: "Designer", s: "Figma → code", i: "H", c: "#c2521f" },
   { n: "Harshil Parmar", r: "Infra & Dev Rel", s: "CI, TestFlight", i: "HP", c: "#1d7a4c" },
-  { n: "Nidhi Trivedi", r: "Community", s: "Events & alumni", i: "NT", c: "#d97a4a" },
+  { n: "Arpita Mishra", r: "Media Lead", s: "Events & alumni", i: "AM", c: "#d97a4a" },
   { n: "Yash Bhatt", r: "Hackathon Captain", s: "6 wins", i: "YB", c: "#2a1a10" },
 ];
 
 const tones = ["#D9CFFF", "#BDE4FF", "#FFC6DD", "#B9ECCD", "#FFEDA3", "#D9CFFF"];
-
-const alumni = ["Razorpay", "Zomato", "Slice", "CRED", "Infosys", "Jio"];
 
 /** Team — Retro Futurism: the crew manifest. Atomic roster cards, orbit badges. */
 export function Team() {
@@ -55,22 +53,32 @@ export function Team() {
         <div className="mt-14 grid gap-6 lg:mt-20 lg:grid-cols-12">
           <Reveal variant="scale" className="lg:col-span-5">
             <Tilt max={9} lift={26}>
-              <figure className="atomi-card relative overflow-hidden">
+              <figure
+                className="lab-panel relative overflow-hidden"
+                style={{ "--tone": tones[4], "--tilt-r": "-0.4deg", "--panel-r": "26px" } as React.CSSProperties}
+              >
                 {/* caption strip */}
-                <div className="flex items-center justify-between border-b border-[#b4552d]/25 px-4 py-2.5">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8a6a50]">core_team · 2025–26</span>
-                  <span className="atomi-chip !py-0.5 !text-[9px]">crew manifest</span>
+                <header className="lab-bar">
+                  <span className="lab-dots" aria-hidden>
+                    <span className="lab-dot" />
+                    <span className="lab-dot" />
+                    <span className="lab-dot" />
+                  </span>
+                  <span className="truncate text-[10px] uppercase tracking-[0.2em] text-[#8a6a50]">core_team · 2025–26</span>
+                  <span className="lab-badge uppercase">crew manifest</span>
+                </header>
+                <div className="lab-media m-3">
+                  <img
+                    src={team}
+                    alt="The core team of the Swift Coding Club at Parul University"
+                    loading="lazy"
+                    decoding="async"
+                    className="aspect-[4/5] w-full object-cover"
+                  />
                 </div>
-                <img
-                  src={team}
-                  alt="The core team of the Swift Coding Club at Parul University"
-                  loading="lazy"
-                  decoding="async"
-                  className="aspect-[4/5] w-full object-cover"
-                />
                 <p className="absolute bottom-14 left-4 right-4 text-center font-mono text-[9px] uppercase tracking-[0.18em] text-[#8a6a50]/60">[ replace with your own image ]</p>
-                <figcaption className="flex items-center justify-between border-t border-[#b4552d]/25 px-4 py-3">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8a6a50]">six seniors · one charger</span>
+                <figcaption className="lab-status">
+                  <span>six seniors · one charger</span>
                   <span aria-hidden className="text-[#c2521f]">✦</span>
                 </figcaption>
               </figure>
@@ -81,7 +89,16 @@ export function Team() {
             {core.map((m, i) => (
               <Reveal key={m.n} delay={i * 80}>
                 <Tilt max={7} lift={16} className="h-full">
-                  <div className="atomi-card group flex h-full items-center gap-4 p-5" style={{ background: `linear-gradient(145deg,#FFF8F2 25%,${tones[i]}66)`, borderColor: "#0B0B0C18", boxShadow: `inset 0 1px 0 #fff, 0 3px 0 ${tones[i]}88, 0 20px 35px -28px #0B0B0C44` }}>
+                  <div
+                    className="lab-panel group relative flex h-full items-center gap-4 p-5"
+                    style={
+                      {
+                        "--tone": tones[i],
+                        "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg",
+                        "--panel-r": "26px",
+                      } as React.CSSProperties
+                    }
+                  >
                     <span
                       className="grid h-14 w-14 shrink-0 place-items-center rounded-full text-base font-bold transition-transform duration-500 motion-safe:group-hover:-rotate-6 motion-safe:group-hover:scale-105"
                       style={{
@@ -95,9 +112,9 @@ export function Team() {
                     </span>
                     <div className="min-w-0">
                       <p className="truncate text-[15.5px] font-bold tracking-tight text-[#2a1a10]">{m.n}</p>
-                      <p className="my-1 w-fit rounded-full border border-white/80 px-2 py-0.5 text-[11px] font-medium" style={{ color: "#0B0B0C", background: tones[i], boxShadow: "inset 0 1px 0 #ffffffaa, 0 2px 0 #0B0B0C08" }}>
-                        {m.r}
-                      </p>
+                      <div className="lab-copy my-1">
+                        <span className="lab-tag">{m.r}</span>
+                      </div>
                       <p className="mt-0.5 truncate font-mono text-[11.5px] text-[#8a6a50]">{m.s}</p>
                     </div>
                   </div>
@@ -106,16 +123,6 @@ export function Team() {
             ))}
           </div>
         </div>
-
-        <Reveal delay={200} className={cn("mt-10 flex flex-wrap items-center gap-3")}>
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8a6a50]">Alumni now at</span>
-          {alumni.map((c) => (
-            <span key={c} className="atomi-chip">
-              <span aria-hidden className="text-[#c2521f]">✦</span>
-              {c}
-            </span>
-          ))}
-        </Reveal>
       </div>
     </section>
   );

@@ -1,0 +1,25 @@
+# robots.txt — Swift Coding Club · Parul University
+# https://swix-rho.vercel.app
+
+# Crawlers: index everything.
+User-agent: *
+Allow: /
+
+# AI / answer-engine crawlers (open on purpose — we want to be cited in AI search)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap (also listed below for machines that read only the first lines)
+Sitemap: https://swix-rho.vercel.app/sitemap.xml

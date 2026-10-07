@@ -273,7 +273,7 @@ function HeroScene() {
 
       {/* code card overlapping bottom */}
       <div
-        className="relative -mt-16 ml-[14%] w-[86%] sm:absolute sm:-bottom-16 sm:-left-8 sm:mt-0 sm:ml-0 sm:w-[76%]"
+        className="relative -mt-16 ml-[14%] w-[86%] sm:absolute sm:-bottom-16 sm:left-0 sm:mt-0 sm:ml-0 sm:w-[76%]"
         style={{ transform: "translateZ(130px)" }}
       >
         <div className="gpu animate-float" style={{ animationDelay: "-3s" }}>
@@ -315,14 +315,25 @@ export function Hero() {
   const spotlight = useSpotlight<HTMLDivElement>();
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-24 sm:pt-40 lg:pt-44 lg:pb-32">
-      {/* backdrop */}
+      {/* backdrop — layered print sheet: colour field → swiss grid →
+          misregistered halftone plates → perspective floor → live layers */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 grid-lines [mask-image:radial-gradient(ellipse_at_top,black_25%,transparent_72%)] opacity-50" />
+        <div className="hero-field" />
+        <div className="absolute inset-0 grid-lines [mask-image:radial-gradient(ellipse_at_top,black_25%,transparent_72%)] opacity-60" />
+        {/* riso halftone passes — same dots, two plates, a few px off register */}
+        <div className="hero-halftone -right-[6%] -top-[8%] h-[62vh] w-[62vh]" />
+        <div className="hero-halftone hero-halftone--b -right-[6%] -top-[8%] h-[62vh] w-[62vh]" />
+        <div className="hero-halftone hero-halftone--c -left-[8%] bottom-[4%] h-[46vh] w-[46vh]" />
+        {/* ground plane */}
+        <div className="hero-floor" />
         <LiquidBlobs />
         <Deco variant="warm" />
-        {/* giant watermark */}
-        <div className="absolute -bottom-6 left-1/2 hidden -translate-x-1/2 select-none whitespace-nowrap font-mono text-[9vw] font-bold uppercase leading-none tracking-tight text-stroke opacity-60 lg:block">
-          Swift Coding Club
+        {/* giant watermark, printed in two passes that don't quite line up */}
+        <div className="absolute -bottom-6 left-1/2 hidden -translate-x-1/2 select-none whitespace-nowrap font-mono text-[9vw] font-bold uppercase leading-none tracking-tight opacity-75 lg:block">
+          <span className="absolute left-0 top-0 translate-x-[12px] translate-y-[9px] text-stroke-swift">
+            Swift Coding Club
+          </span>
+          <span className="relative text-stroke">Swift Coding Club</span>
         </div>
         {/* cursor spotlight */}
         <div
@@ -339,7 +350,7 @@ export function Hero() {
         <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-6">
           {/* ------- Copy ------- */}
           <div className="lg:col-span-6">
-            <p className="eyebrow mb-4">01 — The student-run iOS studio</p>
+            <p className="eyebrow mb-4">01 — The student-run iOS studio at Parul University</p>
             <h1 className="display relative text-balance text-[3.1rem] sm:text-6xl lg:text-[5.2rem] xl:text-[5.8rem]">
               <Reveal as="span" className="block" delay={60}>Learn Swift.</Reveal>
               <Reveal as="span" className="block" delay={140}>
@@ -361,7 +372,10 @@ export function Hero() {
             </Reveal>
 
             <Reveal delay={320}>
-              <p className="mt-8 max-w-xl text-pretty text-[17px] leading-relaxed text-muted sm:text-lg">
+              {/* 30rem, not max-w-xl: the code card floats at z+130 and its
+                  projected left edge lands at x≈654, so a 576px measure would
+                  run 50px underneath it and every line would end mid-word. */}
+              <p className="mt-8 max-w-[30rem] text-pretty text-[17px] leading-relaxed text-muted sm:text-lg">
                 The student-run iOS studio at Parul University. Weekly hands-on labs, senior mentorship,
                 and one goal per semester: a polished app with your name on it — free for every student.
               </p>

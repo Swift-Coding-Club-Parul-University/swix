@@ -56,6 +56,9 @@ const tracks: Track[] = [
   },
 ];
 
+/** Panel tints — mint / rose / lavender, sky for the closing banner. */
+const tones = ["#B9ECCD", "#FFC6DD", "#D9CFFF", "#BDE4FF"];
+
 function Seats({ taken, total }: { taken: number; total: number }) {
   const pct = Math.min(100, Math.round((taken / total) * 100));
   return (
@@ -131,19 +134,40 @@ export function Tracks() {
             <Reveal key={t.name} delay={i * 110} className="h-full">
               <Tilt max={t.featured ? 8 : 5} lift={t.featured ? 24 : 12} className="h-full">
                 <div
-                  className={cn("atomi-card relative flex h-full flex-col overflow-hidden p-7 sm:p-8", t.featured && "ring-2 ring-[#F05138]/40")}
-                  style={{ background: `radial-gradient(ellipse at 100% 0%,${["#B9ECCD", "#FFC6DD", "#D9CFFF"][i]}99,transparent 55%), linear-gradient(160deg,#fff,#FFF8F2)`, borderColor: "#0B0B0C18", boxShadow: "inset 0 1px 0 #fff, 0 4px 0 #ffffff88, 0 26px 50px -32px #0B0B0C44" }}
+                  className={cn(
+                    "lab-panel relative flex h-full flex-col overflow-hidden",
+                    t.featured && "outline-2 outline-[#F05138]"
+                  )}
+                  style={
+                    {
+                      "--tone": tones[i],
+                      "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg",
+                      "--panel-r": "26px",
+                    } as React.CSSProperties
+                  }
                 >
-                  {i === 0 && <span aria-hidden className="pointer-events-none absolute -bottom-8 -left-8 h-24 w-24 rounded-full border-2 border-dashed border-[#3daa6d]/25" />}
-                  {i === 1 && <span aria-hidden className="pointer-events-none absolute -top-6 -right-6 h-20 w-20 rounded-full bg-gradient-to-br from-[#F05138]/10 to-[#FFC6DD]/15" />}
-                  {i === 2 && <span aria-hidden className="pointer-events-none absolute -bottom-9 -right-9 h-28 w-28 rounded-full border border-[#F05138]/15" />}
-                  <div className="relative">
+                  <header className="lab-bar">
+                    <span className="lab-dots" aria-hidden>
+                      <span className="lab-dot" />
+                      <span className="lab-dot" />
+                      <span className="lab-dot" />
+                    </span>
+                    <span className="lab-file">{t.name.toLowerCase()}_track.swift</span>
+                    <span className="lab-badge">{`0${i + 1}`}</span>
+                  </header>
+
+                  <div className="relative flex-1 p-7 sm:p-8">
+                    {i === 0 && <span aria-hidden className="pointer-events-none absolute -bottom-8 -left-8 h-24 w-24 rounded-full border-2 border-dashed border-[#3daa6d]/25" />}
+                    {i === 1 && <span aria-hidden className="pointer-events-none absolute top-0 -right-6 h-20 w-20 rounded-full bg-gradient-to-br from-[#F05138]/10 to-[#FFC6DD]/15" />}
+                    {i === 2 && <span aria-hidden className="pointer-events-none absolute -bottom-9 -right-9 h-28 w-28 rounded-full border border-[#F05138]/15" />}
                     <div className="flex items-start justify-between">
                       <div>
                         <h3 className="text-2xl font-bold tracking-tight text-[#2a1a10]">{t.name}</h3>
                         <p className="mt-1 text-[13px] font-medium text-[#c2521f]">{t.line}</p>
                       </div>
-                      <span className="atomi-chip !bg-[#2a1a10] !text-[#ffe8d2]">Free</span>
+                      <div className="lab-copy">
+                        <span className="lab-tag">Free</span>
+                      </div>
                     </div>
 
                     <div className="mt-7 flex items-end gap-2">
@@ -193,11 +217,16 @@ export function Tracks() {
         </div>
 
         <Reveal delay={250} className="mt-10">
-          <div className="atomi-card flex flex-col items-center justify-between gap-4 px-7 py-6 text-center sm:flex-row sm:text-left">
+          <div
+            className="lab-panel relative flex flex-col items-center justify-between gap-4 px-7 py-6 text-center sm:flex-row sm:text-left"
+            style={{ "--tone": tones[3], "--tilt-r": "-0.4deg", "--panel-r": "26px" } as React.CSSProperties}
+          >
             <p className="text-[15px] font-medium text-[#2a1a10]">
               Open to every Parul University student — any faculty, any year, any experience level.
             </p>
-            <span className="atomi-chip">No fee · Thu 5pm</span>
+            <div className="lab-copy">
+              <span className="lab-tag">No fee · Thu 5pm</span>
+            </div>
           </div>
         </Reveal>
       </div>

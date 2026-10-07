@@ -3,6 +3,7 @@ import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 import { Tilt } from "./ui/Tilt";
 import { GlassCube } from "./ui/GlassCube";
+import { LabFoot, LabWin } from "./ui/LabChrome";
 import { ShaderBackground } from "./ui/feature-shader-cards";
 import { useScrollScrub } from "@/hooks/useScrollScrub";
 
@@ -82,42 +83,52 @@ export function Benefits() {
             <div className="lg:sticky lg:top-28">
               <Reveal variant="scale">
                 <Tilt max={3} lift={6} scale={1.005} sheen={false}>
-                <figure className="atomi-card group relative overflow-hidden !rounded-[26px] !border-white p-2" style={{ background: "linear-gradient(145deg, #fff, #D9CFFF80)", boxShadow: "inset 0 2px 0 #fff, 0 7px 0 -3px #D9CFFF80, 0 24px 50px -28px #6b4a3466" }}>
-                  <img
-                    src={community}
-                    alt="Parul University students building iOS apps together in the Mac lab"
-                    width={700}
-                    height={394}
-                    loading="lazy"
-                    decoding="async"
-                    className="aspect-[4/3] w-full rounded-[20px] object-cover motion-safe:transition-transform motion-safe:duration-[1400ms] motion-safe:ease-[var(--ease-out-expo)] motion-safe:group-hover:scale-[1.03]"
-                  />
-                  <p className="absolute bottom-20 left-4 right-4 text-center font-mono text-[9px] uppercase tracking-[0.18em] text-[#8a6a50]/60">[ replace with your own image ]</p>
-                  <figcaption className="atomi-card absolute bottom-4 left-4 right-4 flex items-center justify-between gap-2 !rounded-2xl !border-white px-4 py-3 backdrop-blur-md" style={{ background: "rgba(255,255,255,0.9)" }}>
-                    <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#8a6a50]">Thursday lab</p>
-                      <p className="text-sm font-semibold tracking-tight text-[#2a1a10]">PIT Mac Lab · Block B, 3F</p>
+                  <figure
+                    className="lab-panel group relative overflow-hidden"
+                    style={{ "--tone": tones[1], "--panel-r": "26px", "--tilt-r": "-0.4deg" } as React.CSSProperties}
+                  >
+                    <LabWin file="thursday_lab.jpg" n="42" />
+                    <div className="p-2">
+                      <div className="lab-media relative aspect-[4/3]">
+                        <img
+                          src={community}
+                          alt="Parul University students building iOS apps together in the Mac lab"
+                          width={700}
+                          height={394}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-[1400ms] motion-safe:ease-[var(--ease-out-expo)] motion-safe:group-hover:scale-[1.03]"
+                        />
+                        <p className="absolute bottom-2 left-3 right-3 text-center font-mono text-[9px] uppercase tracking-[0.18em] text-[#8a6a50]/70">
+                          [ replace with your own image ]
+                        </p>
+                      </div>
                     </div>
-                    <span className="flex items-center gap-2 text-xs font-medium text-[#6b4a34]">
-                      <span className="relative flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                    <figcaption className="lab-status">
+                      <span>PIT Mac Lab · Block B, 3F</span>
+                      <span className="flex items-center gap-2">
+                        <span className="lab-live" aria-hidden />
+                        42 here now
                       </span>
-                      42 here now
-                    </span>
-                  </figcaption>
-                </figure>
+                    </figcaption>
+                  </figure>
                 </Tilt>
               </Reveal>
 
               <Reveal delay={160} className="mt-6 grid grid-cols-2 gap-4">
-                <div className="atomi-card relative !border-white p-5 motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:-translate-y-1" style={{ background: "linear-gradient(135deg, #fff, #FFEDA380)", boxShadow: "0 2px 0 #fff inset, 0 16px 32px -22px #F0513880" }}>
-                  <p className="display bg-gradient-to-br from-[#9c321f] to-[#F05138] bg-clip-text text-3xl text-transparent">₹9.2L</p>
-                  <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-[#8a6a50]">Avg. iOS offer, '25 batch</p>
+                <div className="lab-panel relative flex flex-col overflow-hidden" style={{ "--tone": tones[0], "--tilt-r": "-0.4deg" } as React.CSSProperties}>
+                  <LabWin />
+                  <div className="relative z-10 flex-1 p-4">
+                    <p className="display bg-gradient-to-br from-[#9c321f] to-[#F05138] bg-clip-text text-3xl text-transparent">12</p>
+                    <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">Apps shipped by members</p>
+                  </div>
                 </div>
-                <div className="atomi-card relative !border-white p-5 motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:-translate-y-1" style={{ background: "linear-gradient(135deg, #fff, #B9ECCD80)", boxShadow: "0 2px 0 #fff inset, 0 16px 32px -22px #1d7a4c66" }}>
-                  <p className="display text-3xl text-[#1d7a4c]">94%</p>
-                  <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-[#8a6a50]">Capstone completion</p>
+                <div className="lab-panel relative flex flex-col overflow-hidden" style={{ "--tone": tones[2], "--tilt-r": "0.4deg" } as React.CSSProperties}>
+                  <LabWin />
+                  <div className="relative z-10 flex-1 p-4">
+                    <p className="display text-3xl text-[#1d7a4c]">94%</p>
+                    <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">Capstone completion</p>
+                  </div>
                 </div>
               </Reveal>
             </div>
@@ -127,30 +138,42 @@ export function Benefits() {
           <ol className="lg:col-span-7">
             {benefits.map((b, i) => (
               <Reveal as="li" key={b.n} delay={80 + i * 100} className="group py-3">
-                <div className="relative overflow-hidden !rounded-[24px] !border-white p-6 motion-safe:transition-transform motion-safe:duration-500 motion-safe:hover:-translate-y-1" style={{ boxShadow: "inset 0 2px 0 #fff, 0 5px 0 -2px #ffffffcc, 0 18px 34px -24px #6b4a3466" }}>
-                  <ShaderBackground index={i} />
+                <article
+                  className="lab-panel relative flex flex-col overflow-hidden"
+                  style={
+                    {
+                      "--tone": tones[i],
+                      "--panel-r": "24px",
+                      "--tilt-r": i % 2 ? "0.4deg" : "-0.4deg",
+                    } as React.CSSProperties
+                  }
+                >
+                  <ShaderBackground index={i} className="!rounded-[22px] opacity-[0.55]" />
+                  <LabWin file={`benefit_${b.n}.swift`} n={b.n} />
 
-                  <span aria-hidden className="pointer-events-none absolute inset-y-7 left-0 z-10 w-1 rounded-r-full" style={{ background: tones[i] }} />
-                  {/* orbiting satellite */}
-                  <span aria-hidden className="pointer-events-none absolute right-4 top-4 z-10 h-8 w-8">
-                    <span className="absolute inset-0 rounded-full border border-dashed border-[#b4552d]/30 motion-reduce:!animate-none" style={{ animation: `orbit-spin ${14 + i * 3}s linear infinite` }} />
-                    <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#b4552d]" />
-                  </span>
-                  <div className="relative z-10 grid gap-4 sm:grid-cols-[60px_1fr]">
-                    <div className="flex flex-col items-start gap-2">
-                      <span className="display bg-gradient-to-br from-[#9c321f] to-[#F05138] bg-clip-text text-3xl text-transparent">{b.n}</span>
-                      <span className="rounded-full border border-white/60 bg-white/50 backdrop-blur-sm px-2.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#2a1a10] shadow-sm motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:-rotate-3">
-                        {b.tag}
+                  <div className="lab-body relative z-10 flex-1 p-6">
+                    <span aria-hidden className="lab-halftone absolute -top-4 -right-3 h-[200px] w-[42%] -z-10" />
+                    <div className="lab-band flex items-start justify-between gap-4">
+                      <div className="lab-copy flex flex-wrap items-center gap-3">
+                        <span className="display bg-gradient-to-br from-[#9c321f] to-[#F05138] bg-clip-text text-3xl text-transparent">{b.n}</span>
+                        <span className="lab-tag">{b.tag}</span>
+                      </div>
+                      <span aria-hidden className="pointer-events-none relative mt-1 h-8 w-8 shrink-0">
+                        <span className="absolute inset-0 rounded-full border border-dashed border-[#b4552d]/30 motion-reduce:!animate-none" style={{ animation: `orbit-spin ${14 + i * 3}s linear infinite` }} />
+                        <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#b4552d]" />
                       </span>
                     </div>
-                    <div className="pr-10">
-                      <h3 className="text-balance text-xl font-bold tracking-tight text-[#2a1a10] sm:text-2xl">
+
+                    <div className="lab-copy mt-4">
+                      <h3 className="text-balance text-xl font-bold tracking-tight text-ink sm:text-2xl">
                         {b.title}
                       </h3>
-                      <p className="mt-3 max-w-xl text-pretty text-[15px] leading-relaxed text-[#4a3628]">{b.body}</p>
+                      <p className="mt-3 max-w-xl text-pretty text-[15px] leading-relaxed text-muted">{b.body}</p>
                     </div>
                   </div>
-                </div>
+
+                  <LabFoot left={`benefit ${b.n} · loaded`} right="verified" />
+                </article>
               </Reveal>
             ))}
           </ol>

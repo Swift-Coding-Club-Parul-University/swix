@@ -43,15 +43,17 @@ export function GalleryWall() {
         <Reveal variant="scale" className="relative mt-14 lg:mt-20">
           <span aria-hidden className="pointer-events-none absolute -top-2 left-1/2 z-10 h-5 w-16 border border-white/70" style={{ background: "linear-gradient(120deg,#FFEDA399,#FFF8F2bb)", transform: "translateX(-50%) rotate(-4deg)", boxShadow: "0 2px 3px #0B0B0C0a" }} />
           <div
-            className="relative overflow-hidden rounded-[32px] transition-transform duration-500 motion-safe:hover:-translate-y-1"
-            style={{
-              background: "linear-gradient(140deg,#FFF8F2,#D9CFFF44)",
-              border: "1px solid #0B0B0C22",
-              boxShadow: "0 1px 0 #fff inset, 0 5px 0 #D9CFFF88, 0 34px 70px -40px #0B0B0C55",
-            }}
+            className="lab-panel relative overflow-hidden"
+            style={
+              {
+                "--tone": tones[0],
+                "--panel-r": "32px",
+                "--tilt-r": "-0.4deg",
+              } as React.CSSProperties
+            }
           >
             {/* top caption bar */}
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-4 border-b border-[#0B0B0C]/10 px-5 py-4 sm:px-8">
+            <header className="lab-bar flex flex-wrap items-center">
               <div className="flex items-center gap-3">
                 <Orb variant="swift" box={56} />
                 <div>
@@ -71,7 +73,7 @@ export function GalleryWall() {
                   </Reveal>
                 ))}
               </div>
-            </div>
+            </header>
 
             {/* the wall itself — pointer-active, don't cover it */}
             <div className="relative aspect-[4/3] w-full sm:aspect-[16/8]">
@@ -84,7 +86,7 @@ export function GalleryWall() {
             </div>
 
             {/* bottom caption bar */}
-            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-[#0B0B0C]/10 px-5 py-4 sm:px-8">
+            <footer className="lab-status flex flex-wrap items-center justify-between">
               <div className="flex items-center gap-4">
                 <span className="flex items-end gap-[2px]" aria-hidden>
                   {[10, 16, 8, 14, 6].map((h, i) => (
@@ -103,7 +105,7 @@ export function GalleryWall() {
                 <Orb variant="ios" box={32} size="small" label="iOS brand orb" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink/60">shot on the lab's iPhones</span>
               </div>
-            </div>
+            </footer>
           </div>
         </Reveal>
       </div>
