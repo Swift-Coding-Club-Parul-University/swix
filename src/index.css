@@ -385,23 +385,29 @@ body {
   pointer-events: none;
 }
 }
-/* Hero code card. This was `.liquid-dark` — dark frosted glass, because the
-   default code tokens below (#ff7ab2 / #a5d6ff / #c3e88d) only exist to be
-   read on black. The panel now sits on the peach page like every other panel
-   on the site, so the stock is pastel and the tokens get a light-ground
-   re-tune further down. Same glass rim + grain, but it wears the 2px ink
-   border and hard offset shadow of the Lab panels instead of a soft drop. */
+/* Hero code card. It was `.liquid-dark` — the same frosted glass as every
+   other panel, just tinted near-black because the stock code tokens below
+   (#ff7ab2 / #a5d6ff / #c3e88d) only exist to be read on black. Now the tint
+   is the page's peach, so the material stays what it was (translucent fill,
+   live backdrop-blur, white rim, soft drop, edge refraction) and only the
+   colour moved — the tokens get a light-ground re-tune further down. */
 .codecard {
   position: relative;
-  background: linear-gradient(155deg, #fffaf5 0%, #ffe6d5 62%, #ffd3bc 100%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  backdrop-filter: blur(20px) saturate(140%);
-  border: 2px solid var(--color-ink);
+  background: linear-gradient(
+    140deg,
+    rgba(255, 250, 245, 0.86),
+    rgba(255, 230, 213, 0.78) 45%,
+    rgba(255, 211, 188, 0.84)
+  );
+  -webkit-backdrop-filter: blur(26px) saturate(160%);
+  backdrop-filter: blur(26px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   color: #3f352e;
   box-shadow:
     0 1px 1px rgba(255, 255, 255, 0.9) inset,
-    6px 6px 0 var(--color-ink),
-    0 30px 70px -34px rgba(122, 60, 20, 0.45);
+    0 -1px 1px rgba(255, 255, 255, 0.35) inset,
+    0 30px 70px -30px rgba(122, 60, 20, 0.4),
+    0 2px 8px -2px rgba(240, 81, 56, 0.25);
 }
 @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
 .codecard::after {
@@ -410,7 +416,7 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.15) 45%, rgba(240, 81, 56, 0.55) 80%, rgba(255, 255, 255, 0.7));
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.1) 40%, rgba(240, 81, 56, 0.5) 75%, rgba(255, 255, 255, 0.6));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -1533,7 +1539,7 @@ body {
     background: linear-gradient(140deg, rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.9) 45%, rgba(255, 214, 200, 0.95));
   }
   .codecard {
-    /* already opaque — the blur was doing almost nothing here */
+    /* 78–86% opaque — the blur was doing almost nothing here */
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
