@@ -16,7 +16,13 @@ const cols = [
   {
     h: "Connect",
     items: ["Discord", "Instagram", "GitHub", "LinkedIn", "swift@paruluniversity.ac.in"],
-    hrefs: ["#", "#", "#", "#", "mailto:swift@paruluniversity.ac.in"],
+    hrefs: [
+      "#",
+      "https://www.instagram.com/swiftcodingclub_pu",
+      "https://github.com/Swift-Coding-Club-Parul-University",
+      "https://www.linkedin.com/company/scc-pu/",
+      "mailto:swift@paruluniversity.ac.in",
+    ],
   },
 ];
 
@@ -37,6 +43,7 @@ export function Footer() {
             <p className="mt-6 max-w-sm text-pretty text-sm leading-relaxed text-muted">
               A student-run iOS studio at Parul University, Vadodara. We teach Swift by shipping — one app per semester, every semester since 2020.
             </p>
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.26em] text-[#F05138]">Build. Break. Learn. Ship.</p>
             <div className="mt-8 flex flex-wrap gap-2">
               {["SwiftUI", "UIKit", "Swift Data", "CloudKit", "Vision Pro", "Server-side Swift"].map((t) => (
                 <span key={t} className="glass-chip rounded-full px-3 py-1 font-mono text-[11px] text-muted">
@@ -65,17 +72,23 @@ export function Footer() {
                 {c.h}
               </p>
               <ul className="mt-5 space-y-3">
-                {c.items.map((it, i) => (
-                  <li key={it}>
-                    <a
-                      href={c.hrefs[i]}
-                      className="group inline-flex items-center gap-2 rounded-sm text-sm font-medium text-ink/65 transition-transform duration-300 hover:text-[#F05138] focus-visible:text-[#F05138] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F05138] motion-safe:hover:translate-x-1"
-                    >
-                      <span aria-hidden className="font-mono text-[9px] text-[#F05138] opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">▸</span>
-                      {it}
-                    </a>
-                  </li>
-                ))}
+                {c.items.map((it, i) => {
+                  const external = c.hrefs[i].startsWith("http");
+                  return (
+                    <li key={it}>
+                      <a
+                        href={c.hrefs[i]}
+                        target={external ? "_blank" : undefined}
+                        rel={external ? "noreferrer noopener" : undefined}
+                        className="group inline-flex items-center gap-2 rounded-sm text-sm font-medium text-ink/65 transition-transform duration-300 hover:text-[#F05138] focus-visible:text-[#F05138] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F05138] motion-safe:hover:translate-x-1"
+                      >
+                        <span aria-hidden className="font-mono text-[9px] text-[#F05138] opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">▸</span>
+                        {it}
+                        {external && <span aria-hidden className="font-mono text-[9px] text-ink/35">↗</span>}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </Reveal>
           ))}

@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { Warp } from "@paper-design/shaders-react"
+import { useIsMobile } from "@/hooks/useMedia"
 
 interface Feature {
   title: string
@@ -195,22 +196,34 @@ export function getShaderConfig(index: number) {
 
 export function ShaderBackground({ index, className, speed = 0.8 }: { index: number; className?: string; speed?: number }) {
   const shaderConfig = getShaderConfig(index)
+  const mobile = useIsMobile()
   return (
     <div className={`absolute inset-0 z-0 overflow-hidden ${className ?? ""}`}>
-      <Warp
-        style={{ height: "100%", width: "100%" }}
-        proportion={shaderConfig.proportion}
-        softness={shaderConfig.softness}
-        distortion={shaderConfig.distortion}
-        swirl={shaderConfig.swirl}
-        swirlIterations={shaderConfig.swirlIterations}
-        shape={shaderConfig.shape}
-        shapeScale={shaderConfig.shapeScale}
-        scale={1}
-        rotation={0}
-        speed={speed}
-        colors={shaderConfig.colors}
-      />
+      {/* Each Warp is a live WebGL context. Six of them run behind panels a
+          phone scrolls straight past, and a low-end GPU pays for every one.
+          Same palette, painted once as a gradient. */}
+      {mobile ? (
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{ background: `linear-gradient(135deg, ${shaderConfig.colors.join(", ")})` }}
+        />
+      ) : (
+        <Warp
+          style={{ height: "100%", width: "100%" }}
+          proportion={shaderConfig.proportion}
+          softness={shaderConfig.softness}
+          distortion={shaderConfig.distortion}
+          swirl={shaderConfig.swirl}
+          swirlIterations={shaderConfig.swirlIterations}
+          shape={shaderConfig.shape}
+          shapeScale={shaderConfig.shapeScale}
+          scale={1}
+          rotation={0}
+          speed={speed}
+          colors={shaderConfig.colors}
+        />
+      )}
     </div>
   )
 }

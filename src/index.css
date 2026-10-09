@@ -385,33 +385,32 @@ body {
   pointer-events: none;
 }
 }
-/* Dark frosted glass. The code tokens (#ff7ab2 / #a5d6ff / #ffb86c) are a
-   dark-theme palette, so this tint has to actually be dark or the type
-   disappears against the paper — but it stays translucent (82–88%) with a
-   live backdrop-blur, so it still reads as glass over the image behind it. */
-.liquid-dark {
+/* Hero code card. This was `.liquid-dark` — dark frosted glass, because the
+   default code tokens below (#ff7ab2 / #a5d6ff / #c3e88d) only exist to be
+   read on black. The panel now sits on the peach page like every other panel
+   on the site, so the stock is pastel and the tokens get a light-ground
+   re-tune further down. Same glass rim + grain, but it wears the 2px ink
+   border and hard offset shadow of the Lab panels instead of a soft drop. */
+.codecard {
   position: relative;
-  background: linear-gradient(
-    140deg,
-    rgba(34, 30, 40, 0.88),
-    rgba(11, 11, 12, 0.84) 45%,
-    rgba(62, 26, 18, 0.88)
-  );
-  -webkit-backdrop-filter: blur(26px) saturate(160%);
-  backdrop-filter: blur(26px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(155deg, #fffaf5 0%, #ffe6d5 62%, #ffd3bc 100%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 2px solid var(--color-ink);
+  color: #3f352e;
   box-shadow:
-    0 1px 1px rgba(255, 255, 255, 0.22) inset,
-    0 30px 70px -30px rgba(0, 0, 0, 0.8);
+    0 1px 1px rgba(255, 255, 255, 0.9) inset,
+    6px 6px 0 var(--color-ink),
+    0 30px 70px -34px rgba(122, 60, 20, 0.45);
 }
 @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
-.liquid-dark::after {
+.codecard::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.06) 45%, rgba(240, 81, 56, 0.7));
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.15) 45%, rgba(240, 81, 56, 0.55) 80%, rgba(255, 255, 255, 0.7));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -867,6 +866,15 @@ body {
 .code-token-s { color: #ffb86c; }
 .code-token-c { color: #6b7280; }
 .code-token-f { color: #c3e88d; }
+
+/* ...and the same five roles on the hero card's pastel stock, where the
+   dark-theme values above would wash out: swift red for keywords, a deep
+   teal for types and calls, mint held back to ink-grey. */
+.codecard .code-token-k { color: #d63f27; }
+.codecard .code-token-t { color: #0f6f7a; }
+.codecard .code-token-s { color: #1d7a4c; }
+.codecard .code-token-c { color: #9a8f86; }
+.codecard .code-token-f { color: #b45309; }
 
 /* Reduced motion: keep everything visible and static */
 @media (prefers-reduced-motion: reduce) {
@@ -1524,8 +1532,8 @@ body {
     backdrop-filter: none;
     background: linear-gradient(140deg, rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.9) 45%, rgba(255, 214, 200, 0.95));
   }
-  .liquid-dark {
-    /* already 84–88% opaque — the blur was doing almost nothing here */
+  .codecard {
+    /* already opaque — the blur was doing almost nothing here */
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
@@ -1658,15 +1666,27 @@ body {
   }
 
   /* ------------------------------------------------------------
-     3 · A boot sequence you can wait out on a phone.
+     3 · The boot sequence is NOT shortened here.
 
-     2.6s of 3D intro plus a 0.7s exit is over three seconds of scroll
-     lock before the site responds to a tap. Same intro, half the exit,
-     and roughly a third of the hold.
+     It used to be — a 900ms hold and a 380ms exit on phones. That is gone:
+     the intro plays at full length on every device, so Splash.tsx (which
+     times the hold and the exit against this transition) and this
+     stylesheet stay in step. Only prefers-reduced-motion trims it.
      ------------------------------------------------------------ */
-  .boot-screen,
-  .boot-content {
-    transition-duration: 0.35s;
+
+  /* ------------------------------------------------------------
+     4 · Hero scene off the phone.
+
+     The right-hand picture block is a layered composite — glass render,
+     floating chips, a perspective code card, two halftone plates and a
+     cursor spotlight — that costs a full column of composited layers to
+     scroll past on a device that has nowhere to put it. The headline,
+     stickers, stats and CTAs already say everything it says.
+
+     Defined here only, so the class is inert above the budget line.
+     ------------------------------------------------------------ */
+  .phone-hide {
+    display: none !important;
   }
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useReducedMotion } from "@/hooks/useMedia";
+import { useIsMobile, useReducedMotion } from "@/hooks/useMedia";
 
 /**
  * A cinematic scroll-scrubbed sequence — the same technique Apple product
@@ -144,6 +144,7 @@ export function ScrollStory() {
   const timecodeRef = useRef<HTMLSpanElement>(null);
   const sceneRef = useRef<HTMLSpanElement>(null);
   const reduce = useReducedMotion();
+  const mobile = useIsMobile();
 
   const tiles = useMemo(buildTiles, []);
   const orbiters = useMemo(buildOrbiters, []);
@@ -152,7 +153,7 @@ export function ScrollStory() {
   useEffect(() => {
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
-    if (!wrap || !canvas || reduce) return;
+    if (!wrap || !canvas || reduce || mobile) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -682,9 +683,15 @@ export function ScrollStory() {
       ro.disconnect();
       cancelAnimationFrame(raf);
     };
-  }, [tiles, orbiters, birdPath2D, reduce]);
+  }, [tiles, orbiters, birdPath2D, reduce, mobile]);
 
-  if (reduce) {
+  /**
+   * No canvas on a phone, and none for reduced-motion users: the reel is a
+   * 420vh pinned section that redraws a full-bleed scene on every scroll
+   * tick, which is exactly the workload a low-end mobile GPU stalls on.
+   * The narrative still reads — the four beats render as static plates.
+   */
+  if (reduce || mobile) {
     return (
       <section id="story" className="cv-auto relative overflow-hidden bg-warm py-24 text-center">
         <div className="container-x">
@@ -692,6 +699,15 @@ export function ScrollStory() {
           <h2 className="display mx-auto mt-4 max-w-2xl text-balance text-4xl">
             Fragments become a finished app — <span className="text-gradient">every single semester.</span>
           </h2>
+          <ol className="mx-auto mt-12 grid max-w-3xl gap-4 text-left sm:grid-cols-2">
+            {CAPTIONS.map((c) => (
+              <li key={c.n} className="brutal-box px-5 py-4 text-left">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-swift-deep">{c.tag}</span>
+                <p className="mt-2 text-[15px] font-semibold leading-snug text-ink">{c.t}</p>
+                <p className="mt-1 font-mono text-[11px] leading-relaxed text-muted">{c.sub}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
     );

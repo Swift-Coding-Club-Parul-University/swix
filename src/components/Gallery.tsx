@@ -198,7 +198,7 @@ export function Gallery() {
                   <span className="lab-dot" />
                 </span>
                 <span className="min-w-0 truncate font-mono text-[11px] font-semibold text-ink/75">
-                  campus_aerial.jpg — 300 acres, one lab
+                  campus_aerial.jpg — 200 acres, one lab
                 </span>
                 <span className="lab-badge">06</span>
               </header>
@@ -209,7 +209,7 @@ export function Gallery() {
                 <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
                   <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[#F05138]">Vadodara, Gujarat</p>
                   <p className="display mt-3 max-w-2xl text-balance text-3xl text-ink sm:text-5xl">
-                    A 300-acre campus. One room where apps get made.
+                    A 200-acre campus. One room where apps get made.
                   </p>
                 </div>
               </div>

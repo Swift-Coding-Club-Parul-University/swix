@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import heroVisual from "@/assets/hero-visual.webp";
+import swiftLogo from "@/assets/swift-logo.svg";
 import { Reveal } from "./ui/Reveal";
 import { LiquidBlobs } from "./ui/LiquidBlobs";
 import { Magnetic } from "./ui/Magnetic";
@@ -45,21 +45,21 @@ function CodeCard() {
   }, [reduce]);
 
   return (
-    <div className="liquid-dark grain gpu relative w-full rounded-[20px] p-4 font-mono text-[11.5px] leading-[1.65] text-white/90 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)] sm:text-[12.5px] sm:leading-6">
+    <div className="codecard grain gpu relative w-full rounded-[20px] p-4 font-mono text-[11.5px] leading-[1.65] sm:text-[12.5px] sm:leading-6">
       <div className="mb-3 flex items-center gap-1.5">
         <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
         <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
         <span className="h-2 w-2 rounded-full bg-[#28c840]" />
-        <span className="ml-2.5 text-[10px] text-white/40">ClubApp.swift</span>
-        <span className="ml-auto inline-flex items-center gap-1.5 rounded-md bg-emerald-400/15 px-2 py-0.5 text-[9px] font-medium tracking-wide text-emerald-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        <span className="ml-2.5 text-[10px] text-ink/50">ClubApp.swift</span>
+        <span className="ml-auto inline-flex items-center gap-1.5 rounded-md bg-emerald-500/15 px-2 py-0.5 text-[9px] font-medium tracking-wide text-emerald-700">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
           Build Succeeded
         </span>
       </div>
       <pre className="overflow-hidden whitespace-pre">
         {codeLines.slice(0, shown).map((l, i) => (
           <div key={i} className="flex">
-            <span className="mr-3.5 w-3.5 select-none text-right text-white/25">{i + 1}</span>
+            <span className="mr-3.5 w-3.5 select-none text-right text-ink/30">{i + 1}</span>
             <span>
               <span className={l.cls}>{l.t}</span>
               <span>{l.rest}</span>
@@ -162,7 +162,7 @@ const chips = [
     label: "App Store",
     bg: "rgba(11,11,12,0.92)",
     fg: "text-white",
-    cls: "left-4 bottom-44 sm:-left-7 sm:bottom-52",
+    cls: "right-4 bottom-10 sm:-right-7 sm:bottom-14",
     d: "translateZ(110px)",
     delay: "-4s",
   },
@@ -219,15 +219,14 @@ function HeroScene() {
       <div className="relative overflow-hidden rounded-[30px] border border-white/70 bg-white/25 p-2.5 shadow-[0_20px_60px_-35px_rgba(122,60,20,0.35)]" style={{ transform: "translateZ(0)" }}>
         <div className="liquid grain relative overflow-hidden rounded-[24px]">
           <img
-            src={heroVisual}
-            alt="Abstract glass sculpture in Swift orange"
+            src={swiftLogo}
+            alt="Swift Coding Club app icon"
             width={620}
             height={620}
             fetchPriority="high"
             decoding="async"
-            className="gpu animate-float-slow aspect-square w-full object-cover"
+            className="gpu animate-float-slow aspect-square w-full object-contain p-10 sm:p-14"
           />
-          <p className="absolute bottom-16 left-6 right-6 text-center font-mono text-[9px] uppercase tracking-[0.18em] text-ink/40">[ replace with your own image ]</p>
           <div aria-hidden className="pointer-events-none absolute inset-5 border border-ink/10" />
           <span className="absolute left-6 top-6 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/55">fig. 01 — swift</span>
           <span className="absolute bottom-6 right-6 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/55">22.30°N 73.36°E</span>
@@ -256,7 +255,7 @@ function HeroScene() {
 
       {/* floating glass 3D cube */}
       <GlassCube className="-right-2 -top-12 sm:right-12" size={96} depth={100} delay={-3} />
-      <GlassCube className="-left-6 bottom-28" size={48} tone="ice" depth={45} delay={-8} />
+      <GlassCube className="-left-6 top-44 sm:-left-8" size={48} tone="ice" depth={45} delay={-8} />
 
       {/* refractive prism orbs */}
       <PrismOrb className="-left-4 top-16 sm:left-2" size={54} tone="rose" satellite />
@@ -413,7 +412,7 @@ export function Hero() {
           </div>
 
           {/* ------- Scene ------- */}
-          <div className="lg:col-span-6">
+          <div className="phone-hide lg:col-span-6">
             <div ref={parallax} style={{ transform: "translate3d(0, var(--py, 0px), 0)" }}>
               <Reveal variant="scale" delay={200}>
                 <HeroScene />
