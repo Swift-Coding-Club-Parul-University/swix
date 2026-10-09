@@ -150,22 +150,6 @@ const chips = [
     d: "translateZ(90px)",
     delay: "0s",
   },
-  {
-    label: "TestFlight ✓",
-    bg: "linear-gradient(135deg,#F05138,#D63F27)",
-    fg: "text-white",
-    cls: "right-2 top-6 sm:-right-5 sm:top-8",
-    d: "translateZ(70px)",
-    delay: "-2s",
-  },
-  {
-    label: "App Store",
-    bg: "rgba(11,11,12,0.92)",
-    fg: "text-white",
-    cls: "right-4 bottom-10 sm:-right-7 sm:bottom-14",
-    d: "translateZ(110px)",
-    delay: "-4s",
-  },
 ];
 
 function HeroScene() {
@@ -403,7 +387,7 @@ export function Hero() {
             <Reveal delay={480} className="glass-panel mt-10 grid max-w-lg grid-cols-3 divide-x divide-white/60 rounded-2xl">
               <Stat value={300} suffix="+" label="Students trained" accent="bg-swift" />
               <Stat value={38} label="Apps shipped" accent="bg-lavender" />
-              <Stat value={12} label="App Store launches" accent="bg-mint" />
+              <Stat value={1} label="App Store launch" accent="bg-mint" />
             </Reveal>
             <Reveal delay={560} className="mt-6 flex items-center gap-3">
               <Squiggle color="#F05138" className="w-32" />

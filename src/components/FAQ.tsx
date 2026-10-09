@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     q: "Will my app actually be on the App Store?",
-    a: "If it passes our internal review and Apple's guidelines, yes. Members publish under the club's Apple Developer team at no extra cost. 12 student apps have launched so far; you retain full ownership of your code and IP.",
+    a: "If it passes our internal review and Apple's guidelines, yes. Members publish under the club's Apple Developer team at no extra cost. 1 student app has launched so far; you retain full ownership of your code and IP.",
   },
   {
     q: "What about Android or cross-platform?",

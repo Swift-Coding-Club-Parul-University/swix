@@ -7,7 +7,7 @@ import { cn } from "@/utils/cn";
 const nums = [
   { v: 300, s: "+", l: "Students trained", sub: "across 6 faculties", star: "✦" },
   { v: 38, s: "", l: "Apps shipped", sub: "in the last 3 years", star: "✧" },
-  { v: 12, s: "", l: "App Store launches", sub: "published by students", star: "✦" },
+  { v: 1, s: "", l: "App Store launch", sub: "published by students", star: "✦" },
   { v: 29, s: "", l: "Apple devices", sub: "in the training lab", star: "✧" },
 ];
 
