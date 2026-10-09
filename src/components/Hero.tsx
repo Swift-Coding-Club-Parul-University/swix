@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import swiftLogo from "@/assets/swift-logo.svg";
+import swifty from "@/assets/swifty.webp";
 import { Reveal } from "./ui/Reveal";
 import { LiquidBlobs } from "./ui/LiquidBlobs";
 import { Magnetic } from "./ui/Magnetic";
@@ -219,7 +219,7 @@ function HeroScene() {
       <div className="relative overflow-hidden rounded-[30px] border border-white/70 bg-white/25 p-2.5 shadow-[0_20px_60px_-35px_rgba(122,60,20,0.35)]" style={{ transform: "translateZ(0)" }}>
         <div className="liquid grain relative overflow-hidden rounded-[24px]">
           <img
-            src={swiftLogo}
+            src={swifty}
             alt="Swift Coding Club app icon"
             width={620}
             height={620}
