@@ -1150,23 +1150,29 @@ body {
     5px 5px 0 var(--color-ink),
     0 34px 60px -34px rgba(42, 26, 16, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  will-change: transform;
+  /* `will-change: transform` used to sit here. It pinned a composited layer
+     on all 71 panels for the life of the page, and a permanently promoted
+     backdrop-filter element is the stutter recipe: every hover re-rasterized
+     the layer *and* re-sampled the blur behind it, so the panel visibly
+     shivered instead of lifting. The phone budget already forced it to
+     `auto`; it is gone here too. */
   transform: rotate(var(--tilt-r));
   transition:
     transform 0.55s var(--ease-out-expo),
     box-shadow 0.55s var(--ease-out-expo);
 }
-/* Hover/active motion must never translate the panel *out from under* the
-   pointer: an up-left slide drags the box away from a cursor parked near the
-   right/bottom edge — hover flips off, the panel slides back, hover flips on:
-   an infinite jiggle loop with the cursor perfectly still. Scaling outward
-   keeps every interior point inside the box, so the hover state can always
-   sustain itself (geometry flap-proof). */
+/* Hover is shadow-only. Scaling an element that carries backdrop-filter makes
+   Chrome re-sample its blurred backdrop on every frame of the transition — on
+   an --xl panel the old `scale(1.015)` also grew the box ~9px per side and
+   moved 35% of the viewport, which is what read as jitter. Nothing here
+   touches geometry now, so the box can never move out from under the pointer
+   either: the old jiggle loop (slide away -> hover off -> slide back) is
+   structurally impossible, not just avoided. The lift is carried by the hard
+   offset shadow, which is paint-only. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .lab-panel:hover {
-    transform: scale(1.015) rotate(var(--tilt-r));
     box-shadow:
-      9px 9px 0 var(--color-ink),
+      8px 8px 0 var(--color-ink),
       0 46px 72px -38px rgba(42, 26, 16, 0.55),
       inset 0 1px 0 #fff;
   }
@@ -1191,9 +1197,8 @@ body {
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .lab-panel--xl:hover {
-    transform: scale(1.015) rotate(var(--tilt-r));
     box-shadow:
-      12px 12px 0 var(--color-ink),
+      10px 10px 0 var(--color-ink),
       0 60px 100px -55px rgba(42, 26, 16, 0.6),
       inset 0 1px 0 #fff;
   }
