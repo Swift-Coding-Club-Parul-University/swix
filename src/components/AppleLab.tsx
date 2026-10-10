@@ -12,7 +12,7 @@ const curriculum = [
   { n: "02", t: "Fundamentals", d: "Build a strong foundation in Swift, user-interface design and iOS development by creating complete apps." },
   { n: "03", t: "Data Collections", d: "Advanced concepts: data management, networking and modern app architecture." },
   { n: "04", t: "App Design", d: "Apply Apple's design principles to turn ideas into intuitive, user-centred apps." },
-  { n: "05", t: "Project-Based", d: "Guided labs, collaborative projects, prototyping â€” the work that becomes your portfolio." },
+  { n: "05", t: "Project-Based", d: "Guided labs, collaborative projects, prototyping — the work that becomes your portfolio." },
 ];
 
 const stageTones = ["#FFD3BC", "#B9ECCD", "#BDE4FF", "#FFEDA3", "#FFC6DD"];
@@ -26,22 +26,22 @@ const devices = [
 ];
 
 const certs = [
-  { t: "App Development with Swift Associate", d: "Foundational knowledge of Swift, Xcode and core development concepts.", star: "âœ¦" },
-  { t: "App Development with Swift Certified User", d: "Proficiency to design, develop and deploy apps across Apple platforms.", star: "âœ¹" },
+  { t: "App Development with Swift Associate", d: "Foundational knowledge of Swift, Xcode and core development concepts.", star: "✦" },
+  { t: "App Development with Swift Certified User", d: "Proficiency to design, develop and deploy apps across Apple platforms.", star: "✹" },
 ];
 
 const starfield = [
-  { left: "4%", top: "12%", s: "âœ¦", size: "text-lg", d: "0s" },
-  { left: "12%", top: "64%", s: "âœ§", size: "text-base", d: "1.2s" },
-  { left: "26%", top: "22%", s: "Â·", size: "text-xl", d: "2s" },
-  { left: "44%", top: "8%", s: "âœ¦", size: "text-sm", d: "0.6s" },
-  { left: "58%", top: "70%", s: "âœ§", size: "text-lg", d: "1.8s" },
-  { left: "72%", top: "16%", s: "âœ¦", size: "text-base", d: "2.6s" },
-  { left: "86%", top: "44%", s: "âœ§", size: "text-xl", d: "0.9s" },
-  { left: "93%", top: "78%", s: "Â·", size: "text-lg", d: "1.5s" },
+  { left: "4%", top: "12%", s: "✦", size: "text-lg", d: "0s" },
+  { left: "12%", top: "64%", s: "✧", size: "text-base", d: "1.2s" },
+  { left: "26%", top: "22%", s: "·", size: "text-xl", d: "2s" },
+  { left: "44%", top: "8%", s: "✦", size: "text-sm", d: "0.6s" },
+  { left: "58%", top: "70%", s: "✧", size: "text-lg", d: "1.8s" },
+  { left: "72%", top: "16%", s: "✦", size: "text-base", d: "2.6s" },
+  { left: "86%", top: "44%", s: "✧", size: "text-xl", d: "0.9s" },
+  { left: "93%", top: "78%", s: "·", size: "text-lg", d: "1.5s" },
 ];
 
-/** Apple Lab â€” Retro Futurism: Atomic Age cream gradients, orbits, starbursts, boomerang forms. */
+/** Apple Lab — Retro Futurism: Atomic Age cream gradients, orbits, starbursts, boomerang forms. */
 export function AppleLab() {
   return (
     <section id="apple-lab" className="atomi-section cv-auto relative overflow-hidden py-24 text-ink sm:py-32">
@@ -69,7 +69,7 @@ export function AppleLab() {
       <div className="container-x relative">
         <SectionHeader
           index="04"
-          eyebrow="Apple Authorized Â· Parul University"
+          eyebrow="Apple Authorized · Parul University"
           title={
             <span className="text-[#2a1a10]">
               An Apple Innovation Lab, <span className="text-[#c2521f]">right on campus.</span>
@@ -77,7 +77,7 @@ export function AppleLab() {
           }
           body={
             <span className="text-[#6b4a34]">
-              Parul University hosts an Apple Authorized Training Center â€” the same Develop in Swift curriculum Apple
+              Parul University hosts an Apple Authorized Training Center — the same Develop in Swift curriculum Apple
               uses worldwide, delivered by Apple Certified Trainers on 29 Apple devices. It's free, it's open to every
               student, and it's where this club actually happens.
             </span>
@@ -107,7 +107,7 @@ export function AppleLab() {
                   <div className="lab-band">
                     <span aria-hidden className="lab-halftone absolute -top-6 -right-4 h-[230px] w-[46%] -z-10" />
                     <div className="lab-copy flex flex-wrap items-center gap-3 pr-16 sm:pr-24">
-                      <span className="lab-tag">Student Success Â· 2026</span>
+                      <span className="lab-tag">Student Success · 2026</span>
                       <span className="lab-tag">First-year</span>
                     </div>
                     <PrismOrb className="absolute -top-4 right-0" size={58} tone="rose" satellite />
@@ -118,16 +118,16 @@ export function AppleLab() {
                   </h3>
                   <p className="mt-5 max-w-xl text-pretty text-[16px] leading-relaxed text-muted">
                     Praneel Pandey, first-year B.Tech CSE, didn't own a Mac. He learned Swift on the Apple
-                    Lab's curriculum through this club, built <strong className="text-ink">Blink Break</strong> â€” an
-                    eye-movement-controlled game in SwiftUI â€” and Apple put him in the top 350
+                    Lab's curriculum through this club, built <strong className="text-ink">Blink Break</strong> — an
+                    eye-movement-controlled game in SwiftUI — and Apple put him in the top 350
                     of 37 countries in the Swift Student Challenge 2026. Five months, start to finish.
                   </p>
 
                   <div className="mt-8 grid gap-3 sm:grid-cols-3">
                     {[
                       ["5 mo", "first line of code to global top 350"],
-                      ["10â€“12h", "daily in the final month"],
-                      ["0 Macs", "owned by Praneel â€” used the lab"],
+                      ["10–12h", "daily in the final month"],
+                      ["0 Macs", "owned by Praneel — used the lab"],
                     ].map(([n, l]) => (
                       <div
                         key={n}
@@ -142,11 +142,11 @@ export function AppleLab() {
                   <div className="flex-1" />
                   <a href="#cta" className="group mt-8 inline-flex items-center gap-2 text-sm font-bold text-[#c2521f] hover:text-ink">
                     Read the full story
-                    <span aria-hidden className="motion-safe:transition-transform motion-safe:group-hover:translate-x-1">â†’</span>
+                    <span aria-hidden className="motion-safe:transition-transform motion-safe:group-hover:translate-x-1">→</span>
                   </a>
                 </div>
 
-                <LabFoot left="story Â· 2026" right="top 350" />
+                <LabFoot left="story · 2026" right="top 350" />
               </article>
             </Tilt>
           </Reveal>
@@ -171,7 +171,7 @@ export function AppleLab() {
                 <div className="lab-body relative z-10 flex-1 p-6 sm:p-8">
                   <div className="lab-band">
                     <span aria-hidden className="lab-halftone absolute -top-5 -right-3 h-[210px] w-[45%] -z-10" />
-                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">The Apple Lab Â· Block B</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">The Apple Lab · Block B</p>
                     <p className="display mt-3 text-4xl text-ink sm:text-5xl">29 devices</p>
                     <p className="mt-1 text-[13.5px] text-muted">So you don't need to own a Mac.</p>
                     <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
@@ -180,7 +180,7 @@ export function AppleLab() {
                           key={d.l}
                           className="flex items-baseline gap-1.5 rounded-[12px] border-[1.5px] border-ink bg-white/85 px-3 py-2 shadow-[2.5px_2.5px_0_var(--color-ink)] motion-safe:transition-transform motion-safe:hover:-translate-y-0.5"
                         >
-                          <span className="display text-lg leading-none text-[#c2521f]">{d.n}Ã—</span>
+                          <span className="display text-lg leading-none text-[#c2521f]">{d.n}×</span>
                           <span className="font-mono text-[11px] font-semibold text-muted">{d.l}</span>
                         </div>
                       ))}
@@ -188,7 +188,7 @@ export function AppleLab() {
                   </div>
                 </div>
 
-                <LabFoot left="block b Â· floor 3" right="open weekdays" />
+                <LabFoot left="block b · floor 3" right="open weekdays" />
               </article>
             </Reveal>
 
@@ -221,7 +221,7 @@ export function AppleLab() {
                   </div>
                   <p className="mt-5 text-[13.5px] leading-relaxed text-muted">
                     Leads the Develop in Swift curriculum on campus. Mentored the team behind Parul's
-                    Swift Student Challenge entries â€” including Praneel's Top-350 project.
+                    Swift Student Challenge entries — including Praneel's Top-350 project.
                   </p>
                   <div className="lab-copy mt-5 flex flex-wrap gap-2.5">
                     {["Swift", "SwiftUI", "App dev"].map((s) => (
@@ -232,7 +232,7 @@ export function AppleLab() {
                   </div>
                 </div>
 
-                <LabFoot left="mentor Â· 1:1 slots" right="accepting mentees" />
+                <LabFoot left="mentor · 1:1 slots" right="accepting mentees" />
               </article>
             </Reveal>
           </div>
@@ -243,12 +243,12 @@ export function AppleLab() {
           <div className="grid gap-6 lg:grid-cols-12">
             <Reveal className="lg:col-span-4">
               <div className="lg:sticky lg:top-28">
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8a6a50]">Apple's curriculum Â· on your timetable</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8a6a50]">Apple's curriculum · on your timetable</p>
                 <h2 className="display mt-4 text-balance text-3xl text-[#2a1a10] sm:text-[2.8rem]">
                   From first line of code <span className="text-[#c2521f]">to finished app</span>.
                 </h2>
                 <p className="mt-6 text-pretty text-[15px] leading-relaxed text-[#6b4a34]">
-                  Learning follows Apple's official Develop in Swift curriculum â€” the same structured
+                  Learning follows Apple's official Develop in Swift curriculum — the same structured
                   program Apple uses worldwide. Five stages. One finished app. A digital badge you can
                   put on your LinkedIn.
                 </p>
@@ -300,7 +300,7 @@ export function AppleLab() {
           <Reveal className="mb-8">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8a6a50]">Apple certifications</p>
             <h2 className="display mt-3 max-w-3xl text-balance text-3xl text-[#2a1a10] sm:text-[2.6rem]">
-              Credentials Apple <span className="text-[#c2521f]">recognises</span> â€” and recruiters trust.
+              Credentials Apple <span className="text-[#c2521f]">recognises</span> — and recruiters trust.
             </h2>
           </Reveal>
           <div className="grid gap-5 lg:grid-cols-2">

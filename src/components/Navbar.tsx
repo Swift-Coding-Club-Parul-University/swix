@@ -164,7 +164,7 @@ export function Navbar() {
               Join the club
             </a>
             <p className="text-center font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-              Parul University Â· Vadodara
+              Parul University · Vadodara
             </p>
           </div>
         </div>

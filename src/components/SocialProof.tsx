@@ -25,7 +25,7 @@ export function SocialProof() {
           <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
             Trusted across campus &amp; the community
           </p>
-          <p className="hidden rounded-full border border-line bg-white/60 px-3 py-1.5 font-mono text-[11px] text-muted shadow-sm sm:block">Est. 2020 · Vadodara, Gujarat</p>
+          <p className="hidden rounded-full border border-line bg-white/60 px-3 py-1.5 font-mono text-[11px] text-muted shadow-sm sm:block">Est. 2023 · Vadodara, Gujarat</p>
         </Reveal>
       </div>
       <div className="marquee-mask group/strip relative overflow-hidden py-2">

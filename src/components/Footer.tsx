@@ -41,7 +41,7 @@ export function Footer() {
           <Reveal className="lg:col-span-6">
             <Logo />
             <p className="mt-6 max-w-sm text-pretty text-sm leading-relaxed text-muted">
-              A student-run iOS studio at Parul University, Vadodara. We teach Swift by shipping — one app per semester, every semester since 2020.
+              A student-run iOS studio at Parul University, Vadodara. We teach Swift by shipping — one app per semester, every semester since 2023.
             </p>
             <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.26em] text-[#F05138]">Build. Break. Learn. Ship.</p>
             <div className="mt-8 flex flex-wrap gap-2">

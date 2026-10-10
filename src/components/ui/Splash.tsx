@@ -71,7 +71,7 @@ export function Splash({ onComplete }: { onComplete: () => void }) {
       <div className="boot-grid" aria-hidden="true" />
       <div className="boot-topline">
         <span><i /> SWIFT CODING CLUB</span>
-        <span>PARUL UNIVERSITY / EST. 2020</span>
+        <span>PARUL UNIVERSITY / EST. 2023</span>
       </div>
       <button ref={skipRef} type="button" className="boot-skip" onClick={finish}>Skip intro <span aria-hidden="true">↗</span></button>
       <div className="boot-content">

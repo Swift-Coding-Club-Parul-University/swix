@@ -3,7 +3,7 @@ import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 import { Orb } from "./ui/Orb";
 
-const tags = ["Exhibit Edition", "Ink № 12", "Halftone", "Est. 2020"];
+const tags = ["Exhibit Edition", "Ink № 12", "Halftone", "Est. 2023"];
 const tones = ["#D9CFFF", "#FFEDA3", "#B9ECCD", "#FFC6DD"];
 
 /**

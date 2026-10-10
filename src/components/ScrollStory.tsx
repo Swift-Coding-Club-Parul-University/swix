@@ -143,6 +143,7 @@ export function ScrollStory() {
   const barRef = useRef<HTMLDivElement>(null);
   const timecodeRef = useRef<HTMLSpanElement>(null);
   const sceneRef = useRef<HTMLSpanElement>(null);
+  const hintRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const mobile = useIsMobile();
 
@@ -652,6 +653,13 @@ export function ScrollStory() {
           el.style.opacity = String(op);
           el.style.transform = `translate3d(0, ${(1 - fadeIn) * 16}px, 0)`;
         });
+        // scroll cue — the stage sits empty while the reel assembles, so the
+        // "scroll to explore" hint rides along the whole pin and steps aside
+        // only once SHIPPED lands.
+        if (hintRef.current) {
+          const hint = clamp01(p / 0.04) * (1 - clamp01((p - 0.9) / 0.06));
+          hintRef.current.style.opacity = String(hint);
+        }
         // scrubber dots
         dotRefs.current.forEach((el, i) => {
           if (!el) return;
@@ -762,6 +770,21 @@ export function ScrollStory() {
               <h3 className="display hard-shadow relative mt-3 text-balance text-3xl sm:text-5xl">{c.t}</h3>
             </div>
           ))}
+        </div>
+
+        {/* scroll cue — bottom-centre, same affordance language as the hero */}
+        <div
+          ref={hintRef}
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-24 flex flex-col items-center gap-2.5 opacity-0 transition-opacity duration-500 sm:bottom-28"
+        >
+          <span className="brutal-box inline-flex items-center gap-2 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
+            <span aria-hidden className="h-2 w-2 bg-swift motion-safe:animate-pulse-soft" />
+            Scroll to explore
+          </span>
+          <span className="relative block h-10 w-[22px] overflow-hidden rounded-full border border-ink/20">
+            <span className="absolute left-1/2 top-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-swift motion-safe:animate-rise" />
+          </span>
         </div>
 
         {/* bottom timeline / scrubber chrome */}
