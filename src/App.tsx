@@ -19,12 +19,9 @@ const Benefits = lazy(() => import("./components/Benefits").then((m) => ({ defau
 const Showcase = lazy(() => import("./components/Showcase").then((m) => ({ default: m.Showcase })));
 const AppleLab = lazy(() => import("./components/AppleLab").then((m) => ({ default: m.AppleLab })));
 const Coverflow = lazy(() => import("./components/Coverflow").then((m) => ({ default: m.Coverflow })));
-const Timeline = lazy(() => import("./components/Timeline").then((m) => ({ default: m.Timeline })));
 const Gallery = lazy(() => import("./components/Gallery").then((m) => ({ default: m.Gallery })));
-const Stats = lazy(() => import("./components/Stats").then((m) => ({ default: m.Stats })));
 const Team = lazy(() => import("./components/Team").then((m) => ({ default: m.Team })));
 const Testimonials = lazy(() => import("./components/Testimonials").then((m) => ({ default: m.Testimonials })));
-const Tracks = lazy(() => import("./components/Tracks").then((m) => ({ default: m.Tracks })));
 const FAQ = lazy(() => import("./components/FAQ").then((m) => ({ default: m.FAQ })));
 const Terminal = lazy(() => import("./components/Terminal").then((m) => ({ default: m.Terminal })));
 const CTA = lazy(() => import("./components/CTA").then((m) => ({ default: m.CTA })));
@@ -55,12 +52,9 @@ export default function App() {
           <Showcase />
           <AppleLab />
           <Coverflow />
-          <Timeline />
           <Gallery />
-          <Stats />
           <Team />
           <Testimonials />
-          <Tracks />
           <FAQ />
           <Terminal />
           <CTA />

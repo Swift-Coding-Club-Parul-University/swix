@@ -5,8 +5,8 @@ import { Orb } from "./ui/Orb";
 const cols = [
   {
     h: "Club",
-    items: ["Program", "Showcase", "Why Swift", "Membership", "FAQ"],
-    hrefs: ["#program", "#showcase", "#why", "#join", "#faq"],
+    items: ["Program", "Showcase", "Why Swift", "FAQ"],
+    hrefs: ["#program", "#showcase", "#why", "#faq"],
   },
   {
     h: "Resources",

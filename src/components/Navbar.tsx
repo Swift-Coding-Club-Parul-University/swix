@@ -1,14 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { Logo } from "./ui/Logo";
 import { cn } from "@/utils/cn";
 
 const links = [
   { href: "#story", label: "Story" },
   { href: "#program", label: "Program" },
-  { href: "#showcase", label: "Showcase" },
-  { href: "#journey", label: "Journey" },
-  { href: "#join", label: "Join" },
-  { href: "#faq", label: "FAQ" },
+{ href: "#showcase", label: "Showcase" },
+{ href: "#faq", label: "FAQ" },
 ];
 
 export function Navbar() {
@@ -103,7 +101,7 @@ export function Navbar() {
             </ul>
 
             <div className="hidden items-center gap-2 lg:flex">
-              <a href="#join" className="btn btn-primary !px-5 !py-2.5">
+              <a href="#cta" className="btn btn-primary !px-5 !py-2.5">
                 Join the club
                 <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden>
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -162,11 +160,11 @@ export function Navbar() {
             ))}
           </ul>
           <div className="liquid grain mt-auto grid gap-3 rounded-[28px] p-4">
-            <a href="#join" onClick={() => setOpen(false)} className="btn btn-accent w-full">
+            <a href="#cta" onClick={() => setOpen(false)} className="btn btn-accent w-full">
               Join the club
             </a>
             <p className="text-center font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-              Parul University · Vadodara
+              Parul University Â· Vadodara
             </p>
           </div>
         </div>

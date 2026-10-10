@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import swifty from "@/assets/swifty.webp";
 import { Reveal } from "./ui/Reveal";
 import { LiquidBlobs } from "./ui/LiquidBlobs";
@@ -212,15 +212,15 @@ function HeroScene() {
             className="gpu animate-float-slow aspect-square w-full object-contain p-10 sm:p-14"
           />
           <div aria-hidden className="pointer-events-none absolute inset-5 border border-ink/10" />
-          <span className="absolute left-6 top-6 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/55">fig. 01 — swift</span>
-          <span className="absolute bottom-6 right-6 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/55">22.30°N 73.36°E</span>
+          <span className="absolute left-6 top-6 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/55">fig. 01 â€” swift</span>
+          <span className="absolute bottom-6 right-6 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/55">22.30Â°N 73.36Â°E</span>
           {/* live badge on the plate */}
           <span className="glass-chip absolute left-6 top-12 hidden items-center gap-1.5 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-ink/80 sm:inline-flex">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute h-full w-full rounded-full bg-emerald-500 animate-ping-ring" />
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
             </span>
-            Live · Tue lab 6 PM
+            Live Â· Tue lab 6 PM
           </span>
         </div>
       </div>
@@ -298,12 +298,12 @@ export function Hero() {
   const spotlight = useSpotlight<HTMLDivElement>();
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-24 sm:pt-40 lg:pt-44 lg:pb-32">
-      {/* backdrop — layered print sheet: colour field → swiss grid →
-          misregistered halftone plates → perspective floor → live layers */}
+      {/* backdrop â€” layered print sheet: colour field â†’ swiss grid â†’
+          misregistered halftone plates â†’ perspective floor â†’ live layers */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="hero-field" />
         <div className="absolute inset-0 grid-lines [mask-image:radial-gradient(ellipse_at_top,black_25%,transparent_72%)] opacity-60" />
-        {/* riso halftone passes — same dots, two plates, a few px off register */}
+        {/* riso halftone passes â€” same dots, two plates, a few px off register */}
         <div className="hero-halftone -right-[6%] -top-[8%] h-[62vh] w-[62vh]" />
         <div className="hero-halftone hero-halftone--b -right-[6%] -top-[8%] h-[62vh] w-[62vh]" />
         <div className="hero-halftone hero-halftone--c -left-[8%] bottom-[4%] h-[46vh] w-[46vh]" />
@@ -333,7 +333,7 @@ export function Hero() {
         <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-6">
           {/* ------- Copy ------- */}
           <div className="lg:col-span-6">
-            <p className="eyebrow mb-4">01 — The student-run iOS studio at Parul University</p>
+            <p className="eyebrow mb-4">01 â€” The student-run iOS studio at Parul University</p>
             <h1 className="display relative text-balance text-[3.1rem] sm:text-6xl lg:text-[5.2rem] xl:text-[5.8rem]">
               <Reveal as="span" className="block" delay={60}>Learn Swift.</Reveal>
               <Reveal as="span" className="block" delay={140}>
@@ -356,17 +356,17 @@ export function Hero() {
 
             <Reveal delay={320}>
               {/* 30rem, not max-w-xl: the code card floats at z+130 and its
-                  projected left edge lands at x≈654, so a 576px measure would
+                  projected left edge lands at xâ‰ˆ654, so a 576px measure would
                   run 50px underneath it and every line would end mid-word. */}
               <p className="mt-8 max-w-[30rem] text-pretty text-[17px] leading-relaxed text-muted sm:text-lg">
                 The student-run iOS studio at Parul University. Weekly hands-on labs, senior mentorship,
-                and one goal per semester: a polished app with your name on it — free for every student.
+                and one goal per semester: a polished app with your name on it â€” free for every student.
               </p>
             </Reveal>
 
             <Reveal delay={400} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Magnetic>
-                <a href="#join" className="btn btn-accent sweep group">
+                <a href="#cta" className="btn btn-accent sweep group">
                   Join the club
                   <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" aria-hidden>
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -381,7 +381,7 @@ export function Hero() {
                   See student apps
                 </a>
               </Magnetic>
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">Free · 2 hrs / week</span>
+              <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">Free Â· 2 hrs / week</span>
             </Reveal>
 
             <Reveal delay={480} className="glass-panel mt-10 grid max-w-lg grid-cols-3 divide-x divide-white/60 rounded-2xl">
@@ -391,7 +391,7 @@ export function Hero() {
             </Reveal>
             <Reveal delay={560} className="mt-6 flex items-center gap-3">
               <Squiggle color="#F05138" className="w-32" />
-              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">Swift Coding Club · Est. 2020</span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">Swift Coding Club Â· Est. 2020</span>
             </Reveal>
           </div>
 

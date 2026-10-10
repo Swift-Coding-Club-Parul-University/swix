@@ -1,4 +1,4 @@
-import { Reveal } from "./ui/Reveal";
+﻿import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 import { Tilt } from "./ui/Tilt";
 import { GlassCube } from "./ui/GlassCube";
@@ -11,10 +11,10 @@ const items = [
     n: "01",
     href: "#apple-lab",
     link: "Meet the lab",
-    star: "✦",
+    star: "âœ¦",
     label: "Apple Certified",
     sub: "Training Center on campus",
-    detail: <span className="lab-tag">ACT · Umang Panchal</span>,
+    detail: <span className="lab-tag">ACT Â· Umang Panchal</span>,
     corner: (
       <span aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-12">
         <svg viewBox="0 0 128 128" className="h-full w-full opacity-50">
@@ -33,7 +33,7 @@ const items = [
     n: "02",
     href: "#stories",
     link: "Hear their stories",
-    star: "✧",
+    star: "âœ§",
     label: "300+",
     sub: "Students trained since 2020",
     detail: (
@@ -65,7 +65,7 @@ const items = [
     n: "03",
     href: "#showcase",
     link: "Browse the apps",
-    star: "✦",
+    star: "âœ¦",
     label: "12",
     sub: "Student apps on the App Store",
     detail: (
@@ -97,10 +97,10 @@ const items = [
   },
   {
     n: "04",
-    href: "#join",
+    href: "#cta",
     link: "Claim your seat",
-    star: "✧",
-    label: "₹0",
+    star: "âœ§",
+    label: "â‚¹0",
     sub: "Free for every student, forever",
     detail: (
       <span className="inline-flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-[0.16em] text-muted">
@@ -129,11 +129,11 @@ const items = [
 const ticker = [
   "Free forever",
   "No Mac needed",
-  "Thursday labs · 5 PM",
+  "Thursday labs Â· 5 PM",
   "Beginners welcome",
   "Ship real apps",
   "Mentored by seniors",
-  "Est. 2020 · Parul University",
+  "Est. 2020 Â· Parul University",
 ];
 
 const watermarkWords = ["Swift", "Coding", "Club", "Swift", "Coding", "Club"];
@@ -154,12 +154,12 @@ export function GlassHighlights() {
                 Polished outside. <span className="text-swift">Substance inside.</span>
               </span>
             }
-            body="An Apple Authorized Training Center run entirely by students — real curriculum, real Macs, real apps on the App Store. And it costs nothing."
+            body="An Apple Authorized Training Center run entirely by students â€” real curriculum, real Macs, real apps on the App Store. And it costs nothing."
           />
           <Reveal delay={220} className="mt-6 flex flex-wrap items-center gap-4">
             <span className="atomi-chip">
-              <span className="text-swift">✦</span>
-              Funded by the university · run by volunteers
+              <span className="text-swift">âœ¦</span>
+              Funded by the university Â· run by volunteers
             </span>
             <span className="atomi-chip">Audited every sem</span>
           </Reveal>
@@ -216,7 +216,7 @@ export function GlassHighlights() {
                       <span className="display atomi-chrome-text px-6 font-mono text-[7rem] font-bold uppercase leading-none tracking-tight opacity-70">
                         {w}
                       </span>
-                      <span className="font-mono text-5xl text-[#b4552d]/40">·</span>
+                      <span className="font-mono text-5xl text-[#b4552d]/40">Â·</span>
                     </span>
                   ))}
                 </div>
@@ -239,8 +239,8 @@ export function GlassHighlights() {
                   {/* Name in the class, timing in the style: the phone budget
                       in index.css can only switch off an animation by its
                       class token or by text it can find in the style
-                      attribute — and Chrome serializes an inline `animation`
-                      shorthand with the name *last* ("8s … none running
+                      attribute â€” and Chrome serializes an inline `animation`
+                      shorthand with the name *last* ("8s â€¦ none running
                       float"), so a `float` written inline is unreachable. */}
                   <div
                     className="h-full animate-float motion-reduce:!animate-none"
@@ -250,7 +250,7 @@ export function GlassHighlights() {
                       <a
                         href={it.href}
                         data-cursor="hot"
-                        aria-label={`${it.label} — ${it.link}`}
+                        aria-label={`${it.label} â€” ${it.link}`}
                         className="lab-panel group relative flex h-full flex-col justify-between gap-5 overflow-hidden p-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F05138] sm:p-6"
                         style={
                           {
@@ -295,7 +295,7 @@ export function GlassHighlights() {
                 {[...ticker, ...ticker].map((t, i) => (
                   <span key={i} className="flex items-center gap-10 whitespace-nowrap">
                     <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] text-muted">{t}</span>
-                    <span aria-hidden className="text-swift/60">·</span>
+                    <span aria-hidden className="text-swift/60">Â·</span>
                   </span>
                 ))}
               </div>

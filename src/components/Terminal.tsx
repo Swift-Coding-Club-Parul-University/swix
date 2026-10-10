@@ -1,4 +1,4 @@
-import { Reveal } from "./ui/Reveal";
+﻿import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 import { ScrollStrip } from "./ui/ScrollStrip";
 import { useScrollScrub } from "@/hooks/useScrollScrub";
@@ -39,7 +39,7 @@ export function Terminal() {
           }
           body={
             <span className="text-muted">
-              A blue screen isn't the end of the world — it's the start of the best story you'll tell on Demo Day. In
+              A blue screen isn't the end of the world â€” it's the start of the best story you'll tell on Demo Day. In
               the Debug Lab we collect crashes like trophies, read stack traces like detective novels, and turn "it
               works on my machine" into "it ships from ours."
             </span>
@@ -92,7 +92,7 @@ export function Terminal() {
                   </Reveal>
                   <Reveal delay={220} className="flex flex-wrap justify-between gap-2">
                     <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/45">next session</dt>
-                    <dd className="font-semibold text-ink">Thursdays · Lab 204 · 5 PM · bring the crash</dd>
+                    <dd className="font-semibold text-ink">Thursdays Â· Lab 204 Â· 5 PM Â· bring the crash</dd>
                   </Reveal>
                   <Reveal delay={340} className="flex flex-wrap justify-between gap-2">
                     <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/45">stop code</dt>
@@ -107,7 +107,7 @@ export function Terminal() {
               </div>
 
               <footer className="lab-status">
-                <span>1 error found — it&apos;s a friend now</span>
+                <span>1 error found â€” it&apos;s a friend now</span>
                 <span>NUM</span>
               </footer>
             </div>
@@ -134,11 +134,11 @@ export function Terminal() {
                 style={{ "--tone": "#FFD3BC", "--tilt-r": "0.4deg" } as React.CSSProperties}
               >
                 <span aria-hidden className="lab-halftone absolute -top-3 -right-3 h-[55%] w-[45%] -z-10" />
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#F05138]/70">lab rule nº 404</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#F05138]/70">lab rule nÂº 404</p>
                 <p className="mt-2 text-lg font-bold tracking-tight text-ink">
                   "If it compiles on the first try, you didn&apos;t dream big enough."
                 </p>
-                <p className="mt-3 font-mono text-[13px] text-muted">— every mentor here, at least once a week</p>
+                <p className="mt-3 font-mono text-[13px] text-muted">â€” every mentor here, at least once a week</p>
               </div>
             </Reveal>
           </div>
@@ -146,7 +146,7 @@ export function Terminal() {
 
         <Reveal delay={160} className="mt-12 flex flex-wrap items-center gap-4">
           <a
-            href="#join"
+            href="#cta"
             className="inline-flex items-center gap-2 rounded-sm border border-[#F05138] bg-[#F05138]/15 px-6 py-3.5 text-sm font-bold text-[#F05138] transition-transform duration-300 motion-safe:hover:-translate-y-0.5 hover:bg-[#F05138]/25"
             style={{ boxShadow: "0 0 24px -8px rgba(240,81,56,0.3)" }}
           >
@@ -158,7 +158,7 @@ export function Terminal() {
           <a href="#program" className="win98-btn inline-flex items-center !px-5 !py-2.5 !text-[12px]">
             See the tracks
           </a>
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/40">no crash left behind · est. 2021</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/40">no crash left behind Â· est. 2021</span>
         </Reveal>
       </div>
     </section>
