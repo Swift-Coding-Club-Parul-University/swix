@@ -29,7 +29,7 @@ const benefits = [
   {
     n: "04",
     title: "Mac Lab access & Apple Developer membership",
-    body: "Don't own a Mac? Members get scheduled access to the PIT Mac Lab plus a subsidised developer account for publishing under the club's team.",
+    body: "Don't own a Mac? Members get scheduled access to the Apple Lab with Xcode pre-installed — book a machine any week of the semester and build there.",
     tag: "Access",
   },
 ];
@@ -105,7 +105,7 @@ export function Benefits() {
                       </div>
                     </div>
                     <figcaption className="lab-status">
-                      <span>PIT Mac Lab · Block B, 3F</span>
+                      <span>Apple Lab · Block B, 3F</span>
                       <span className="flex items-center gap-2">
                         <span className="lab-live" aria-hidden />
                         42 here now
@@ -119,8 +119,8 @@ export function Benefits() {
                 <div className="lab-panel relative flex flex-col overflow-hidden" style={{ "--tone": tones[0], "--tilt-r": "-0.4deg" } as React.CSSProperties}>
                   <LabWin />
                   <div className="relative z-10 flex-1 p-4">
-                    <p className="display bg-gradient-to-br from-[#9c321f] to-[#F05138] bg-clip-text text-3xl text-transparent">12</p>
-                    <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">Apps shipped by members</p>
+                    <p className="display bg-gradient-to-br from-[#9c321f] to-[#F05138] bg-clip-text text-3xl text-transparent">13</p>
+                    <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">Apple Certified Swift Associate</p>
                   </div>
                 </div>
                 <div className="lab-panel relative flex flex-col overflow-hidden" style={{ "--tone": tones[2], "--tilt-r": "0.4deg" } as React.CSSProperties}>
@@ -152,7 +152,7 @@ export function Benefits() {
                   <LabWin file={`benefit_${b.n}.swift`} n={b.n} />
 
                   <div className="lab-body relative z-10 flex-1 p-6">
-                    <span aria-hidden className="lab-halftone absolute -top-4 -right-3 h-[200px] w-[42%] -z-10" />
+                    <span aria-hidden className="lab-halftone absolute top-0 -right-3 h-[200px] w-[42%] -z-10" />
                     <div className="lab-band flex items-start justify-between gap-4">
                       <div className="lab-copy flex flex-wrap items-center gap-3">
                         <span className="display bg-gradient-to-br from-[#9c321f] to-[#F05138] bg-clip-text text-3xl text-transparent">{b.n}</span>

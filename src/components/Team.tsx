@@ -5,15 +5,17 @@ import { Tilt } from "./ui/Tilt";
 import { cn } from "@/utils/cn";
 
 const core = [
-  { n: "Manav Sinh", r: "Club Lead", s: "3 apps · SSC '24", i: "MS", c: "#b4552d" },
-  { n: "Krishna Vaghela", r: "Swift Track Head", s: "Mentored 40+", i: "KV", c: "#2a1a10" },
-  { n: "Hemanto", r: "Designer", s: "Figma → code", i: "H", c: "#c2521f" },
-  { n: "Harshil Parmar", r: "Infra & Dev Rel", s: "CI, TestFlight", i: "HP", c: "#1d7a4c" },
-  { n: "Arpita Mishra", r: "Media Lead", s: "Events & alumni", i: "AM", c: "#d97a4a" },
-  { n: "Yash Bhatt", r: "Hackathon Captain", s: "6 wins", i: "YB", c: "#2a1a10" },
+  { n: "Manav Sinh", r: "Club Lead", i: "MS", c: "#b4552d" },
+  { n: "Hemanto", r: "Technical Lead", i: "H", c: "#c2521f" },
+  { n: "Bhavik", r: "Operational Lead", i: "B", c: "#2a1a10" },
+  { n: "Navya", r: "Media Lead", i: "N", c: "#1d7a4c" },
+  { n: "Arpita", r: "Community and Outreach Lead", i: "AR", c: "#d97a4a" },
+  { n: "Praneel Pandey", r: "App Project Lead", i: "PP", c: "#2a1a10" },
+  { n: "Arya", r: "Research and Discovery", i: "AY", c: "#c2521f" },
+  { n: "Dhruv", r: "Educational Lead", i: "D", c: "#1d7a4c" },
 ];
 
-const tones = ["#D9CFFF", "#BDE4FF", "#FFC6DD", "#B9ECCD", "#FFEDA3", "#D9CFFF"];
+const tones = ["#D9CFFF", "#BDE4FF", "#FFC6DD", "#B9ECCD", "#FFEDA3", "#D9CFFF", "#BDE4FF", "#FFC6DD"];
 
 /** Team — Retro Futurism: the crew manifest. Atomic roster cards, orbit badges. */
 export function Team() {
@@ -44,7 +46,7 @@ export function Team() {
           }
           body={
             <span className="text-[#6b4a34]">
-              Six people keep the lights on: they write the labs, review your pull requests and sit with you until the
+              Eight people keep the lights on: they write the labs, review your pull requests and sit with you until the
               build passes. They were all in your seat two years ago.
             </span>
           }
@@ -78,19 +80,19 @@ export function Team() {
                 </div>
                 <p className="absolute bottom-14 left-4 right-4 text-center font-mono text-[9px] uppercase tracking-[0.18em] text-[#8a6a50]/60">[ replace with your own image ]</p>
                 <figcaption className="lab-status">
-                  <span>six seniors · one charger</span>
+                  <span>eight seniors · one charger</span>
                   <span aria-hidden className="text-[#c2521f]">✦</span>
                 </figcaption>
               </figure>
             </Tilt>
           </Reveal>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:col-span-7">
             {core.map((m, i) => (
               <Reveal key={m.n} delay={i * 80}>
                 <Tilt max={7} lift={16} className="h-full">
                   <div
-                    className="lab-panel group relative flex h-full items-center gap-4 p-5"
+                    className="lab-panel group relative flex h-full items-center gap-3.5 px-5 py-3.5"
                     style={
                       {
                         "--tone": tones[i],
@@ -100,7 +102,7 @@ export function Team() {
                     }
                   >
                     <span
-                      className="grid h-14 w-14 shrink-0 place-items-center rounded-full text-base font-bold transition-transform duration-500 motion-safe:group-hover:-rotate-6 motion-safe:group-hover:scale-105"
+                      className="grid h-12 w-12 shrink-0 place-items-center rounded-full text-[14px] font-bold transition-transform duration-500 motion-safe:group-hover:-rotate-6 motion-safe:group-hover:scale-105"
                       style={{
                         color: "#ffe8d2",
                         background: `radial-gradient(circle at 32% 28%, ${m.c}, #2a1a10 130%)`,
@@ -111,11 +113,10 @@ export function Team() {
                       {m.i}
                     </span>
                     <div className="min-w-0">
-                      <p className="truncate text-[15.5px] font-bold tracking-tight text-[#2a1a10]">{m.n}</p>
-                      <div className="lab-copy my-1">
+                      <p className="truncate text-[15px] font-bold tracking-tight text-[#2a1a10]">{m.n}</p>
+                      <div className="lab-copy mt-1">
                         <span className="lab-tag">{m.r}</span>
                       </div>
-                      <p className="mt-0.5 truncate font-mono text-[11.5px] text-[#8a6a50]">{m.s}</p>
                     </div>
                   </div>
                 </Tilt>

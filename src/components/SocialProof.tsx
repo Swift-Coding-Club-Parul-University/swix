@@ -2,18 +2,22 @@ import { Reveal } from "./ui/Reveal";
 import { useVelocitySkew } from "@/hooks/useVelocitySkew";
 
 const partners = [
-  "Apple Developer Academy Alumni",
-  "Parul Institute of Technology",
-  "PU Innovation & Incubation Centre",
-  "GDG Vadodara",
-  "Swift India Community",
-  "Hack The Campus",
-  "iOS Dev Baroda",
-  "PU Placement Cell",
+  "AWS",
+  "Swift Coding Club",
+  "Tinkering Hub",
+  "Red Hat",
+  "PU AI Society",
+  "AR-VR",
+  "AI-ML",
 ];
 
 export function SocialProof() {
   const skewRef = useVelocitySkew<HTMLDivElement>(4);
+  /* The marquee keyframe slides the track by -50%, so the content must be two
+     identical halves — and each half has to be wider than the viewport or the
+     tail of the loop shows up as empty page. Four passes of the list (= two
+     halves of two passes) keeps it seamless on any screen. */
+  const loop = Array.from({ length: 4 }).flatMap(() => partners);
   return (
     <section
       aria-label="Trusted by"
@@ -34,13 +38,12 @@ export function SocialProof() {
             className="marquee-track gpu motion-safe:animate-marquee flex w-max items-center gap-4 whitespace-nowrap px-7 py-2 group-hover/strip:[animation-play-state:paused]"
             aria-hidden={false}
           >
-            {[...partners, ...partners].map((p, i) => (
+            {loop.map((p, i) => (
               <li
                 key={`${p}-${i}`}
                 className="relative inline-flex items-center gap-2.5 !rounded-full border border-line bg-white/70 px-5 py-2.5 text-[12px] text-ink shadow-[0_1px_0_rgba(255,255,255,0.9)_inset,0_6px_16px_-8px_rgba(11,11,12,0.1)] motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:-translate-y-1"
                 aria-hidden={i >= partners.length}
               >
-                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-swift/10 text-[10px] font-bold text-swift">{p[0]}</span>
                 {p}
               </li>
             ))}

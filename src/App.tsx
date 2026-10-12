@@ -16,14 +16,12 @@ import { Splash } from "./components/ui/Splash";
 const ScrollStory = lazy(() => import("./components/ScrollStory").then((m) => ({ default: m.ScrollStory })));
 const Features = lazy(() => import("./components/Features").then((m) => ({ default: m.Features })));
 const Benefits = lazy(() => import("./components/Benefits").then((m) => ({ default: m.Benefits })));
-const Showcase = lazy(() => import("./components/Showcase").then((m) => ({ default: m.Showcase })));
 const AppleLab = lazy(() => import("./components/AppleLab").then((m) => ({ default: m.AppleLab })));
 const Coverflow = lazy(() => import("./components/Coverflow").then((m) => ({ default: m.Coverflow })));
 const Gallery = lazy(() => import("./components/Gallery").then((m) => ({ default: m.Gallery })));
 const Team = lazy(() => import("./components/Team").then((m) => ({ default: m.Team })));
 const Testimonials = lazy(() => import("./components/Testimonials").then((m) => ({ default: m.Testimonials })));
 const FAQ = lazy(() => import("./components/FAQ").then((m) => ({ default: m.FAQ })));
-const Terminal = lazy(() => import("./components/Terminal").then((m) => ({ default: m.Terminal })));
 const CTA = lazy(() => import("./components/CTA").then((m) => ({ default: m.CTA })));
 const Footer = lazy(() => import("./components/Footer").then((m) => ({ default: m.Footer })));
 
@@ -49,14 +47,12 @@ export default function App() {
           <ScrollStory />
           <Features />
           <Benefits />
-          <Showcase />
           <AppleLab />
           <Coverflow />
           <Gallery />
           <Team />
           <Testimonials />
           <FAQ />
-          <Terminal />
           <CTA />
         </Suspense>
       </main>

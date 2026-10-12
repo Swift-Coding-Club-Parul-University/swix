@@ -6,7 +6,7 @@ import { cn } from "@/utils/cn";
 const faqs = [
   {
     q: "Do I need a Mac to join?",
-    a: "No. Builder and Core members get scheduled access to the PIT Mac Lab (Block B, 3rd floor) with Xcode pre-installed. Many members start on the lab machines and buy a used Mac later — we keep a list of trusted sellers too.",
+    a: "No. Builder and Core members get scheduled access to the Apple Lab (Block B, 3rd floor) with Xcode pre-installed. Many members start on the lab machines and buy a used Mac later — we keep a list of trusted sellers too.",
   },
   {
     q: "I've never coded before. Is this for me?",

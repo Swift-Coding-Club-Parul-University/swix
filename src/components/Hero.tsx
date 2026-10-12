@@ -24,7 +24,7 @@ const codeLines = [
   { t: "struct", cls: "code-token-k", rest: " ClubApp: App {" },
   { t: "  var", cls: "code-token-k", rest: " body: some Scene {" },
   { t: "    WindowGroup", cls: "code-token-t", rest: " {" },
-  { t: "      ShipIt", cls: "code-token-t", rest: "(campus: \"Parul\")" },
+  { t: "      ShipIt", cls: "code-token-t", rest: "(campus: \"Parul University\")" },
   { t: "    }", cls: "", rest: "" },
   { t: "  }", cls: "", rest: "" },
   { t: "}", cls: "", rest: "" },
@@ -214,14 +214,6 @@ function HeroScene() {
           <div aria-hidden className="pointer-events-none absolute inset-5 border border-ink/10" />
           <span className="absolute left-6 top-6 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/55">fig. 01 — swift</span>
           <span className="absolute bottom-6 right-6 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/55">22.30°N 73.36°E</span>
-          {/* live badge on the plate */}
-          <span className="glass-chip absolute left-6 top-12 hidden items-center gap-1.5 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-ink/80 sm:inline-flex">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute h-full w-full rounded-full bg-emerald-500 animate-ping-ring" />
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            </span>
-            Live · Tue lab 6 PM
-          </span>
         </div>
       </div>
 
@@ -333,7 +325,7 @@ export function Hero() {
         <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-6">
           {/* ------- Copy ------- */}
           <div className="lg:col-span-6">
-            <p className="eyebrow mb-4">01 — The student-run iOS studio at Parul University</p>
+            <p className="eyebrow mb-4">01 — The student-run Swift Coding Club</p>
             <h1 className="display relative text-balance text-[3.1rem] sm:text-6xl lg:text-[5.2rem] xl:text-[5.8rem]">
               <Reveal as="span" className="block" delay={60}>Learn Swift.</Reveal>
               <Reveal as="span" className="block" delay={140}>
@@ -359,7 +351,7 @@ export function Hero() {
                   projected left edge lands at x≈654, so a 576px measure would
                   run 50px underneath it and every line would end mid-word. */}
               <p className="mt-8 max-w-[30rem] text-pretty text-[17px] leading-relaxed text-muted sm:text-lg">
-                The student-run iOS studio at Parul University. Weekly hands-on labs, senior mentorship,
+                The student-run Swift Coding Club. Weekly hands-on labs, senior mentorship,
                 and one goal per semester: a polished app with your name on it — free for every student.
               </p>
             </Reveal>
@@ -381,12 +373,11 @@ export function Hero() {
                   See student apps
                 </a>
               </Magnetic>
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">Free · 2 hrs / week</span>
             </Reveal>
 
             <Reveal delay={480} className="glass-panel mt-10 grid max-w-lg grid-cols-3 divide-x divide-white/60 rounded-2xl">
               <Stat value={300} suffix="+" label="Students trained" accent="bg-swift" />
-              <Stat value={38} label="Apps shipped" accent="bg-lavender" />
+              <Stat value={13} label="Apple Certified Swift Associate" accent="bg-lavender" />
               <Stat value={1} label="App Store launch" accent="bg-mint" />
             </Reveal>
             <Reveal delay={560} className="mt-6 flex items-center gap-3">

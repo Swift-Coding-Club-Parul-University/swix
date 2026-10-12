@@ -58,9 +58,9 @@ const features: Feature[] = [
   },
   {
     n: "04",
-    tag: "Hackathons · Swift Student Challenge",
-    title: "Compete, then get hired",
-    body: "We prep teams for the Apple Swift Student Challenge and national hackathons, and run mock interviews with iOS engineers from top studios.",
+    tag: "Mentorship · Swift Student Challenge",
+    title: "Guided to the Challenge",
+    body: "Seniors sit with you for the Apple Swift Student Challenge — picking an idea, scoping the playground, and reviewing every draft until it's ready to submit.",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6" {...stroke}>
         <path d="M8 21h8M12 17v4M6 4h12v4a6 6 0 01-12 0V4zM6 6H3.5a2.5 2.5 0 002.5 4M18 6h2.5A2.5 2.5 0 0118 10" />
@@ -87,7 +87,11 @@ function RegMark({ className }: { className?: string }) {
 function FeatureCard({ f, i }: { f: Feature; i: number }) {
   return (
     <Reveal delay={80 + i * 100} className={cn("h-full", f.span)}>
-      <Tilt max={6} lift={10} scale={1.015} sheen={false} depth className="h-full">
+      {/* lift/scale/depth off: these panels tilt only (rotateY/rotateX).
+          A translateZ or scale3d forces the layer to re-raster every pointer
+          frame — which, paired with the panel's backdrop blur, is the hover
+          shiver. Pure rotation stays a composited GPU transform. */}
+      <Tilt max={6} lift={0} scale={1} sheen={false} className="h-full">
         <article
           className="lab-panel relative flex h-full flex-col"
           style={
@@ -134,7 +138,7 @@ function FeatureCard({ f, i }: { f: Feature; i: number }) {
             <RegMark className="lab-status__reg" />
             <span className="flex items-center gap-2">
               <span className="lab-live" aria-hidden />
-              ready
+              swift
             </span>
           </footer>
         </article>

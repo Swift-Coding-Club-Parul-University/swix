@@ -1188,6 +1188,41 @@ body {
   }
 }
 
+/* ---------- Features (#program) panels — smooth hover tilt ----------
+   These four are the only lab panels wrapped in Tilt, so they are the only
+   ones whose transform changes on every pointer frame. Hover felt laggy and
+   glitchy for two reasons:
+   1. `backdrop-filter: blur(22px)` — each frame the blur was re-sampled
+      against a moving backdrop (the live WebGL shader behind the panel),
+      so the panel visibly shivered instead of gliding.
+   2. `.tilt`'s 0.4s transform transition fought the rAF pointer writes, so
+      the panel rubber-banded behind the cursor instead of tracking it.
+   The panel fill is already ~95% opaque, so dropping the blur here reads
+   almost identical — and the tilt becomes a plain composited transform.
+   Scoped to #program: every other lab panel keeps its glass, and the
+   transition is re-enabled the moment the pointer leaves. */
+#program .lab-panel {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.97),
+    rgba(255, 250, 245, 0.94) 52%,
+    color-mix(in srgb, var(--tone) 64%, #fffaf5)
+  );
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  /* pointer tracking must be 1:1 — no transition inside the rAF loop */
+  #program .scene-3d:hover .tilt {
+    transition: none;
+    will-change: transform;
+  }
+  /* ease back into place only after the pointer has left */
+  #program .scene-3d:not(:hover) .tilt {
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+}
+
 /* Big container panels (whole-section cards) need a heavier edge */
 .lab-panel--xl {
   box-shadow:
@@ -1369,6 +1404,13 @@ body {
     transform: translate3d(-2px, -3px, 14px);
     box-shadow: 4.5px 4.5px 0 var(--color-ink);
   }
+}
+
+/* team cards — tighter tag so long lead roles ("Community and Outreach
+   Lead") stay on one line inside the shorter panel */
+#team .lab-tag {
+  font-size: 10px;
+  letter-spacing: 0.1em;
 }
 
 /* print-proof status bar with registration target */

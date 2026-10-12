@@ -66,8 +66,8 @@ const items = [
     href: "#showcase",
     link: "Browse the apps",
     star: "✦",
-    label: "12",
-    sub: "Student apps on the App Store",
+    label: "13",
+    sub: "Apple Certified Swift Associate",
     detail: (
       <svg viewBox="0 0 120 32" className="h-8 w-28" fill="none" aria-hidden>
         <defs>
@@ -154,13 +154,9 @@ export function GlassHighlights() {
                 Polished outside. <span className="text-swift">Substance inside.</span>
               </span>
             }
-            body="An Apple Authorized Training Center run entirely by students — real curriculum, real Macs, real apps on the App Store. And it costs nothing."
+            body="Swift Coding Club run by students — real curriculum, real Macs, real apps on the App Store. And it costs nothing."
           />
           <Reveal delay={220} className="mt-6 flex flex-wrap items-center gap-4">
-            <span className="atomi-chip">
-              <span className="text-swift">✦</span>
-              Funded by the university · run by volunteers
-            </span>
             <span className="atomi-chip">Audited every sem</span>
           </Reveal>
           <GlassCube className="-left-2 top-28 !hidden opacity-75 lg:!block" size={68} tone="ice" depth={20} delay={-3} />

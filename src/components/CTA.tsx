@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { Reveal } from "./ui/Reveal";
-import { Magnetic } from "./ui/Magnetic";
 import { Orb } from "./ui/Orb";
 import { GlassCube } from "./ui/GlassCube";
 import { PrismOrb } from "./ui/PrismOrb";
@@ -25,15 +23,6 @@ const starfield = [
 
 /** CTA — Retro Futurism: the launchpad. Atomic-age panel, orbits, starbursts. */
 export function CTA() {
-  const [email, setEmail] = useState("");
-  const [state, setState] = useState<"idle" | "done">("idle");
-
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.includes("@")) return;
-    setState("done");
-  };
-
   return (
     <section id="cta" className="cv-auto py-24 sm:py-32">
       <div className="container-x">
@@ -78,39 +67,42 @@ export function CTA() {
                   Your first app is one <span className="text-[#c2521f]">Thursday</span> away.
                 </h2>
                 <p className="mt-6 max-w-xl text-pretty text-lg text-[#6b4a34]">
-                  Free for every Parul student. Leave your university email — we&apos;ll send the application
-                  link, lab schedule and a Swift starter kit.
+                  Free for every Parul student. The application form is under maintenance right now —
+                  come by Thursday&apos;s lab in the meantime.
                 </p>
 
-                <form onSubmit={submit} className="mt-10 max-w-lg" aria-label="Apply to Swift Coding Club">
+                {/* Under maintenance: the field is disabled and the form is
+                    inert, so no address can be typed in or submitted. */}
+                <div className="mt-10 max-w-lg" aria-label="Apply to Swift Coding Club — under maintenance" aria-disabled="true">
                   <div
                     className="glass-panel flex flex-col gap-2 rounded-[22px] p-2 sm:flex-row"
                     style={{
                       borderColor: "rgba(180,85,45,0.35)",
                     }}
                   >
-                    <label htmlFor="email" className="sr-only">University email</label>
+                    <label htmlFor="email" className="sr-only">Application form — under maintenance</label>
                     <input
                       id="email"
-                      type="email"
-                      inputMode="email"
-                      autoComplete="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="you@paruluniversity.ac.in"
-                      className="h-12 flex-1 rounded-xl bg-transparent px-5 text-[15px] text-[#2a1a10] placeholder:text-[#8a6a50]/60 focus:outline-none"
+                      type="text"
+                      placeholder="Under maintenance"
+                      disabled
+                      readOnly
+                      tabIndex={-1}
+                      className="h-12 flex-1 cursor-not-allowed rounded-xl bg-transparent px-5 text-[15px] text-[#2a1a10] placeholder:text-[#8a6a50]/70 focus:outline-none"
                     />
-                    <Magnetic strength={0.18}>
-                      <button type="submit" className={cn("atomi-btn h-12 px-6 text-sm", state === "done" && "!bg-[#2f9e5f] !shadow-[0_6px_0_#1d6e3e]")} style={{ boxShadow: "0 6px 0 #b4552d" }}>
-                        {state === "done" ? "Check your inbox ✓" : "Get the application"}
-                      </button>
-                    </Magnetic>
+                    <button
+                      type="button"
+                      disabled
+                      className="atomi-btn h-12 cursor-not-allowed px-6 text-sm opacity-55"
+                      style={{ boxShadow: "0 6px 0 #b4552d" }}
+                    >
+                      Under maintenance
+                    </button>
                   </div>
                   <p className="mt-3 font-mono text-xs text-[#8a6a50]" aria-live="polite">
-                    {state === "done" ? "Sent. See you Thursday, 5pm — Block B, 3F." : "Any @paruluniversity.ac.in address. No spam, ever."}
+                    This form is under maintenance — no email is being collected right now.
                   </p>
-                </form>
+                </div>
               </div>
 
               <div className="lg:col-span-4 lg:pl-8">
