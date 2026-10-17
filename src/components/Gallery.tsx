@@ -5,6 +5,8 @@ import vision from "@/assets/vision.jpg";
 import campus from "@/assets/campus.jpg";
 import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
+import { PrismOrb } from "./ui/PrismOrb";
+import { GlassCube } from "./ui/GlassCube";
 import { useParallax } from "@/hooks/useParallax";
 import { cn } from "@/utils/cn";
 
@@ -74,13 +76,30 @@ function Cube() {
 export function Gallery() {
   const parallax = useParallax<HTMLDivElement>(26);
   return (
-    <section id="life" className="webcore-section cv-auto relative overflow-clip py-24 sm:py-32">
-      <div aria-hidden className="webcore-stars pointer-events-none absolute inset-0 opacity-70" />
+    <section id="life" className="webcore-section cv-auto relative overflow-clip py-24 sm:py-32" style={{ background: "#FFF8F2" }}>
+      {/* animated liquid aurora */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="gpu animate-morph absolute -top-[12%] left-[8%] h-[54vmin] w-[54vmin] mix-blend-multiply blur-3xl opacity-65" style={{ background: "radial-gradient(closest-side, rgba(255,198,221,0.7), transparent 70%)", animationDelay: "-4s", animationDuration: "22s" }} />
+        <div className="gpu animate-morph-alt absolute top-[5%] right-[4%] h-[48vmin] w-[48vmin] mix-blend-multiply blur-3xl opacity-60" style={{ background: "radial-gradient(closest-side, rgba(217,207,255,0.65), transparent 70%)", animationDelay: "-10s", animationDuration: "26s" }} />
+        <div className="gpu animate-morph absolute bottom-[-8%] left-[35%] h-[42vmin] w-[42vmin] mix-blend-multiply blur-3xl opacity-55" style={{ background: "radial-gradient(closest-side, rgba(185,236,205,0.55), transparent 70%)", animationDelay: "-16s", animationDuration: "19s" }} />
+        <div className="gpu animate-morph-alt absolute bottom-[2%] right-[20%] h-[38vmin] w-[38vmin] mix-blend-multiply blur-3xl opacity-50" style={{ background: "radial-gradient(closest-side, rgba(255,237,163,0.6), transparent 70%)", animationDelay: "-1s", animationDuration: "24s" }} />
+      </div>
+      <div aria-hidden className="webcore-stars pointer-events-none absolute inset-0 opacity-40" />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{ background: "radial-gradient(70% 50% at 50% 0%, rgba(240,81,56,0.06), transparent 60%)" }}
       />
+      {/* giant watermark */}
+      <div aria-hidden className="pointer-events-none absolute -bottom-10 -right-4 select-none font-mono text-[28vw] font-black leading-none tracking-tighter text-ink/[0.03]">
+        07
+      </div>
+      {/* dot grid overlay */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: "radial-gradient(circle, rgba(11,11,12,0.12) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+      {/* floating decorative orbs */}
+      <PrismOrb className="right-[6%] top-[10%] hidden lg:block" size={52} tone="rose" />
+      <PrismOrb className="left-[4%] bottom-[14%] hidden lg:block" size={40} tone="mint" satellite />
+      <GlassCube className="right-[3%] bottom-[6%] !hidden lg:!block" size={60} tone="ice" depth={20} delay={-4} />
 
       <div className="container-x relative">
         <SectionHeader
@@ -222,6 +241,11 @@ export function Gallery() {
             </div>
           </div>
         </Reveal>
+      </div>
+
+      {/* ASCII wave divider — terminal-style flowing characters */}
+      <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 h-24 w-full overflow-hidden opacity-30">
+        <pre className="ascii-wave font-mono text-[10px] leading-[1.0] text-swift/50 whitespace-pre select-none">{["\u223f".repeat(120) + "\\n" + "\u2248".repeat(120) + "\\n" + "~".repeat(120)].join("\\n").repeat(2)}</pre>
       </div>
     </section>
   );
