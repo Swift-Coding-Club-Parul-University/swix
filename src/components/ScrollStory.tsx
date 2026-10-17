@@ -63,7 +63,7 @@ function buildTiles(): Tile[] {
       // pseudo-random but deterministic scatter based on index
       const seed = i * 137.51;
       const angle = (seed % 360) * (Math.PI / 180);
-      const radius = 420 + ((seed * 3.7) % 260);
+      const radius = 650 + ((seed * 3.7) % 300);
       const sx = Math.cos(angle) * radius;
       const sy = Math.sin(angle) * radius * 0.72;
       const diag = (r + c) / (rows + cols);
@@ -169,7 +169,7 @@ export function ScrollStory() {
      * display; above that the extra pixels buy sharpness nobody can see on
      * a screen that size.
      */
-    const dprCap = () => (window.innerWidth < 768 ? 1.5 : 2);
+    const dprCap = () => 1.5;
     let dpr = Math.min(dprCap(), window.devicePixelRatio || 1);
     let raf = 0;
     let dirty = true;
@@ -203,7 +203,11 @@ export function ScrollStory() {
       ctx.clearRect(0, 0, width, height);
 
       const scale = Math.min(width, height) / 900;
-      const zoom = 1 + 0.05 * Math.sin(p * Math.PI);
+      const camX = Math.sin(p * Math.PI * 1.6) * 34 + (p - 0.5) * -46;
+      const camY = Math.cos(p * Math.PI * 1.3) * 26 + Math.sin(p * Math.PI * 0.7) * 12;
+      const camRot = Math.sin(p * Math.PI * 0.9) * 0.055 + (p > 0.88 ? -0.03 : 0);
+      const camZoom = 1 + 0.14 * Math.sin(p * Math.PI * 1.1) + (p > 0.86 ? 0.08 : 0);
+      const zoom = camZoom;
       let shakeX = 0;
       let shakeY = 0;
       if (p > 0.885 && p < 0.935) {
@@ -213,7 +217,10 @@ export function ScrollStory() {
       }
       ctx.save();
       ctx.translate(width / 2 + shakeX, height / 2 + shakeY);
-      ctx.scale(scale * zoom, scale * zoom);
+      ctx.scale(scale, scale);
+      ctx.translate(camX, camY);
+      ctx.scale(zoom, zoom);
+      ctx.rotate(camRot);
 
       // registration marks — print-proof corners
       const regA = clamp01(p / 0.05) * 0.3;
@@ -336,16 +343,37 @@ export function ScrollStory() {
         const local = clamp01((assembleT - tile.delay) / (1 - tile.delay || 1));
         const e = easeOutCubic(local);
         const er = easeOutBack(clamp01(local * 1.08));
-        const x = lerp(tile.sx, tile.tx, e);
-        const y = lerp(tile.sy, tile.ty, e);
+        let x = lerp(tile.sx, tile.tx, e);
+        let y = lerp(tile.sy, tile.ty, e);
         const rot = lerp(tile.srot, tile.trot, er);
+        const r0 = Math.hypot(tile.sx, tile.sy) || 1;
+        const swirl = (1 - e) * 34 * Math.sin(p * 7 + (tile.sx * 0.013 + tile.sy * 0.017));
+        const tx0 = -tile.sy / r0;
+        const ty0 = tile.sx / r0;
+        x += tx0 * swirl;
+        y += ty0 * swirl;
+        const depth = tile.sz / 320;
+        const px = camX * depth * 0.32;
+        const py = camY * depth * 0.32;
+
+        if (local > 0 && local < 1) {
+          ctx.save();
+          ctx.globalAlpha = (1 - e) * 0.28;
+          ctx.strokeStyle = tile.color;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(tile.sx, tile.sy);
+          ctx.lineTo(x + px, y + py);
+          ctx.stroke();
+          ctx.restore();
+        }
         const scatterOpacity = clamp01(p / 0.06);
         const size = tile.size * lerp(0.72, 1, e);
         const hs = size / 2;
 
         ctx.save();
         ctx.globalAlpha = scatterOpacity;
-        ctx.translate(x, y);
+        ctx.translate(x + px, y + py);
         ctx.rotate(rot);
         if (e > 0.3) {
           ctx.globalAlpha = scatterOpacity * ((e - 0.3) / 0.7) * 0.9;
@@ -359,6 +387,21 @@ export function ScrollStory() {
         ctx.lineWidth = 2;
         ctx.globalAlpha = scatterOpacity * (0.25 + e * 0.75);
         ctx.strokeRect(-hs, -hs, size, size);
+        ctx.restore();
+      }
+
+      const flashT = clamp01((assembleT - 0.9) / 0.1);
+      if (flashT > 0) {
+        ctx.save();
+        ctx.globalAlpha = (1 - flashT) * 0.55;
+        const fg = ctx.createRadialGradient(0, 0, 0, 0, 0, 280);
+        fg.addColorStop(0, "#FFF8F2");
+        fg.addColorStop(0.35, "rgba(240,81,56,0.45)");
+        fg.addColorStop(1, "transparent");
+        ctx.fillStyle = fg;
+        ctx.beginPath();
+        ctx.arc(0, 0, 280 * (0.5 + flashT * 0.5), 0, Math.PI * 2);
+        ctx.fill();
         ctx.restore();
       }
 
@@ -400,6 +443,19 @@ export function ScrollStory() {
 
         // misregistration amount — 1 while landing, resolves to 0 in register
         const reg = 1 - easeOutCubic(clamp01(markT / 0.62));
+
+        // 0 · soft swift glow behind the plate
+        ctx.save();
+        ctx.globalAlpha = e * 0.42;
+        const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, plate * 1.05);
+        glow.addColorStop(0, "rgba(240,81,56,0.6)");
+        glow.addColorStop(0.55, "rgba(240,81,56,0.18)");
+        glow.addColorStop(1, "transparent");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(0, 0, plate * 1.05, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
 
         // 1 · hard ink offset block (echoes the tile grid + SHIPPED stamp)
         ctx.save();
@@ -507,9 +563,12 @@ export function ScrollStory() {
         }
         ctx.restore();
 
-        // 7 · stamped bird — ink offset behind a cream silhouette, no glow
+        // 7 · stamped bird — ink offset behind a cream silhouette, with a
+        // subtle wing-beat so the mark feels alive instead of a static logo.
         ctx.save();
         ctx.globalAlpha = e;
+        const flap = Math.sin(p * 9) * 0.05;
+        ctx.rotate(flap);
         const s = (plate / 56) * 0.62 * breathe;
         ctx.scale(s, s);
         ctx.translate(-32, -32);
@@ -520,6 +579,28 @@ export function ScrollStory() {
         ctx.restore();
         ctx.fillStyle = "#FFF8F2";
         ctx.fill(birdPath2D);
+        ctx.restore();
+
+        // 8 · orbiting sparks — particles that coalesce around the mark
+        ctx.save();
+        ctx.globalAlpha = e * 0.85;
+        const sparkCount = 6;
+        for (let k = 0; k < sparkCount; k++) {
+          const a = (k / sparkCount) * Math.PI * 2 + p * 2.2;
+          const r = plate * 0.62 + Math.sin(p * 6 + k) * 6;
+          const sx = Math.cos(a) * r;
+          const sy = Math.sin(a) * r * 0.85;
+          const sz = 3 + (k % 3);
+          ctx.save();
+          ctx.translate(sx, sy);
+          ctx.rotate(a + p * 3);
+          ctx.fillStyle = k % 2 === 0 ? SWIFT : "#FFF3E6";
+          ctx.fillRect(-sz / 2, -sz / 2, sz, sz);
+          ctx.strokeStyle = INK;
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(-sz / 2, -sz / 2, sz, sz);
+          ctx.restore();
+        }
         ctx.restore();
       }
 
@@ -621,6 +702,30 @@ export function ScrollStory() {
         ctx.restore();
       }
 
+      // fly-in bird — the mark takes flight at the end of the reel
+      const flyT = clamp01((p - 0.86) / 0.14);
+      if (flyT > 0 && birdPath2D) {
+        const fe = easeOutCubic(flyT);
+        const fx = lerp(-380, 360, fe);
+        const fy = lerp(0, -220, fe) + Math.sin(flyT * Math.PI * 4) * 18;
+        const fs = 0.9 + fe * 0.6;
+        const flap = Math.sin(flyT * 12) * 0.12;
+        ctx.save();
+        ctx.globalAlpha = 0.9 * (1 - clamp01((p - 0.985) / 0.015));
+        ctx.translate(fx, fy);
+        ctx.rotate(flap);
+        ctx.scale(fs, fs);
+        ctx.translate(-32, -32);
+        ctx.fillStyle = INK;
+        ctx.save();
+        ctx.translate(3.5, 3.5);
+        ctx.fill(birdPath2D);
+        ctx.restore();
+        ctx.fillStyle = SWIFT;
+        ctx.fill(birdPath2D);
+        ctx.restore();
+      }
+
       ctx.restore();
     };
 
@@ -650,8 +755,10 @@ export function ScrollStory() {
           const fadeIn = clamp01((p - c.at) / 0.06);
           const fadeOut = 1 - clamp01((p - (next - 0.08)) / 0.08);
           const op = Math.min(fadeIn, fadeOut);
+          const focus = 1 - clamp01(Math.abs(p - (c.at + 0.12)) / 0.18);
           el.style.opacity = String(op);
-          el.style.transform = `translate3d(0, ${(1 - fadeIn) * 16}px, 0)`;
+          el.style.transform = `translate3d(0, ${(1 - fadeIn) * 24}px, 0) scale(${0.94 + fadeIn * 0.06})`;
+          el.style.filter = `blur(${(1 - fadeIn) * 6 + (1 - focus) * 2}px)`;
         });
         // scroll cue — the stage sits empty while the reel assembles, so the
         // "scroll to explore" hint rides along the whole pin and steps aside
@@ -742,12 +849,17 @@ export function ScrollStory() {
         </div>
 
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden role="presentation" />
+        <div aria-hidden className="pointer-events-none absolute inset-0 story-grain" />
 
         {/* film-style HUD chrome */}
         <div className="pointer-events-none absolute inset-x-0 top-24 flex items-center justify-between px-6 sm:px-10">
           <span className="brutal-box inline-flex items-center gap-2 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
-            <span aria-hidden className="h-2 w-2 bg-swift" />
+            <span aria-hidden className="h-2 w-2 bg-swift motion-safe:animate-pulse-soft" />
             Swift Coding Club · Reel 001
+          </span>
+          <span className="brutal-box inline-flex items-center gap-2 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
+            <span aria-hidden className="h-2 w-2 rounded-full bg-red-500 motion-safe:animate-pulse" />
+            REC
           </span>
           <span ref={sceneRef} className="brutal-box px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
             Scene 01 · Fragments
@@ -767,7 +879,17 @@ export function ScrollStory() {
                 {c.n}
               </span>
               <p className="relative font-mono text-[11px] uppercase tracking-[0.28em] text-swift-deep">{c.sub}</p>
-              <h3 className="display hard-shadow relative mt-3 text-balance text-3xl sm:text-5xl">{c.t}</h3>
+              <h3 className="display hard-shadow relative mt-3 text-balance text-3xl sm:text-5xl">
+                {c.t.split(" ").map((w, wi) => (
+                  <span
+                    key={wi}
+                    className="inline-block transition-all duration-700 ease-[var(--ease-out-expo)]"
+                    style={{ transitionDelay: `${wi * 70}ms` }}
+                  >
+                    {w}&nbsp;
+                  </span>
+                ))}
+              </h3>
             </div>
           ))}
         </div>

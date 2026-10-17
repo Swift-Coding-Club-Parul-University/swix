@@ -5,14 +5,14 @@ import { Tilt } from "./ui/Tilt";
 import { cn } from "@/utils/cn";
 
 const core = [
-  { n: "Manav Sinh", r: "Club Lead", i: "MS", c: "#b4552d" },
+  { n: "Manav Sinh", r: "Chief Catalyst", i: "MS", c: "#b4552d" },
   { n: "Hemanto", r: "Technical Lead", i: "H", c: "#c2521f" },
   { n: "Bhavik", r: "Operational Lead", i: "B", c: "#2a1a10" },
   { n: "Navya", r: "Media Lead", i: "N", c: "#1d7a4c" },
   { n: "Arpita", r: "Community and Outreach Lead", i: "AR", c: "#d97a4a" },
-  { n: "Praneel Pandey", r: "App Project Lead", i: "PP", c: "#2a1a10" },
+  { n: "Praneel Pandey", r: "Test Flight Captain", i: "PP", c: "#2a1a10" },
   { n: "Arya", r: "Research and Discovery", i: "AY", c: "#c2521f" },
-  { n: "Dhruv", r: "Educational Lead", i: "D", c: "#1d7a4c" },
+  { n: "Dhruv", r: "Playground Lead", i: "D", c: "#1d7a4c" },
 ];
 
 const tones = ["#D9CFFF", "#BDE4FF", "#FFC6DD", "#B9ECCD", "#FFEDA3", "#D9CFFF", "#BDE4FF", "#FFC6DD"];

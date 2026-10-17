@@ -86,7 +86,7 @@ function Item({ q, a, open, onToggle, i }: { q: string; a: string; open: boolean
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="atomi-section cv-auto relative overflow-hidden py-24 sm:py-32">
+    <section id="faq" className="atomi-section cv-auto relative overflow-clip py-24 sm:py-32">
       {/* backdrop */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <span className="atomi-ring gpu animate-spin-slow right-[-4%] top-[10%] h-48 w-48" style={{ animationDuration: "64s" }} />

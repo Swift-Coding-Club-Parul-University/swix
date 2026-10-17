@@ -46,7 +46,7 @@ const tones = ["#FFEDA3", "#D9CFFF", "#B9ECCD", "#BDE4FF"];
 export function Benefits() {
   const scrub = useScrollScrub<HTMLElement>();
   return (
-    <section ref={scrub} id="why" className="atomi-section cv-auto relative overflow-hidden py-24 sm:py-32" style={{ background: "radial-gradient(ellipse at 0% 35%, #D9CFFF55, transparent 50%), radial-gradient(ellipse at 100% 80%, #B9ECCD66, transparent 50%), #FFF8F2" }}>
+    <section ref={scrub} id="why" className="atomi-section cv-auto relative overflow-clip py-24 sm:py-32" style={{ background: "radial-gradient(ellipse at 0% 35%, #D9CFFF55, transparent 50%), radial-gradient(ellipse at 100% 80%, #B9ECCD66, transparent 50%), #FFF8F2" }}>
       {/* starfield + orbit rings */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         {starfield.map((s, i) => (

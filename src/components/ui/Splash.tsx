@@ -68,6 +68,7 @@ export function Splash({ onComplete }: { onComplete: () => void }) {
   const stage = Math.min(3, Math.floor(progress / 28));
   return (
     <div className="boot-screen" data-phase={phase}>
+      <div className="boot-aurora" aria-hidden="true" />
       <div className="boot-grid" aria-hidden="true" />
       <div className="boot-topline">
         <span><i /> SWIFT CODING CLUB</span>

@@ -302,6 +302,13 @@ export function Hero() {
         {/* ground plane */}
         <div className="hero-floor" />
         <LiquidBlobs />
+        {/* liquid aurora — flowing mesh gradient that drifts behind everything */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div className="gpu animate-morph absolute -top-[10%] left-[20%] h-[52vmin] w-[52vmin] mix-blend-screen blur-3xl opacity-60" style={{ background: "radial-gradient(closest-side, rgba(240,81,56,0.55), transparent 70%)", animationDelay: "-4s", animationDuration: "18s" }} />
+          <div className="gpu animate-morph-alt absolute top-[30%] right-[8%] h-[46vmin] w-[46vmin] mix-blend-screen blur-3xl opacity-50" style={{ background: "radial-gradient(closest-side, rgba(255,176,120,0.6), transparent 70%)", animationDelay: "-9s", animationDuration: "22s" }} />
+          <div className="gpu animate-morph absolute bottom-[8%] left-[4%] h-[40vmin] w-[40vmin] mix-blend-screen blur-3xl opacity-45" style={{ background: "radial-gradient(closest-side, rgba(217,207,255,0.55), transparent 70%)", animationDelay: "-14s", animationDuration: "20s" }} />
+          <div className="gpu animate-morph-alt absolute bottom-[2%] right-[28%] h-[36vmin] w-[36vmin] mix-blend-screen blur-3xl opacity-40" style={{ background: "radial-gradient(closest-side, rgba(185,236,205,0.5), transparent 70%)", animationDelay: "-2s", animationDuration: "26s" }} />
+        </div>
         <Deco variant="warm" />
         {/* giant watermark, printed in two passes that don't quite line up */}
         <div className="absolute -bottom-6 left-1/2 hidden -translate-x-1/2 select-none whitespace-nowrap font-mono text-[9vw] font-bold uppercase leading-none tracking-tight opacity-75 lg:block">
@@ -332,8 +339,15 @@ export function Hero() {
                 Ship{" "}
                 <span className="relative inline-block whitespace-nowrap">
                   real apps.
-                  <svg viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden className="absolute -bottom-1 left-0 h-[0.22em] w-full">
-                    <path d="M3 10 C 60 3, 150 3, 217 8" fill="none" stroke="#F05138" strokeWidth="5" strokeLinecap="round" opacity="0.85" />
+                  <svg viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden className="absolute -bottom-1 left-0 h-[0.22em] w-full animate-liquid-flow">
+                    <defs>
+                      <linearGradient id="hero-underline" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#F05138" stopOpacity="0.5" />
+                        <stop offset="50%" stopColor="#ff7a5c" stopOpacity="1" />
+                        <stop offset="100%" stopColor="#F05138" stopOpacity="0.5" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M3 9 C 30 2, 60 12, 90 6 S 150 2, 180 9 S 210 4, 217 8" fill="none" stroke="url(#hero-underline)" strokeWidth="5" strokeLinecap="round" />
                   </svg>
                 </span>
                 <span className="absolute -right-6 top-2 hidden sm:inline"><Sticker rotate={12} color="bg-lemon text-ink">Free</Sticker></span>
@@ -399,6 +413,11 @@ export function Hero() {
         <Reveal delay={120}>
           <StackMarquee />
         </Reveal>
+
+        {/* ASCII wave divider — terminal-style flowing characters */}
+        <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 h-24 w-full overflow-hidden opacity-40">
+          <pre className="ascii-wave font-mono text-[10px] leading-[1.0] text-swift/60 whitespace-pre select-none">{["∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿\n≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿\n≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈"].join("\n").repeat(2)}</pre>
+        </div>
 
         {/* scroll cue */}
         <div className="mt-10 flex justify-center">

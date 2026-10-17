@@ -66,7 +66,7 @@ export function Testimonials() {
 
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:mt-20 lg:grid-cols-4">
           {stories.map((s, i) => (
-            <Reveal key={s.name} delay={i * 80} className={cn(s.featured && "md:col-span-2 lg:row-span-2")}>
+            <Reveal key={s.name} delay={i * 80} className={cn(s.featured && "md:col-span-2 lg:row-span-2", i === stories.length - 1 && "lg:col-span-2")}>
               <figure
                 className="lab-panel group flex h-full flex-col overflow-hidden"
                 style={

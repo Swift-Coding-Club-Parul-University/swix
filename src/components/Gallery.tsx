@@ -74,7 +74,7 @@ function Cube() {
 export function Gallery() {
   const parallax = useParallax<HTMLDivElement>(26);
   return (
-    <section id="life" className="webcore-section cv-auto relative overflow-hidden py-24 sm:py-32">
+    <section id="life" className="webcore-section cv-auto relative overflow-clip py-24 sm:py-32">
       <div aria-hidden className="webcore-stars pointer-events-none absolute inset-0 opacity-70" />
       <div
         aria-hidden
@@ -143,6 +143,7 @@ export function Gallery() {
           </div>
 
           <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-28">
             <Reveal delay={120}>
               <div
                 className="lab-panel overflow-hidden p-8 sm:p-10"
@@ -180,6 +181,7 @@ export function Gallery() {
                 </div>
               </div>
             </Reveal>
+            </div>
           </div>
         </div>
       </div>

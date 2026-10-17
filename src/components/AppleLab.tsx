@@ -44,7 +44,7 @@ const starfield = [
 /** Apple Lab — Retro Futurism: Atomic Age cream gradients, orbits, starbursts, boomerang forms. */
 export function AppleLab() {
   return (
-    <section id="apple-lab" className="atomi-section cv-auto relative overflow-hidden py-24 text-ink sm:py-32">
+    <section id="apple-lab" className="atomi-section cv-auto relative overflow-clip py-24 text-ink sm:py-32">
       {/* starfield + orbits */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         {starfield.map((s, i) => (
@@ -58,11 +58,10 @@ export function AppleLab() {
         ))}
         <span className="atomi-ring gpu animate-spin-slow left-[6%] top-[10%] h-40 w-40" style={{ animationDuration: "50s" }} />
         <span className="atomi-ring gpu animate-spin-slow right-[8%] top-[30%] h-56 w-56" style={{ animationDuration: "64s", animationDirection: "reverse" }} />
-        {/* boomerang arch, the googie signature */}
-        <svg className="absolute bottom-0 left-0 h-32 w-full opacity-30" viewBox="0 0 1200 120" fill="none" preserveAspectRatio="none" aria-hidden>
-          <path d="M0 120 Q 300 0 600 60 T 1200 30" stroke="#0b0b0c" strokeWidth="2" strokeDasharray="6 8" />
-          <path d="M0 140 Q 300 20 600 80 T 1200 50" stroke="#b4552d" strokeWidth="2" />
-        </svg>
+        {/* ASCII wave divider — terminal-style flowing characters */}
+        <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 h-28 w-full overflow-hidden opacity-40">
+          <pre className="ascii-wave font-mono text-[10px] leading-[1.0] text-swift/60 whitespace-pre select-none">{["∿".repeat(120) + "\n" + "≈".repeat(120) + "\n" + "~".repeat(120) + "\n" + "∿".repeat(120) + "\n" + "≈".repeat(120)].join("\n").repeat(2)}</pre>
+        </div>
       </div>
 
       <GlassCube size={54} tone="ice" depth={24} delay={-3} className="right-[6%] bottom-10" />
